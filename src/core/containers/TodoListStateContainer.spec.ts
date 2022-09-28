@@ -1,10 +1,13 @@
-
 import { TodoItem } from "../entities/TodoItem";
-import { AddTodoListItemCommand, DoneTodoListItemCommand, RemoveTodoListItemCommand, SetTodoListItemsCommand, UpdateDescriptionItemCommand } from "../commands/TodoListCommand";
-import { TodoListStateReducer } from "../reducers/TodoListStateReducer";
 import { TodoListStateContainer } from "./TodoListStateContainer";
 import { TodoListEffect } from "../effects/TodoListEffect";
 import { TodoListFakeRepository } from "src/infra/mocks/TodoListFakeRepository";
+import { AddTodoListItemCommand } from "../commands/AddTodoListItemCommand";
+import { DoneTodoListItemCommand } from "../commands/DoneTodoListItemCommand";
+import { RemoveTodoListItemCommand } from "../commands/RemoveTodoListItemCommand";
+import { SetTodoListItemsCommand } from "../commands/SetTodoListItemsCommand";
+import { UpdateDescriptionItemCommand } from "../commands/UpdateDescriptionItemCommand";
+
 
 
 describe('TodoListStateContainer', ()=> {

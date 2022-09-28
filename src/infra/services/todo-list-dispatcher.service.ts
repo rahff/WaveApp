@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { TodoListStateContainer } from 'src/core/containers/TodoListStateContainer';
 import { Command } from 'src/shared/command/Command';
+import { Dispatcher } from '../interfaces/Dispatcher';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodoListService {
+export class TodoListDispatcherService extends Dispatcher {
 
-  constructor(private stateContainer: TodoListStateContainer) { }
-
-  public dispatch(command: Command<any>): void {
-    this.stateContainer.dispatch(command);
+  constructor(stateContainer: TodoListStateContainer) {
+    super(stateContainer);
   }
 }

@@ -1,12 +1,13 @@
 import { Command } from "src/shared/command/Command";
 import { TodoItem } from "../entities/TodoItem";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
-import { TodoListCommandPayload } from "../interfaces/command-payloads";
-import { TodoListState } from "../interfaces/TodoListState";
+import { TodoListState } from "../interfaces/states/TodoListState";
+
+
 
 export class TodoListStateReducer {
 
-    reduceState(initialState: TodoListState, command: Command<TodoListCommandPayload>): TodoListState {
+    reduceState(initialState: TodoListState, command: Command): TodoListState {
         switch (command.getName()) {
             case "addItem":
                 return {

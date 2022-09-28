@@ -1,22 +1,20 @@
-import { Command } from "src/shared/command/Command";
-import { UserCommandPayload } from "../interfaces/command-payloads";
-import { UserState } from "../interfaces/UserState";
+import { EffectCreator } from "../interfaces/EffectCreator";
+import { UserState } from "../interfaces/states/UserState";
 import { StateContainer } from "../ports/driver/StateContainer";
 import { UserStateReducer } from "../reducers/UserStateReducer";
 
 
 
-export class UserStateContainer implements StateContainer{
+export class UserStateContainer extends StateContainer{
 
-    private state: UserState = { user: null };
+    protected override state: UserState = { user: null, isAuth: false };
+    protected override reducer: UserStateReducer = new UserStateReducer();
 
-    constructor(private reducer: UserStateReducer){}
-
-    public getState(): UserState {
-        return this.state;
+    constructor(effect: EffectCreator){
+        super(effect);
     }
 
-    public dispatch(command: Command<UserCommandPayload> ): void {
-        this.state = this.reducer.reduceState(this.state, command);
+    public override getState(): UserState {
+        return this.state;
     }
 }

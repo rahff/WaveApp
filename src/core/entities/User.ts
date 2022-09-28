@@ -5,5 +5,13 @@ export class User {
     getName(): string {
         return this.name;
     }
+
+    getFirstname(): string {
+        return this.firstname;
+    }
+
+    getEmail(): string {
+        return this.email;
+    }
     
 }

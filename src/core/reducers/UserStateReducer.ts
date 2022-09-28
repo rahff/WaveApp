@@ -1,20 +1,25 @@
 import { Command } from "src/shared/command/Command";
 import { User } from "../entities/User";
-import { UserCommandPayload } from "../interfaces/command-payloads";
-import { UserState } from "../interfaces/UserState";
+import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
+import { UserState } from "../interfaces/states/UserState";
+
+
 
 export class UserStateReducer {
 
-    public reduceState(initialState: UserState, command: Command<UserCommandPayload>): UserState {
+    public reduceState(initialState: UserState, command: Command): UserState {
         switch (command.getName()) {
             case "setUser":
                 return {
                     ...initialState,
                     user: command.getPayload() as User
                 }
-        
-            default: return initialState
-
+            case "setIsAuth":
+                return {
+                    ...initialState,
+                    isAuth: command.getPayload()
+                }
+            default: throw new CommandNotFoundException();
         }
     }
 }
