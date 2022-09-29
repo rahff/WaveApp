@@ -12,27 +12,27 @@ export class TodoListStateReducer {
             case "addItem":
                 return {
                     ...initialState,
-                    items: [...initialState.items, command.getPayload() as TodoItem]
+                    items: [...initialState.items, command.getPayload()]
                 }
             case "setItems":
                 return {
                     ...initialState,
-                    items: command.getPayload() as TodoItem[]
+                    items: command.getPayload()
                 }
             case "removeItem":
                 return {
                     ...initialState,
-                    items: this.removeItem(initialState.items, command.getPayload() as string)
+                    items: this.removeItem(initialState.items, command.getPayload())
                 }
             case "doneItem":
                 return {
                     ...initialState,
-                    items: this.doneItemStatus(initialState.items, command.getPayload() as string)
+                    items: this.doneItemStatus(initialState.items, command.getPayload())
                 }
-            case "updateDescriptionItem":
+            case "updateItem":
                 return {
                     ...initialState,
-                    items: this.updateDescriptionItem(initialState.items, command.getPayload() as {id: string, update: string})
+                    items: this.updateItem(initialState.items, command.getPayload())
                 }
                 
             default: throw new CommandNotFoundException();
@@ -41,19 +41,19 @@ export class TodoListStateReducer {
     }
 
     private removeItem(list: TodoItem[], deletedId: string): TodoItem[] {
-        return list.filter((item: TodoItem) => item.getId() !== deletedId)
+        return list.filter((item: TodoItem) => item.id !== deletedId)
     }
 
     private doneItemStatus(list: TodoItem[], doneId: string): TodoItem[] {
         return list.map((item: TodoItem) => {
-            if(item.getId() === doneId ) item.done();
+            if(item.id === doneId ) item.status = true;
             return item;
         })
     }
 
-    private updateDescriptionItem(list: TodoItem[], payload: {id: string, update: string} ): TodoItem[] {
+    private updateItem(list: TodoItem[], updatedItem: TodoItem ): TodoItem[] {
         return list.map((item: TodoItem) => {
-            if(item.getId() == payload.id)  item.description = payload.update;
+            if(item.id === updatedItem.id) item = updatedItem;
             return item;
         })
     }

@@ -1,5 +1,5 @@
+import { ITodoItem } from "src/infra/interfaces/ITodoItem";
 import { Command } from "src/shared/command/Command";
-import { ITodoItem } from "../interfaces/ITodoItem";
 
 
 export class SaveTodoListItemCommand extends Command {

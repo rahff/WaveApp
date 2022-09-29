@@ -3,10 +3,12 @@ import { UserStateContainer } from 'src/core/containers/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
 import { User } from 'src/core/entities/User';
 import { EffectCreator } from 'src/core/interfaces/EffectCreator';
-import { SaveUserCommand } from '../commands/SaveUserCommand';
-import { VerifyPasswordCommand } from '../commands/VerifyPasswordCommand';
-import { UserFakeRepository } from '../mocks/UserFakeRepository';
+import { user1 } from 'src/infra/mocks/fake-data';
+import { SaveUserCommand } from '../../commands/user/SaveUserCommand';
+import { VerifyPasswordCommand } from '../../commands/user/VerifyPasswordCommand';
+import { UserFakeRepository } from '../../mocks/UserFakeRepository';
 import { UserDispatcherService } from './user-dispatcher.service';
+
 
 
 
@@ -25,9 +27,9 @@ describe('UserDispatcherService', () => {
   });
 
   it('should dispatch saveUser command', fakeAsync(()=>{
-    service.dispatch(new SaveUserCommand(new User("Tell", "Guillaume", "guiguilamenace@gmail.com")));
+    service.dispatch(new SaveUserCommand(user1));
     flushMicrotasks();
-    expect(stateContainer.getState().user).toEqual(new User("Tell", "Guillaume", "guiguilamenace@gmail.com"))
+    expect(stateContainer.getState().user).toEqual(user1);
   }))
 
   it('should dispatch verifyPassword command', fakeAsync(()=>{

@@ -1,16 +1,18 @@
 import { User } from "../entities/User";
-import { SetUserCommand } from "../commands/UserCommand";
+import { SetUserCommand } from "../commands/user/UserCommand";
 import { UserStateContainer } from "./UserStateContainer";
 import { EffectCreator } from "../interfaces/EffectCreator";
 import { UserEffect } from "../effects/UserEffect";
 import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
-import { SetIsAuthCommand } from "../commands/SetIsAuthCommand";
+import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
 
-
+const user1: User = {name: "Huiss", firstname: "francis", email: "francis@gmail.com"};
 
 describe('UserStateContainer', ()=> {
+
     let userStateContainer: UserStateContainer;
-    let userEffect: EffectCreator
+    let userEffect: EffectCreator;
+
     beforeEach(()=>{
         userEffect = new UserEffect(new UserFakeRepository());
         userStateContainer = new UserStateContainer(userEffect);
@@ -22,9 +24,9 @@ describe('UserStateContainer', ()=> {
     })
 
     it('should update user state', ()=> {
-        userStateContainer.dispatch(new SetUserCommand(new User("francis", "Huiss", "francis@gmail.com")));
+        userStateContainer.dispatch(new SetUserCommand(user1));
         const { user } = userStateContainer.getState();
-        expect(user?.getName()).toBe("francis");
+        expect(user?.firstname).toBe("francis");
     })
 
     it('should set isAuth into the state', ()=>{

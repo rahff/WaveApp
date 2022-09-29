@@ -24,12 +24,24 @@ export class CalendarStateReducer implements Reducer {
                 return {
                     ...initialState,
                     events: this.removeEvent(initialState.events, command.getPayload())
-                } 
+                }
+            case "updateEvent":
+                return {
+                    ...initialState,
+                    events: this.updateEvent(initialState.events, command.getPayload())
+                }
             default: throw new CommandNotFoundException();
         }
     }
 
+    private updateEvent(list: CalendarEvent[], updatedEvent: CalendarEvent): CalendarEvent[] {
+        return list.map((event: CalendarEvent)=> {
+            if(event.id === updatedEvent.id) event = updatedEvent
+            return event;
+        })
+    }
+
     private removeEvent(list: CalendarEvent[], eventId: string): CalendarEvent[] {
-       return list.filter((event: CalendarEvent) => event.getId() !== eventId);
+       return list.filter((event: CalendarEvent) => event.id !== eventId);
     }
 }

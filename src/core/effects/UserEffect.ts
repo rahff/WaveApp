@@ -1,6 +1,6 @@
 import { Command } from "src/shared/command/Command";
-import { SetIsAuthCommand } from "../commands/SetIsAuthCommand";
-import { SetUserCommand } from "../commands/UserCommand";
+import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
+import { SetUserCommand } from "../commands/user/UserCommand";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
 import { UserRepository } from "../ports/driven/UserRepository";

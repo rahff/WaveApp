@@ -1,15 +1,18 @@
 import { TodoItem } from "src/core/entities/TodoItem";
 import { TodoListRepository } from "src/core/ports/driven/TodoListRepository";
-import { ITodoItem } from "../interfaces/ITodoItem";
+import { item1, item2 } from "./fake-data";
+
+
 
 export class TodoListFakeRepository implements TodoListRepository {
+   
     getTodoList(): Promise<TodoItem[]> {
-        return new Promise((resolve)=> resolve([new TodoItem("123", "test1"), new TodoItem("456", "test2")]));
+        return new Promise((resolve)=> resolve([item1, item2]));
     }
 
-    modifyDescriptionItem(itemId: string, update: string): Promise<TodoItem> {
+    modifyTodoItem(update: Partial<TodoItem>): Promise<TodoItem> {
         return new Promise((resolve)=> {
-            const item = new TodoItem(itemId, update);
+            const item: TodoItem = {...item2, description: update.description as string};
             resolve(item);
         });
     }
@@ -18,9 +21,9 @@ export class TodoListFakeRepository implements TodoListRepository {
         return new Promise((resolve)=> resolve(itemId));
     }
 
-    saveItem(item: ITodoItem): Promise<TodoItem> {
+    saveItem(item: TodoItem): Promise<TodoItem> {
         return new Promise((resolve) => {
-            const newItem = new TodoItem("123", item.description);
+            const newItem: TodoItem = {...item, id: "123" };
             resolve(newItem);
         })
     }

@@ -2,6 +2,7 @@ import { Command } from "src/shared/command/Command";
 import { AddCalendarEventCommand } from "../commands/calendar/AddCalendarEventCommand";
 import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarEventCommand";
 import { SetEventListCommand } from "../commands/calendar/SetEventListCommand";
+import { UpdateCalendarEventCommand } from "../commands/calendar/UpdateCalendarEventCommand";
 import { CalendarEvent } from "../entities/CalendarEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
@@ -22,6 +23,9 @@ export class CalendarEffect implements EffectCreator {
             case "deleteEvent":
                 const deletedId = await this.repository.deleteCalendarEvent(command.getPayload());
                 return new RemoveCalendarEventCommand(deletedId);
+            case "modifyEvent":
+                const updatedEvent = await this.repository.modifyCalendarEvent(command.getPayload());
+                return new UpdateCalendarEventCommand(updatedEvent);
             default: throw new CommandNotFoundException();
         }
     }
