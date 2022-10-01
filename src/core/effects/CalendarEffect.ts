@@ -1,31 +1,28 @@
 import { Command } from "src/shared/command/Command";
-import { AddCalendarEventCommand } from "../commands/calendar/AddCalendarEventCommand";
-import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarEventCommand";
-import { SetEventListCommand } from "../commands/calendar/SetEventListCommand";
 import { UpdateCalendarEventCommand } from "../commands/calendar/UpdateCalendarEventCommand";
-import { CalendarEvent } from "../entities/CalendarEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
+import { CalendarPolicies } from "../policies/CalendarPolicies";
 import { CalendarRepository } from "../ports/driven/CalendarRepository";
 
 export class CalendarEffect implements EffectCreator {
 
-    constructor(private repository: CalendarRepository){}
+    private validationPolicy: CalendarPolicies;
+
+    constructor(private repository: CalendarRepository){
+        this.validationPolicy = new CalendarPolicies(this.repository);
+    }
     
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "getEvents":
-                const events = await this.repository.getCalendarEvents();
-                return new SetEventListCommand(events);
+                return await this.validationPolicy.getCalendarEvents();
             case "saveEvent":
-                const savedEvent = await this.repository.saveCalendarEvent(command.getPayload());
-                return new AddCalendarEventCommand(savedEvent);
+                return await this.validationPolicy.saveCalendarEvent(command.getPayload());
             case "deleteEvent":
-                const deletedId = await this.repository.deleteCalendarEvent(command.getPayload());
-                return new RemoveCalendarEventCommand(deletedId);
+                return await this.validationPolicy.deleteCalendarEvent(command.getPayload());
             case "modifyEvent":
-                const updatedEvent = await this.repository.modifyCalendarEvent(command.getPayload());
-                return new UpdateCalendarEventCommand(updatedEvent);
+                return await this.validationPolicy.modifyCalendarEvent(command.getPayload());
             default: throw new CommandNotFoundException();
         }
     }

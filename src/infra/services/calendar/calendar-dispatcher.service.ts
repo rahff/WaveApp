@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CalendarStateContainer } from 'src/core/containers/CalendarStateContainer';
-import { Dispatcher } from 'src/infra/interfaces/Dispatcher';
+import { Dispatcher } from '../Dispatcher';
+
 
 
 

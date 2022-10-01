@@ -30,6 +30,11 @@ export class CalendarStateReducer implements Reducer {
                     ...initialState,
                     events: this.updateEvent(initialState.events, command.getPayload())
                 }
+            case "invalidEventRegistration":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
             default: throw new CommandNotFoundException();
         }
     }

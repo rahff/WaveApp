@@ -1,25 +1,27 @@
 import { Command } from "src/shared/command/Command";
-import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
-import { SetUserCommand } from "../commands/user/UserCommand";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
+import { UserPolicies } from "../policies/UserPolicies";
 import { UserRepository } from "../ports/driven/UserRepository";
 
 
 
 export class UserEffect implements EffectCreator {
 
-    constructor(private repository: UserRepository){}
+    private validationPolicies: UserPolicies;
+
+    constructor(private repository: UserRepository){
+        this.validationPolicies = new UserPolicies(this.repository);
+    }
+
     async createEffect(command: Command): Promise<Command> {
-        switch (command.getName()) {
+        switch (command.getName()){
             case "saveUser":
-                const savedUser = await this.repository.saveUser(command.getPayload());
-                return new SetUserCommand(savedUser);
+                return await this.validationPolicies.saveUser(command.getPayload());
             case "verifyPassword":
-                const isAuth = await this.repository.verifyPassword(command.getPayload());
-                return new SetIsAuthCommand(isAuth);
-                
-            default: throw new CommandNotFoundException()
+                return await this.validationPolicies.verifyPassword(command.getPayload());
+
+            default: throw new CommandNotFoundException();
         }
     }
 

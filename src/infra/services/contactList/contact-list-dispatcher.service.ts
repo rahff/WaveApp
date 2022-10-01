@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ContactListStateContainer } from 'src/core/containers/ContactListStateContainer';
-import { Dispatcher } from 'src/infra/interfaces/Dispatcher';
+import { Dispatcher } from '../Dispatcher';
+
+
 
 @Injectable({
   providedIn: 'root'

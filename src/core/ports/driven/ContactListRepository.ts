@@ -4,5 +4,7 @@ export interface ContactListRepository {
     getContactList(): Promise<ContactItem[]>
     saveContact(contact: ContactItem): Promise<ContactItem>;
     deleteContact(contactId: string): Promise<string>;
-    modifyContact(upadate: Partial<ContactItem>): Promise<ContactItem>
+    modifyContact(upadate: Partial<ContactItem>): Promise<ContactItem>;
+    isExistingContactByValues(email: string, tel: string): Promise<boolean>;
+    isExistingContactById(id: string): Promise<boolean>;
 }

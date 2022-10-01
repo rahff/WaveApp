@@ -30,11 +30,29 @@ describe('UserDispatcherService', () => {
     service.dispatch(new SaveUserCommand(user1));
     flushMicrotasks();
     expect(stateContainer.getState().user).toEqual(user1);
+    expect(stateContainer.getState().onException).toBeNull();
+  }))
+
+  it('should dispatch invalid register payload event when the registration policies are not followed', fakeAsync(()=>{
+    service.dispatch(new SaveUserCommand({...user1, password: "12345678"}));
+    flushMicrotasks();
+    expect(stateContainer.getState().onException)
+    .toEqual({message: "password must include at least 8 character and 1 special character 1 number and one uppercase"});
+    service.dispatch(new SaveUserCommand({...user1, email: "test125.gmail.com"}));
+    flushMicrotasks();
+    expect(stateContainer.getState().onException).toEqual({message: "invalid email..."});
   }))
 
   it('should dispatch verifyPassword command', fakeAsync(()=>{
     service.dispatch(new VerifyPasswordCommand("Mot2$asse"));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeTrue();
+  }));
+
+  it('should dispatch WrongPassword event', fakeAsync(()=>{
+    service.dispatch(new VerifyPasswordCommand("Mot2$a$$e"));
+    flushMicrotasks();
+    expect(stateContainer.getState().isAuth).toBeFalse();
+    expect(stateContainer.getState().onWrongPassword).toBeTrue();
   }))
 });

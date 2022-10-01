@@ -7,7 +7,7 @@ import { ContactListStateReducer } from "../reducers/ContactListStateReducer";
 
 export class ContactListStateContainer extends StateContainer {
 
-    protected override state: ContactListState = { contacts: [] };
+    protected override state: ContactListState = { contacts: [], onException: null };
     protected override reducer: ContactListStateReducer = new ContactListStateReducer();
 
     constructor(effect: EffectCreator){

@@ -30,6 +30,22 @@ export class ContactListStateReducer implements Reducer {
                     ...initialState,
                     contacts: this.updateContact(initialState.contacts, command.getPayload())
                 }
+            case "itemAlreadyExist":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+            case "itemNotExist":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+            case "canNotModify":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+
             default: throw new CommandNotFoundException();
         }
     }
@@ -44,5 +60,4 @@ export class ContactListStateReducer implements Reducer {
     private removeContact(list: ContactItem[], contactId: string): ContactItem[] {
         return list.filter((contact: ContactItem) => contact.id !== contactId);
     }
-
 }

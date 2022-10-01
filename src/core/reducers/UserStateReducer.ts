@@ -19,6 +19,16 @@ export class UserStateReducer {
                     ...initialState,
                     isAuth: command.getPayload()
                 }
+            case "wrongPassword":
+                return {
+                    ...initialState,
+                    onWrongPassword: true
+                }
+            case "invalidForm":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
             default: throw new CommandNotFoundException();
         }
     }

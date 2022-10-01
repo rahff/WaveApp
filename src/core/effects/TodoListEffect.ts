@@ -1,33 +1,30 @@
-import { ITodoItem } from "src/infra/interfaces/ITodoItem";
 import { Command } from "src/shared/command/Command";
-import { AddTodoListItemCommand } from "../commands/todoList/AddTodoListItemCommand";
-import { RemoveTodoListItemCommand } from "../commands/todoList/RemoveTodoListItemCommand";
-import { SetTodoListItemsCommand } from "../commands/todoList/SetTodoListItemsCommand";
-import { UpdateTodoItemCommand } from "../commands/todoList/UpdateTodoItemCommand";
-import { TodoItem } from "../entities/TodoItem";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
+import { TodoListPolicies } from "../policies/TodoListPolicies";
 import { TodoListRepository } from "../ports/driven/TodoListRepository";
+
 
 
 export class TodoListEffect implements EffectCreator {
 
-    constructor(private repository: TodoListRepository){}
+    private validationPolicies: TodoListPolicies;
+
+    constructor(private repository: TodoListRepository){
+        this.validationPolicies = new TodoListPolicies(this.repository)
+    }
 
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "saveItem":
-                const savedItem = await this.repository.saveItem(command.getPayload() as ITodoItem);
-                return new AddTodoListItemCommand(savedItem);
+                return await this.validationPolicies.saveItem(command.getPayload());
             case "deleteItem":
-                const removedItemId = await this.repository.deleteItem(command.getPayload() as string);
-                return new RemoveTodoListItemCommand(removedItemId);
+               return await this.validationPolicies.deleteItem(command.getPayload());
             case "modifyItem":
-                const modifiedItem = await this.repository.modifyTodoItem(command.getPayload());
-                return new UpdateTodoItemCommand(modifiedItem);
+                return await this.validationPolicies.modifyTodoItem(command.getPayload());
             case "getItems":
-                const todoList = await this.repository.getTodoList();
-                return new SetTodoListItemsCommand(todoList);
+                return await this.validationPolicies.getTodoList();
+
             default: throw new CommandNotFoundException();
         }
     }

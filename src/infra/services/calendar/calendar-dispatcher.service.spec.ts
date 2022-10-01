@@ -3,7 +3,7 @@ import { SetEventListCommand } from 'src/core/commands/calendar/SetEventListComm
 import { CalendarStateContainer } from 'src/core/containers/CalendarStateContainer';
 import { CalendarEffect } from 'src/core/effects/CalendarEffect';
 import { ModifyCalendarEventCommand } from 'src/infra/commands/calendar/ModifyCalendarEventCommand';
-import { fakeCalendarEvent1, fakeCalendarEvent2 } from 'src/infra/mocks/fake-data';
+import { fakeCalendarEvent1, fakeCalendarEvent2, fakeCalendarEvent3 } from 'src/infra/mocks/fake-data';
 import { DeleteCalendarEventCommand } from '../../commands/calendar/DeleteCalendarEventCommand';
 import { GetCalendarEventsCommand } from '../../commands/calendar/GetCalendarEventsCommand';
 import { SaveCalendarEventCommand } from '../../commands/calendar/SaveCalendarEventCommand';
@@ -37,11 +37,11 @@ describe('CalendarDispatcherService', () => {
     expect(stateContainer.getState().events).toEqual([fakeCalendarEvent1, fakeCalendarEvent2]);
   }))
 
-  it('should dispatch addEvent command', fakeAsync(()=>{
-    service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent2));
+  it('should dispatch saveEvent command', fakeAsync(()=>{
+    service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent3));
     flushMicrotasks();
-    expect(stateContainer.getState().events[1]).toEqual(fakeCalendarEvent2);
-  }))
+    expect(stateContainer.getState().events[1]).toEqual(fakeCalendarEvent3);
+  }));
 
   it('should dispatch deleteCalendarEvent command', fakeAsync(()=>{
     service.dispatch(new DeleteCalendarEventCommand("123"));
@@ -50,8 +50,8 @@ describe('CalendarDispatcherService', () => {
   }));
 
   it('should dispatch modifyEvent command', fakeAsync(()=> {
-    service.dispatch(new ModifyCalendarEventCommand({id: "123", eventDate: new Date(2022, 9, 22)}));
+    service.dispatch(new ModifyCalendarEventCommand({id: "123", start: {year: 2018, month: 8, day: 22, hour: 6, minute:0}}));
     flushMicrotasks(); 
-    expect(stateContainer.getState().events[0].eventDate).toEqual(new Date(2022, 9, 22));
+    expect(stateContainer.getState().events[0].start).toEqual({year: 2018, month: 8, day: 22, hour: 6, minute:0});
   }))
 });

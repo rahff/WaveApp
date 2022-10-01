@@ -5,4 +5,5 @@ export interface CalendarRepository {
     saveCalendarEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent>;
     deleteCalendarEvent(calendarEventId: string): Promise<string>;
     modifyCalendarEvent(update: Partial<CalendarEvent>): Promise<CalendarEvent>;
+    
 }

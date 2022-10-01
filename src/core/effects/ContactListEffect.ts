@@ -5,30 +5,31 @@ import { SetContactListCommand } from "../commands/contactList/SetContactListCom
 import { UpdateContactItemCommand } from "../commands/contactList/UpdateContactItemCommand";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
+import { ContactListPolicies } from "../policies/ContactListPolicies";
 import { ContactListRepository } from "../ports/driven/ContactListRepository";
 
 
 
 export class ContactListEffect implements EffectCreator {
 
-    constructor(private repository: ContactListRepository){}
+    private validationPolicy: ContactListPolicies;
+
+    constructor(private repository: ContactListRepository){
+        this.validationPolicy = new ContactListPolicies(this.repository)
+    }
     
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "getContacts":
-                const contactList = await this.repository.getContactList();
-                return new SetContactListCommand(contactList);
+               return this.validationPolicy.getContactList();
             case "saveContact":
-                const savedContact = await this.repository.saveContact(command.getPayload());
-                return new AddContactItemCommand(savedContact);
+                return await this.validationPolicy.saveContact(command.getPayload());
             case "deleteContact":
-                const deletedId = await this.repository.deleteContact(command.getPayload());
-                return new RemoveContactItemCommand(deletedId);
+                return await this.validationPolicy.deleteContact(command.getPayload());
             case "modifyContact": 
-                const updatedContact = await this.repository.modifyContact(command.getPayload());
-                return new UpdateContactItemCommand(updatedContact);
+                return await this.validationPolicy.modifyContact(command.getPayload());
+                
             default: throw new CommandNotFoundException();
-        
         }
     }
 

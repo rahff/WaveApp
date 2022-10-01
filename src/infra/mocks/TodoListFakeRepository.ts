@@ -5,6 +5,18 @@ import { item1, item2 } from "./fake-data";
 
 
 export class TodoListFakeRepository implements TodoListRepository {
+
+    isTodoAlreadyExistById(id: string): Promise<boolean> {
+        return new Promise((resolve)=> {
+            resolve(id === "123" || id === "456");
+        })
+    }
+
+    isTodoAlreadyExistByDescription(description: string): Promise<boolean> {
+        return new Promise((resolve)=> {
+            resolve(description === "test1" || description === "test2")
+        })
+    }
    
     getTodoList(): Promise<TodoItem[]> {
         return new Promise((resolve)=> resolve([item1, item2]));

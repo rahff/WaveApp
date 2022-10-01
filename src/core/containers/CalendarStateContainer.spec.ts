@@ -4,10 +4,11 @@ import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarE
 import { SetEventListCommand } from "../commands/calendar/SetEventListCommand";
 import { UpdateCalendarEventCommand } from "../commands/calendar/UpdateCalendarEventCommand";
 import { CalendarEffect } from "../effects/CalendarEffect";
+import { CalendarEvent } from "../entities/CalendarEvent";
 import { CalendarStateContainer } from "./CalendarStateContainer";
 
-const fakeCalendarEvent1 = {id: "123", eventDate: new Date(2018, 8, 22), eventTime: {hour: 4, minute: 0}, title: "test"}
-const fakeCalendarEvent2 = {id: "456", eventDate: new Date(2018, 8, 22), eventTime: {hour: 4, minute: 0}, title: "added"}
+const fakeCalendarEvent1: CalendarEvent = {id: "123", start:{year: 2018, month: 8, day: 22, hour: 4, minute: 0}, end: {year: 2018, month: 8, day: 22, hour: 6, minute: 0} , title: "test"}
+const fakeCalendarEvent2: CalendarEvent = {id: "456", start: {year: 2018, month: 8, day: 22, hour: 7, minute: 0}, end: {year: 2018, month: 8, day: 22, hour: 9, minute: 0}, title: "added"}
 
 describe("CalendarStateContainer", ()=> {
 
@@ -38,7 +39,7 @@ describe("CalendarStateContainer", ()=> {
     });
 
     it('should update an event into the state list', ()=>{
-        stateContainer.dispatch(new UpdateCalendarEventCommand({...fakeCalendarEvent1, eventDate: new Date(2018, 9, 22)}));
-        expect(stateContainer.getState().events[0].eventDate).toEqual(new Date(2018, 9, 22));
+        stateContainer.dispatch(new UpdateCalendarEventCommand({...fakeCalendarEvent1, start:{year: 2018, month: 9, day: 22, hour: 11, minute: 0}}));
+        expect(stateContainer.getState().events[0].start).toEqual({year: 2018, month: 9, day: 22, hour: 11, minute: 0});
     });
 })

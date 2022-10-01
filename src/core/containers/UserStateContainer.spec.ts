@@ -6,7 +6,7 @@ import { UserEffect } from "../effects/UserEffect";
 import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
 
-const user1: User = {name: "Huiss", firstname: "francis", email: "francis@gmail.com"};
+const user1: User = {name: "Huiss", firstname: "francis", email: "francis@gmail.com", password: "Mot2$asse"};
 
 describe('UserStateContainer', ()=> {
 

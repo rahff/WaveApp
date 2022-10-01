@@ -7,7 +7,7 @@ import { TodoListStateReducer } from "../reducers/TodoListStateReducer";
 
 export class TodoListStateContainer extends StateContainer {
 
-    protected override state: TodoListState = { items: [] };
+    protected override state: TodoListState = { items: [], onException: null };
     protected override reducer: TodoListStateReducer = new TodoListStateReducer();
     
     constructor(effect: EffectCreator){

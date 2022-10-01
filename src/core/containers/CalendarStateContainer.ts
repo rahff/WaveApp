@@ -5,7 +5,7 @@ import { CalendarStateReducer } from "../reducers/CalendarStateReducer";
 
 export class CalendarStateContainer extends StateContainer {
 
-    protected override state: CalendarState = { events: [] };
+    protected override state: CalendarState = { events: [], onException: null };
     protected override reducer: CalendarStateReducer = new CalendarStateReducer();
     constructor(effect: EffectCreator) {
         super(effect);

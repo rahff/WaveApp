@@ -34,6 +34,21 @@ export class TodoListStateReducer {
                     ...initialState,
                     items: this.updateItem(initialState.items, command.getPayload())
                 }
+            case "itemAlreadyExist":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+            case "itemNotExist":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+            case "canNotModify":
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
                 
             default: throw new CommandNotFoundException();
             
