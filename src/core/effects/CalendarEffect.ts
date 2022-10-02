@@ -16,13 +16,14 @@ export class CalendarEffect implements EffectCreator {
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "getEvents":
-                return await this.validationPolicy.getCalendarEvents();
+                return await this.validationPolicy.applyGetCalendarEventsPolicies();
             case "saveEvent":
-                return await this.validationPolicy.saveCalendarEvent(command.getPayload());
+                return await this.validationPolicy.applySaveCalendarEventPolicies(command.getPayload());
             case "deleteEvent":
-                return await this.validationPolicy.deleteCalendarEvent(command.getPayload());
+                return await this.validationPolicy.applyDeleteCalendarEventPolicies(command.getPayload());
             case "modifyEvent":
-                return await this.validationPolicy.modifyCalendarEvent(command.getPayload());
+                return await this.validationPolicy.applyModifyCalendarEventPolicies(command.getPayload());
+                
             default: throw new CommandNotFoundException();
         }
     }

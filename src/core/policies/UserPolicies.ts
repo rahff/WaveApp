@@ -12,13 +12,13 @@ export class UserPolicies {
 
     constructor(private repository: UserRepository) {}
 
-    async verifyPassword(password: string): Promise<Command> {
+    async applyVerifyPasswordPolicies(password: string): Promise<Command> {
         const user = await this.repository.getUser();
         const match = user.password === password;
         if(!match) return new WrongPasswordEvent();
         return new SetIsAuthCommand(true);
     }  
-    async saveUser(user: User): Promise<Command> {
+    async applySaveUserPolicies(user: User): Promise<Command> {
         if(!this.isStrongPassword(user.password)){
             return new InvalidFormEvent("password must include at least 8 character and 1 special character 1 number and one uppercase");
         }

@@ -17,9 +17,9 @@ export class UserEffect implements EffectCreator {
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()){
             case "saveUser":
-                return await this.validationPolicies.saveUser(command.getPayload());
+                return await this.validationPolicies.applySaveUserPolicies(command.getPayload());
             case "verifyPassword":
-                return await this.validationPolicies.verifyPassword(command.getPayload());
+                return await this.validationPolicies.applyVerifyPasswordPolicies(command.getPayload());
 
             default: throw new CommandNotFoundException();
         }

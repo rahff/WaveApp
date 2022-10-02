@@ -21,13 +21,13 @@ export class ContactListEffect implements EffectCreator {
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "getContacts":
-               return this.validationPolicy.getContactList();
+               return this.validationPolicy.applyGetContactListPolicies();
             case "saveContact":
-                return await this.validationPolicy.saveContact(command.getPayload());
+                return await this.validationPolicy.applySaveContactPolicies(command.getPayload());
             case "deleteContact":
-                return await this.validationPolicy.deleteContact(command.getPayload());
+                return await this.validationPolicy.applyDeleteContactPolicies(command.getPayload());
             case "modifyContact": 
-                return await this.validationPolicy.modifyContact(command.getPayload());
+                return await this.validationPolicy.applyModifyContactPolicies(command.getPayload());
                 
             default: throw new CommandNotFoundException();
         }

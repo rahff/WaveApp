@@ -4,67 +4,46 @@ import { TodoItem } from "src/core/entities/TodoItem";
 import { User } from "src/core/entities/User";
 
 export const fakeCalendarEvent1: CalendarEvent = {
-    id: "123", 
-    start: {
-       year: 2023, month: 8, day: 22, hour: 4, minute: 0
-    }, 
-    end: {
-        year: 2023, month: 8, day: 22, hour: 7, minute: 0
-    }, 
-    title: "test1"
+        id: "123", 
+        start: new Date(2023, 8, 22, 4, 0), 
+        end: new Date(2023, 8, 22, 7, 0),
+        title: "test1"
     }
 
 export const fakeCalendarEvent2: CalendarEvent = {
         id: "456",
-        start: {
-            year: 2023, month: 8, day: 22, hour: 8, minute: 0
-        },
-        end: {
-            year: 2023, month: 8, day: 22, hour: 9, minute: 0
-        },
+        start: new Date(2023, 8, 22, 8, 0),
+        end: new Date(2023, 8, 22, 9, 0),
         title: "test2"
     }
 
 export const fakeCalendarEvent3: CalendarEvent = {
     id: "456",
-    start: {
-      year: 2023, month: 8, day: 22, hour: 9, minute: 5
-    },
-    end: {
-        year: 2023, month: 8, day: 22, hour: 10, minute: 0
-    }, 
+    start: new Date(2023, 8, 22, 9, 5),
+    end: new Date(2023, 8, 22, 10, 0), 
     title: "test3"
 }
 
 export const fakeEventSameTimeOfEvent1: CalendarEvent = {
     id: "963",
-    start: {
-        year: 2023, month: 8, day: 22, hour: 5, minute: 0
-    }, 
-    end: {
-        year: 2023, month: 8, day: 22, hour: 6, minute: 30
-    }, 
-    title: "new RDV"}
+    start: new Date(2023, 8, 22, 5, 0), 
+    end: new Date(2023, 8, 22, 6, 30),
+    title: "new RDV"
+}
 
 export const fakeCalendarEventInPast: CalendarEvent = {
     id: "258", 
     title: "in past", 
-    start: {
-        year: 2022, month: 7, day: 5, hour: 9, minute: 30
-    },
-    end: {
-        year: 2022, month: 7, day: 5, hour: 9, minute: 45
-    }
+    start: new Date(2002, 7, 5, 9, 30),
+    end: new Date(2002, 7, 5, 9, 45)
 }
 
 export const fakeEventEndbeforeStart: CalendarEvent = {
     id: "259", 
     title: "end before", 
-    start: {
-        year: 2022, month: 12, day: 5, hour: 9, minute: 30}, 
-        end: {year: 2022, month: 12, day: 5, hour: 8, minute: 5
-        }
-    }
+    start: new Date(2022, 12, 5, 9, 30),
+    end: new Date(2022, 12, 5, 8, 5)
+}
 
 export const item1: TodoItem = {
     id: "123",

@@ -1,5 +1,5 @@
 export class CommandNotFoundException extends Error {
     constructor(){
-        super()
+        super("Command not found")
     }
 }

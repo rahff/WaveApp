@@ -16,12 +16,12 @@ export class ContactListPolicies {
 
     constructor(private repository: ContactListRepository){}
 
-    async getContactList(): Promise<Command> {
+    async applyGetContactListPolicies(): Promise<Command> {
         const contactList = await this.repository.getContactList();
         return new SetContactListCommand(contactList);
     }
 
-    async saveContact(contact: ContactItem): Promise<Command> {
+    async applySaveContactPolicies(contact: ContactItem): Promise<Command> {
         const { email, tel } = contact;
         const isExistingContact = await this.repository.isExistingContactByValues(email, tel);
         if(isExistingContact) return new ItemAlreadyExistEvent("this contact already exist with this tel or email");
@@ -29,14 +29,14 @@ export class ContactListPolicies {
         return new AddContactItemCommand(savedContact);
     }
 
-    async deleteContact(contactId: string): Promise<Command> {
+    async applyDeleteContactPolicies(contactId: string): Promise<Command> {
         const isExistingContact = await this.repository.isExistingContactById(contactId);
         if(!isExistingContact) return new ItemNotExistEvent("this contact does not exist");
         const deletedId = await this.repository.deleteContact(contactId);
         return new RemoveContactItemCommand(deletedId);
     }
 
-    async modifyContact(update: Partial<ContactItem>): Promise<Command> {
+    async applyModifyContactPolicies(update: Partial<ContactItem>): Promise<Command> {
         if(!update.id) return new CanotModifyItemEvent("cannot modify item without identifier")
         const updatedContact = await this.repository.modifyContact(update);
         return new UpdateContactItemCommand(updatedContact);

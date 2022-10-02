@@ -17,13 +17,13 @@ export class TodoListEffect implements EffectCreator {
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "saveItem":
-                return await this.validationPolicies.saveItem(command.getPayload());
+                return await this.validationPolicies.applySaveItemPolicies(command.getPayload());
             case "deleteItem":
-               return await this.validationPolicies.deleteItem(command.getPayload());
+               return await this.validationPolicies.applyDeleteItemPolicies(command.getPayload());
             case "modifyItem":
-                return await this.validationPolicies.modifyTodoItem(command.getPayload());
+                return await this.validationPolicies.applyModifyTodoItemPolicies(command.getPayload());
             case "getItems":
-                return await this.validationPolicies.getTodoList();
+                return await this.validationPolicies.applyGetTodoListPolicies();
 
             default: throw new CommandNotFoundException();
         }

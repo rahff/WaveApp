@@ -14,7 +14,7 @@ export class TodoListPolicies {
     constructor(private repository: TodoListRepository) {}
  
   
-    async saveItem(item: TodoItem): Promise<Command> {
+    async applySaveItemPolicies(item: TodoItem): Promise<Command> {
         const { description } = item;
         const isExistWithSameDescription = await this.repository.isTodoAlreadyExistByDescription(description);
         if(isExistWithSameDescription){
@@ -24,13 +24,13 @@ export class TodoListPolicies {
         return new AddTodoListItemCommand(savedItem);
     }
 
-    async deleteItem(itemId: string): Promise<Command> {
+    async applyDeleteItemPolicies(itemId: string): Promise<Command> {
         const isExistingTodo = await this.repository.isTodoAlreadyExistById(itemId);
         if(!isExistingTodo) return new ItemNotExistEvent("this todo does not exist");
         return new RemoveTodoListItemCommand(itemId);
     }
 
-    async modifyTodoItem(update: Partial<TodoItem>): Promise<Command> {
+    async applyModifyTodoItemPolicies(update: Partial<TodoItem>): Promise<Command> {
         if(!update.id) return new CanotModifyItemEvent("cannot modify without identifier");
         const isExistingTodo = await this.repository.isTodoAlreadyExistById(update.id);
         if(!isExistingTodo) return new ItemNotExistEvent("this todo does not exist");
@@ -38,7 +38,7 @@ export class TodoListPolicies {
         return new UpdateTodoItemCommand(modifiedItem);  
     }
 
-    async getTodoList(): Promise<Command> {
+    async applyGetTodoListPolicies(): Promise<Command> {
         const todoList = await this.repository.getTodoList();
         return new SetTodoListItemsCommand(todoList);
     }
