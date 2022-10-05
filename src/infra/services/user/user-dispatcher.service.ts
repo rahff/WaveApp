@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserStateContainer } from 'src/core/containers/UserStateContainer';
-import { Dispatcher } from '../Dispatcher';
+import { Dispatcher } from '../../../shared/abstract/Dispatcher';
 
 
 
@@ -11,6 +11,6 @@ import { Dispatcher } from '../Dispatcher';
 export class UserDispatcherService extends Dispatcher {
 
   constructor(stateContainer: UserStateContainer) {
-    super(stateContainer)
+    super(stateContainer);
   }
 }

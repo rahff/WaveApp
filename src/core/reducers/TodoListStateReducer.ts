@@ -13,42 +13,49 @@ export class TodoListStateReducer {
                 return {
                     ...initialState,
                     items: [...initialState.items, command.getPayload()]
-                }
+                };
+
             case "setItems":
                 return {
                     ...initialState,
                     items: command.getPayload()
-                }
+                };
+
             case "removeItem":
                 return {
                     ...initialState,
                     items: this.removeItem(initialState.items, command.getPayload())
-                }
+                };
+
             case "doneItem":
                 return {
                     ...initialState,
                     items: this.doneItemStatus(initialState.items, command.getPayload())
-                }
+                };
+
             case "updateItem":
                 return {
                     ...initialState,
                     items: this.updateItem(initialState.items, command.getPayload())
-                }
+                };
+
             case "itemAlreadyExist":
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
-                }
+                };
+
             case "itemNotExist":
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
-                }
+                };
+
             case "canNotModify":
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
-                }
+                };
                 
             default: throw new CommandNotFoundException();
             

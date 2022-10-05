@@ -22,10 +22,9 @@ export class TodoListFakeRepository implements TodoListRepository {
         return new Promise((resolve)=> resolve([item1, item2]));
     }
 
-    modifyTodoItem(update: Partial<TodoItem>): Promise<TodoItem> {
+    modifyTodoItem(updated: TodoItem): Promise<TodoItem> {
         return new Promise((resolve)=> {
-            const item: TodoItem = {...item2, description: update.description as string};
-            resolve(item);
+            resolve(updated);
         });
     }
 

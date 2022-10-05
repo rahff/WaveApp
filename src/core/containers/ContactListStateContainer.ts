@@ -1,6 +1,6 @@
 import { EffectCreator } from "../interfaces/EffectCreator";
 import { ContactListState } from "../interfaces/states/ ContactListState";
-import { StateContainer } from "../ports/driver/StateContainer"
+import { StateContainer } from "./StateContainer"
 import { ContactListStateReducer } from "../reducers/ContactListStateReducer";
 
 

@@ -4,7 +4,7 @@ import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarE
 import { SetEventListCommand } from "../commands/calendar/SetEventListCommand";
 import { UpdateCalendarEventCommand } from "../commands/calendar/UpdateCalendarEventCommand";
 import { CalendarEvent } from "../entities/CalendarEvent";
-import { InvalidEventRegistration } from "../events/contactList/InvalidEventRegistration";
+import { InvalidEventRegistration } from "../events/calendar/InvalidEventRegistration";
 import { CalendarRepository } from "../ports/driven/CalendarRepository";
 
 
@@ -32,8 +32,8 @@ export class CalendarPolicies {
         return new RemoveCalendarEventCommand(deletedId);
     }
 
-    async applyModifyCalendarEventPolicies(update: Partial<CalendarEvent>): Promise<Command> {
-        const updatedEvent = await this.repository.modifyCalendarEvent(update);
+    async applyModifyCalendarEventPolicies(updated: CalendarEvent): Promise<Command> {
+        const updatedEvent = await this.repository.modifyCalendarEvent(updated);
         return new UpdateCalendarEventCommand(updatedEvent);
     }
 

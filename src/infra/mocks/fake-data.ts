@@ -58,6 +58,7 @@ export const item2: TodoItem = {
 }
 
 export const user1: User = {
+    id: "123",
     name: "Tell", 
     firstname: "Guillaume", 
     email: "guiguilamenace@gmail.com",

@@ -19,7 +19,7 @@ export class TodoListEffect implements EffectCreator {
             case "saveItem":
                 return await this.validationPolicies.applySaveItemPolicies(command.getPayload());
             case "deleteItem":
-               return await this.validationPolicies.applyDeleteItemPolicies(command.getPayload());
+                return await this.validationPolicies.applyDeleteItemPolicies(command.getPayload());
             case "modifyItem":
                 return await this.validationPolicies.applyModifyTodoItemPolicies(command.getPayload());
             case "getItems":

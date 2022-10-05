@@ -58,13 +58,13 @@ describe('ContactListDispatcherService', () => {
   }))
 
   it('should dispatch modifyContact command', fakeAsync(()=>{
-    service.dispatch(new ModifyContactItemCommand({id: "123", tel: "0412121222"}));
+    service.dispatch(new ModifyContactItemCommand({...conatct1, tel: "0412121222"}));
     flushMicrotasks();
     expect(stateContainer.getState().contacts[0].tel).toBe("0412121222");
   }))
 
   it('should dispatch cannot modify item event when there is not id in payload', fakeAsync(()=>{
-    service.dispatch(new ModifyContactItemCommand({tel: "0412121222"}));
+    service.dispatch(new ModifyContactItemCommand({...conatct1, id: "", tel: "0412121222"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "cannot modify item without identifier"});
   }))

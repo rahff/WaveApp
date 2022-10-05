@@ -2,6 +2,7 @@ import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { UserPolicies } from "./UserPolicies";
 
 const userWithInvalidEmail = {
+    id: "",
     name: "Tell", 
     firstname: "Guillaume", 
     email: "guiguilamenace£$gmail.com",
@@ -9,6 +10,7 @@ const userWithInvalidEmail = {
 }
 
 const userWithWeakPassword = {
+    id: "",
     name: "Tell", 
     firstname: "Guillaume", 
     email: "guiguilamenace@gmail.com",

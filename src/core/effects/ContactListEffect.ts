@@ -21,7 +21,7 @@ export class ContactListEffect implements EffectCreator {
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "getContacts":
-               return this.validationPolicy.applyGetContactListPolicies();
+                return this.validationPolicy.applyGetContactListPolicies();
             case "saveContact":
                 return await this.validationPolicy.applySaveContactPolicies(command.getPayload());
             case "deleteContact":

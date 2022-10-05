@@ -26,9 +26,9 @@ describe('TodoListPolicies', ()=> {
     })
 
     it('should verify that payload have an id before try to modify it and check if it exist in this case', async ()=> {
-        const commandResult = await policies.applyModifyTodoItemPolicies({description: "other description"});
+        const commandResult = await policies.applyModifyTodoItemPolicies({...item1, id: "", description: "other description"});
         expect(commandResult.getPayload()).toEqual("cannot modify without identifier");
-        const commandResult2 = await policies.applyModifyTodoItemPolicies({id: "noExistingId", description: "other description"});
+        const commandResult2 = await policies.applyModifyTodoItemPolicies({...item1, id: "noExistingId", description: "other description"});
         expect(commandResult2.getPayload()).toEqual("this todo does not exist");
     })
 })

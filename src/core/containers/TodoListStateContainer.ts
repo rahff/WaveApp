@@ -1,6 +1,6 @@
 import { EffectCreator } from "../interfaces/EffectCreator";
 import { TodoListState } from "../interfaces/states/TodoListState";
-import { StateContainer } from "../ports/driver/StateContainer";
+import { StateContainer } from "./StateContainer";
 import { TodoListStateReducer } from "../reducers/TodoListStateReducer";
 
 

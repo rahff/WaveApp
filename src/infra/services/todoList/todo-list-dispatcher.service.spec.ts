@@ -19,7 +19,7 @@ describe('TodoListDispatcherService', () => {
 
   beforeEach(() => {
     effect = new TodoListEffect(new TodoListFakeRepository())
-    stateContainer = new TodoListStateContainer(new TodoListEffect(new TodoListFakeRepository()));
+    stateContainer = new TodoListStateContainer(effect);
     service = new TodoListDispatcherService(stateContainer);
   });
   
@@ -64,16 +64,16 @@ describe('TodoListDispatcherService', () => {
   }))
 
   it('should dispatch modifyTodoItem command', fakeAsync(()=>{
-    service.dispatch(new ModifyTodoItemCommand({id: "456", description: "brand new description"}));
+    service.dispatch(new ModifyTodoItemCommand({...item2, description: "brand new description"}));
     flushMicrotasks();
     expect(stateContainer.getState().items[1].description).toBe("brand new description")
   }))
 
   it('should dispatch canotModify event when modify item policies are not followed', fakeAsync(()=>{
-    service.dispatch(new ModifyTodoItemCommand({id: "987", description: "brand new description"}));
+    service.dispatch(new ModifyTodoItemCommand({...item1, id: "987", description: "brand new description"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "this todo does not exist"});
-    service.dispatch(new ModifyTodoItemCommand({description: "brand new description"}));
+    service.dispatch(new ModifyTodoItemCommand({...item1, id: "", description: "brand new description"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "cannot modify without identifier"});
   }))

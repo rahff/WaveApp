@@ -3,6 +3,7 @@ import { UserStateContainer } from 'src/core/containers/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
 import { User } from 'src/core/entities/User';
 import { EffectCreator } from 'src/core/interfaces/EffectCreator';
+import { GetUserCommand } from 'src/infra/commands/user/GetUserCommand';
 import { user1 } from 'src/infra/mocks/fake-data';
 import { SaveUserCommand } from '../../commands/user/SaveUserCommand';
 import { VerifyPasswordCommand } from '../../commands/user/VerifyPasswordCommand';
@@ -26,6 +27,12 @@ describe('UserDispatcherService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should dispatch get user command', fakeAsync(()=>{
+    service.dispatch(new GetUserCommand());
+    flushMicrotasks();
+    expect(stateContainer.getState().user).toBeTruthy();
+  }))
+
   it('should dispatch saveUser command', fakeAsync(()=>{
     service.dispatch(new SaveUserCommand(user1));
     flushMicrotasks();
@@ -44,13 +51,13 @@ describe('UserDispatcherService', () => {
   }))
 
   it('should dispatch verifyPassword command', fakeAsync(()=>{
-    service.dispatch(new VerifyPasswordCommand("Mot2$asse"));
+    service.dispatch(new VerifyPasswordCommand({password: "Mot2$asse", id: ""}));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeTrue();
   }));
 
   it('should dispatch WrongPassword event', fakeAsync(()=>{
-    service.dispatch(new VerifyPasswordCommand("Mot2$a$$e"));
+    service.dispatch(new VerifyPasswordCommand({password: "Mot2$a$$e", id: ""}));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeFalse();
     expect(stateContainer.getState().onWrongPassword).toBeTrue();

@@ -14,37 +14,43 @@ export class ContactListStateReducer implements Reducer {
                 return {
                     ...initialState,
                     contacts: command.getPayload()
-                }
+                };
+
             case "addContact":
                 return {
                     ...initialState,
                     contacts: [...initialState.contacts, command.getPayload()]
-                }
+                };
+
             case "removeContact":
                 return {
                     ...initialState,
                     contacts: this.removeContact(initialState.contacts, command.getPayload())
-                }
+                };
+
             case "updateContact":
                 return {
                     ...initialState,
                     contacts: this.updateContact(initialState.contacts, command.getPayload())
-                }
+                };
+
             case "itemAlreadyExist":
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
-                }
+                };
+
             case "itemNotExist":
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
-                }
+                };
+
             case "canNotModify":
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
-                }
+                };
 
             default: throw new CommandNotFoundException();
         }

@@ -12,23 +12,34 @@ export class UserStateReducer {
             case "setUser":
                 return {
                     ...initialState,
-                    user: command.getPayload() as User
-                }
+                    isNewUser: false,
+                    user: command.getPayload()
+                };
+
             case "setIsAuth":
                 return {
                     ...initialState,
                     isAuth: command.getPayload()
-                }
+                };
+
             case "wrongPassword":
                 return {
                     ...initialState,
                     onWrongPassword: true
-                }
+                };
+
             case "invalidForm":
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
-                }
+                };
+
+            case "isNewUser":
+                return {
+                    ...initialState,
+                    isNewUser: command.getPayload()
+                };
+
             default: throw new CommandNotFoundException();
         }
     }

@@ -6,7 +6,11 @@ import { user1 } from "./fake-data";
 
 export class UserFakeRepository implements UserRepository {
 
-    getUser(): Promise<User> {
+    getDefaultUser(): Promise<User | null> {
+        return new Promise((resolve)=> resolve(user1));
+    }
+
+    getUser(id: string): Promise<User> {
         return new Promise((resolve)=> resolve(user1));
     }
 

@@ -30,11 +30,11 @@ export class TodoListPolicies {
         return new RemoveTodoListItemCommand(itemId);
     }
 
-    async applyModifyTodoItemPolicies(update: Partial<TodoItem>): Promise<Command> {
-        if(!update.id) return new CanotModifyItemEvent("cannot modify without identifier");
-        const isExistingTodo = await this.repository.isTodoAlreadyExistById(update.id);
+    async applyModifyTodoItemPolicies(updated:TodoItem): Promise<Command> {
+        if(!updated.id) return new CanotModifyItemEvent("cannot modify without identifier");
+        const isExistingTodo = await this.repository.isTodoAlreadyExistById(updated.id);
         if(!isExistingTodo) return new ItemNotExistEvent("this todo does not exist");
-        const modifiedItem = await this.repository.modifyTodoItem(update);
+        const modifiedItem = await this.repository.modifyTodoItem(updated);
         return new UpdateTodoItemCommand(modifiedItem);  
     }
 

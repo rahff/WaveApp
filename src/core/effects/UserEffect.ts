@@ -19,8 +19,10 @@ export class UserEffect implements EffectCreator {
             case "saveUser":
                 return await this.validationPolicies.applySaveUserPolicies(command.getPayload());
             case "verifyPassword":
-                return await this.validationPolicies.applyVerifyPasswordPolicies(command.getPayload());
-
+                const { id, password } = command.getPayload();
+                return await this.validationPolicies.applyVerifyPasswordPolicies(password, id);
+            case "getUser":
+                return await this.validationPolicies.getUser();
             default: throw new CommandNotFoundException();
         }
     }

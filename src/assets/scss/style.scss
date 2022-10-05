@@ -1,0 +1,51 @@
+
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~bootstrap/scss/bootstrap";
+@import "common/_variables";
+@import "common/_mixins";
+@import "common/_customanimate.scss";
+@import "common/_general.scss";
+@import "common/_demo.scss";
+@import "common/_helpers.scss";
+@import "common/_media.scss";
+@import "common/_animation.scss";
+@import "common/_rtl.scss";
+@import "components/_breadcrumbs.scss";
+@import "components/_checkboxradio.scss";
+@import "components/_dropdownmenu.scss";
+@import "components/_feed.scss";
+@import "components/_formcomponents.scss";
+@import "components/_infobox.scss";
+@import "components/_inputformgroup.scss";
+@import "components/_labels.scss";
+@import "components/_leftsidebaroverlay.scss";
+@import "components/_navbar";
+@import "components/_navtabs.scss";
+@import "components/_noticeboard.scss";
+@import "components/_rightsidebar.scss";
+@import "components/_searchbar.scss";
+@import "components/_switch.scss";
+@import "components/_thumbnails.scss";
+@import "components/_todo.scss";
+
+/*                 [4. Apps]                   				*/
+@import "apps/_calendar.scss";
+@import "apps/_chat.scss";
+@import "apps/_contactlist.scss";
+@import "apps/_contactgrid.scss";
+@import "apps/_dragdrop.scss";
+@import "apps/_task.scss";
+
+
+@import "pages/_auth.scss";
+@import "pages/_dashboard.scss";
+@import "pages/_inbox.scss";
+@import "pages/_profile.scss";
+
+
+
+@import "ui/_buttons.scss";
+@import "ui/_pageloader.scss";
+@import "ui/_pagination.scss";
+@import "ui/_preloaders.scss";

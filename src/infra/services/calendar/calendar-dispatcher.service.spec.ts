@@ -50,7 +50,7 @@ describe('CalendarDispatcherService', () => {
   }));
 
   it('should dispatch modifyEvent command', fakeAsync(()=> {
-    service.dispatch(new ModifyCalendarEventCommand({id: "123", start: new Date(2018, 8, 22, 6, 0)}));
+    service.dispatch(new ModifyCalendarEventCommand({...fakeCalendarEvent1, start: new Date(2018, 8, 22, 6, 0)}));
     flushMicrotasks(); 
     expect(stateContainer.getState().events[0].start).toEqual( new Date(2018, 8, 22, 6, 0));
   }))

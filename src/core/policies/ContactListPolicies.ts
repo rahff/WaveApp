@@ -36,9 +36,9 @@ export class ContactListPolicies {
         return new RemoveContactItemCommand(deletedId);
     }
 
-    async applyModifyContactPolicies(update: Partial<ContactItem>): Promise<Command> {
-        if(!update.id) return new CanotModifyItemEvent("cannot modify item without identifier")
-        const updatedContact = await this.repository.modifyContact(update);
+    async applyModifyContactPolicies(updated: ContactItem): Promise<Command> {
+        if(!updated.id) return new CanotModifyItemEvent("cannot modify item without identifier")
+        const updatedContact = await this.repository.modifyContact(updated);
         return new UpdateContactItemCommand(updatedContact);
     }
 }

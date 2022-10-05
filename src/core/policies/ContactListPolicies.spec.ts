@@ -22,7 +22,7 @@ describe('ContactListPolicies', ()=>{
     })
 
     it('should verify that payload have an id before try to modify it', async ()=> {
-        const commandResult = await policies.applyModifyContactPolicies({email: "otheremail@gmail.com"});
+        const commandResult = await policies.applyModifyContactPolicies({...contactWithSameEmailThanAnother, id: "", email: "otheremail@gmail.com"});
         expect(commandResult.getPayload()).toEqual("cannot modify item without identifier");
     })
 })

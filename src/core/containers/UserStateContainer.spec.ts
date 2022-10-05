@@ -5,8 +5,9 @@ import { EffectCreator } from "../interfaces/EffectCreator";
 import { UserEffect } from "../effects/UserEffect";
 import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
+import { IsNewUserEvent } from "../events/user/IsNewUserEvent";
 
-const user1: User = {name: "Huiss", firstname: "francis", email: "francis@gmail.com", password: "Mot2$asse"};
+const user1: User = {id: "", name: "Huiss", firstname: "francis", email: "francis@gmail.com", password: "Mot2$asse"};
 
 describe('UserStateContainer', ()=> {
 
@@ -33,5 +34,10 @@ describe('UserStateContainer', ()=> {
         userStateContainer.dispatch(new SetIsAuthCommand(true));
         const { isAuth } = userStateContainer.getState();
         expect(isAuth).toBeTrue();
+    })
+
+    it('should set isNewUserEvent', ()=> {
+        userStateContainer.dispatch(new IsNewUserEvent(true));
+        expect(userStateContainer.getState().isNewUser).toBeTrue()
     })
 })
