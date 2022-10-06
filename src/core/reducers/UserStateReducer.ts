@@ -13,6 +13,7 @@ export class UserStateReducer {
                 return {
                     ...initialState,
                     isNewUser: false,
+                    isAuth: true,
                     user: command.getPayload()
                 };
 
@@ -39,6 +40,18 @@ export class UserStateReducer {
                     ...initialState,
                     isNewUser: command.getPayload()
                 };
+
+            case "onError": 
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+
+            case "exceptionThrowed": 
+                return {
+                    ...initialState,
+                    onException: command.getPayload()
+                }
 
             default: throw new CommandNotFoundException();
         }

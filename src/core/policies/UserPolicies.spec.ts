@@ -3,16 +3,14 @@ import { UserPolicies } from "./UserPolicies";
 
 const userWithInvalidEmail = {
     id: "",
-    name: "Tell", 
-    firstname: "Guillaume", 
+    username: "Guillaume", 
     email: "guiguilamenace£$gmail.com",
     password: "Mot2$asse"
 }
 
 const userWithWeakPassword = {
     id: "",
-    name: "Tell", 
-    firstname: "Guillaume", 
+    username: "Guillaume", 
     email: "guiguilamenace@gmail.com",
     password: "Motdepasse"
 }

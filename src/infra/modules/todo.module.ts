@@ -7,8 +7,6 @@ import { TodoListRepository } from 'src/core/ports/driven/TodoListRepository';
 
 
 @NgModule({
-  declarations: [],
-  imports: [],
   providers: [
     {
       provide: TodoListEffect, useFactory: (r: TodoListRepository) => new TodoListEffect(r)

@@ -24,20 +24,20 @@ describe("UserRepositoryAdapter", ()=> {
     
     it("should save a user", async ()=> {
         const generatedEmail = generateEmail();
-        const result = await repository.saveUser({id: "", name: "Teflon", firstname: "Eric", email: generatedEmail, password: "123123"});
+        const result = await repository.saveUser({id: "", username: "Eric", email: generatedEmail, password: "123123"});
         expect(result.email).toEqual(generatedEmail);
     })
 
     it('should get the user', async ()=> {
         const generatedEmail = generateEmail()
-        const {id} = await repository.saveUser({id: "", name: "Richter", firstname: "Eric", email: generatedEmail, password: "123123"});
+        const {id} = await repository.saveUser({id: "", username: "Eric", email: generatedEmail, password: "123123"});
         const result = await repository.getUser(id);
         expect(result.email).toBeDefined();
     })
 
     it('should get default user', async ()=> {
         const generatedEmail = generateEmail();
-        await repository.saveUser({id: "", name: "Default", firstname: "User", email: generatedEmail, password: "123123"});
+        await repository.saveUser({id: "", username: "User", email: generatedEmail, password: "123123"});
         const defaultUser = await repository.getDefaultUser();
         expect(defaultUser).toBeTruthy();
     })

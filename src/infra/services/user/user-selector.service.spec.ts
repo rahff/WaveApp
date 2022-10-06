@@ -39,9 +39,9 @@ describe('UserSelectorService', () => {
     })
   })
   it('should update state following state container', ()=>{
-    stateContainer.dispatch(new SetUserCommand({id: "", name: "Voltaire", firstname: "Jean", email: "jeanvoltaire@gmail.com", password: "mot2passe"}));
+    stateContainer.dispatch(new SetUserCommand({id: "", username: "Jean", email: "jeanvoltaire@gmail.com", password: "mot2passe"}));
     service.getUser().subscribe((user: User | null)=>{
-      expect(user).toEqual({id: "", name: "Voltaire", firstname: "Jean", email: "jeanvoltaire@gmail.com", password: "mot2passe"})
+      expect(user).toEqual({id: "", username: "Jean", email: "jeanvoltaire@gmail.com", password: "mot2passe"})
     });
     stateContainer.dispatch(new SetIsAuthCommand(true));
     service.getIsAuth().subscribe((isAuth: boolean)=>{

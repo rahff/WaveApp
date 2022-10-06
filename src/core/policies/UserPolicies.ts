@@ -23,8 +23,8 @@ export class UserPolicies {
         if(!this.isStrongPassword(user.password)){
             return new InvalidFormEvent("password must include at least 8 character and 1 special character 1 number and one uppercase");
         }
-        if(!user.name || !user.firstname) {
-            return new InvalidFormEvent("name & firstname must not be blank value");
+        if(!user.username) {
+            return new InvalidFormEvent("username must not be blank value");
         }
         if(!this.isValidEmail(user.email)){
             return new InvalidFormEvent("invalid email...");

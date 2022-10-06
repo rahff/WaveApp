@@ -1,4 +1,5 @@
 import { Command } from "src/shared/command/Command";
+import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
 import { TodoListPolicies } from "../policies/TodoListPolicies";
@@ -17,13 +18,29 @@ export class TodoListEffect implements EffectCreator {
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "saveItem":
-                return await this.validationPolicies.applySaveItemPolicies(command.getPayload());
+                try {
+                    return await this.validationPolicies.applySaveItemPolicies(command.getPayload());
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
             case "deleteItem":
-                return await this.validationPolicies.applyDeleteItemPolicies(command.getPayload());
+                try {
+                    return await this.validationPolicies.applyDeleteItemPolicies(command.getPayload());
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
             case "modifyItem":
-                return await this.validationPolicies.applyModifyTodoItemPolicies(command.getPayload());
+                try {
+                    return await this.validationPolicies.applyModifyTodoItemPolicies(command.getPayload());
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
             case "getItems":
-                return await this.validationPolicies.applyGetTodoListPolicies();
+                try {
+                    return await this.validationPolicies.applyGetTodoListPolicies();
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
 
             default: throw new CommandNotFoundException();
         }

@@ -7,7 +7,7 @@ import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
 import { IsNewUserEvent } from "../events/user/IsNewUserEvent";
 
-const user1: User = {id: "", name: "Huiss", firstname: "francis", email: "francis@gmail.com", password: "Mot2$asse"};
+const user1: User = {id: "", username: "francis", email: "francis@gmail.com", password: "Mot2$asse"};
 
 describe('UserStateContainer', ()=> {
 
@@ -27,7 +27,7 @@ describe('UserStateContainer', ()=> {
     it('should update user state', ()=> {
         userStateContainer.dispatch(new SetUserCommand(user1));
         const { user } = userStateContainer.getState();
-        expect(user?.firstname).toBe("francis");
+        expect(user?.username).toBe("francis");
     })
 
     it('should set isAuth into the state', ()=>{

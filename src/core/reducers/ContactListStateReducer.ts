@@ -52,6 +52,18 @@ export class ContactListStateReducer implements Reducer {
                     onException: {message: command.getPayload()}
                 };
 
+            case "onError": 
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+                
+            case "exceptionThrowed": 
+                return {
+                    ...initialState,
+                    onException: command.getPayload()
+                }
+
             default: throw new CommandNotFoundException();
         }
     }

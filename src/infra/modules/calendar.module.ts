@@ -8,8 +8,6 @@ import { CalendarRepositoryAdapter } from '../adapters/CalendarRepositoryAdapter
 
 
 @NgModule({
-  declarations: [],
-  imports: [],
   providers: [
     {
       provide: CalendarEffect, useFactory: (r: CalendarRepository) => new CalendarEffect(r),

@@ -1,5 +1,6 @@
 import { Command } from "src/shared/command/Command";
 import { UpdateCalendarEventCommand } from "../commands/calendar/UpdateCalendarEventCommand";
+import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../interfaces/EffectCreator";
 import { CalendarPolicies } from "../policies/CalendarPolicies";
@@ -16,13 +17,29 @@ export class CalendarEffect implements EffectCreator {
     async createEffect(command: Command): Promise<Command> {
         switch (command.getName()) {
             case "getEvents":
-                return await this.validationPolicy.applyGetCalendarEventsPolicies();
+                try {
+                    return await this.validationPolicy.applyGetCalendarEventsPolicies();
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
             case "saveEvent":
-                return await this.validationPolicy.applySaveCalendarEventPolicies(command.getPayload());
+                try {
+                    return await this.validationPolicy.applySaveCalendarEventPolicies(command.getPayload());
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
             case "deleteEvent":
-                return await this.validationPolicy.applyDeleteCalendarEventPolicies(command.getPayload());
+                try {
+                    return await this.validationPolicy.applyDeleteCalendarEventPolicies(command.getPayload());
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
             case "modifyEvent":
-                return await this.validationPolicy.applyModifyCalendarEventPolicies(command.getPayload());
+                try {
+                    return await this.validationPolicy.applyModifyCalendarEventPolicies(command.getPayload());
+                } catch (error: any) {
+                    return new UnknownErrorEvent(error.message);
+                }
                 
             default: throw new CommandNotFoundException();
         }
