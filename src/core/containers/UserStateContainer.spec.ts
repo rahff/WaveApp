@@ -5,7 +5,7 @@ import { EffectCreator } from "../ports/driver/EffectCreator";
 import { UserEffect } from "../effects/UserEffect";
 import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
-import { IsNewUserEvent } from "../events/user/IsNewUserEvent";
+import { SignupEvent } from "../events/user/SignupEvent";
 import { UserSelectorService } from "src/infra/services/user/user-selector.service";
 
 const user1: User = new User("francis", "francis@gmail.com", "Mot2$asse", "8488");
@@ -38,8 +38,8 @@ describe('UserStateContainer', ()=> {
         expect(isAuth).toBeTrue();
     })
 
-    it('should set isNewUserEvent', ()=> {
-        userStateContainer.dispatch(new IsNewUserEvent(true));
-        expect(userStateContainer.getState().isNewUser).toBeTrue()
+    it('should set SignupEvent', ()=> {
+        userStateContainer.dispatch(new SignupEvent(true));
+        expect(userStateContainer.getState().signupEvent).toBeTrue()
     })
 })

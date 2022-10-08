@@ -5,7 +5,7 @@ export const userStateMapper = (userState: UserState): IUserState => {
     return {
         user: userState.user ? userState.user.asDto() : null,
         isAuth: userState.isAuth,
-        isNewUser: userState.isNewUser,
+        signupEvent: userState.signupEvent,
         onException: userState.onException
     }
 }

@@ -1,6 +1,7 @@
 
 import { StateContainer } from "src/core/containers/StateContainer";
-import { Command } from "src/shared/command/Command";
+import { Command } from "../actions/Action";
+
 import { StateSelector } from "./StateSelector";
 
 export abstract class Dispatcher<T extends StateSelector> {

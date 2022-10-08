@@ -1,5 +1,4 @@
-import { Command } from "src/shared/command/Command";
-import { User } from "../entities/User";
+import { Action } from "src/shared/actions/Action";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { UserState } from "../interfaces/states/UserState";
 
@@ -7,12 +6,12 @@ import { UserState } from "../interfaces/states/UserState";
 
 export class UserStateReducer {
 
-    public reduceState(initialState: UserState, command: Command): UserState {
+    public reduceState(initialState: UserState, command: Action): UserState {
         switch (command.getName()) {
             case "setUser":
                 return {
                     ...initialState,
-                    isNewUser: false,
+                    signupEvent: false,
                     isAuth: true,
                     user: command.getPayload()
                 };
@@ -23,16 +22,10 @@ export class UserStateReducer {
                     isAuth: command.getPayload()
                 };
 
-            case "invalidForm":
+            case "signupEvent":
                 return {
                     ...initialState,
-                    onException: {message: command.getPayload()}
-                };
-
-            case "isNewUser":
-                return {
-                    ...initialState,
-                    isNewUser: command.getPayload()
+                    signupEvent: command.getPayload()
                 };
 
             case "onError": 

@@ -5,5 +5,5 @@ import { IBaseState } from "./IBaseState";
 export interface IUserState extends IBaseState{
     user: IUser | null;
     isAuth: boolean;
-    isNewUser: boolean | null
+    signupEvent: boolean | null
 }

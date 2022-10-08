@@ -1,9 +1,8 @@
 import { Observable } from "rxjs";
-import { UserDispatcherService } from "src/infra/services/user/user-dispatcher.service";
-import { UserSelectorService } from "src/infra/services/user/user-selector.service";
-import { Command } from "../command/Command";
+import { Command } from "../actions/Action";
 import { Dispatcher } from "./Dispatcher";
 import { StateSelector } from "./StateSelector";
+
 
 
 export abstract class Facade<T extends StateSelector> {

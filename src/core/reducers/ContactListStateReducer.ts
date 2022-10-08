@@ -1,4 +1,4 @@
-import { Command } from "src/shared/command/Command";
+import { Action } from "src/shared/actions/Action";
 import { ContactItem } from "../entities/ContactItem";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { Reducer } from "../interfaces/Reducer";
@@ -8,7 +8,7 @@ import { ContactListState } from "../interfaces/states/ ContactListState";
 
 export class ContactListStateReducer implements Reducer {
 
-    reduceState(initialState: ContactListState, command: Command): ContactListState {
+    reduceState(initialState: ContactListState, command: Action): ContactListState {
         switch (command.getName()) {
             case "setContacts":
                 return {
@@ -33,25 +33,7 @@ export class ContactListStateReducer implements Reducer {
                     ...initialState,
                     contacts: this.updateContact(initialState.contacts, command.getPayload())
                 };
-
-            case "itemAlreadyExist":
-                return {
-                    ...initialState,
-                    onException: {message: command.getPayload()}
-                };
-
-            case "itemNotExist":
-                return {
-                    ...initialState,
-                    onException: {message: command.getPayload()}
-                };
-
-            case "canNotModify":
-                return {
-                    ...initialState,
-                    onException: {message: command.getPayload()}
-                };
-
+                
             case "onError": 
                 return {
                     ...initialState,

@@ -1,9 +1,10 @@
-import { Command } from "src/shared/command/Command";
+
 import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { TodoListPolicies } from "../policies/TodoListPolicies";
 import { TodoListRepository } from "../ports/driven/TodoListRepository";
+import { Action } from "src/shared/actions/Action";
 
 
 
@@ -15,7 +16,7 @@ export class TodoListEffect implements EffectCreator {
         this.validationPolicies = new TodoListPolicies(this.repository)
     }
 
-    async createEffect(command: Command): Promise<Command> {
+    async createEffect(command: Action): Promise<Action> {
         switch (command.getName()) {
             case "saveItem":
                 try {

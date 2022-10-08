@@ -1,4 +1,4 @@
-export abstract class Command {
+export abstract class Action {
     constructor(protected name: string, protected payload: any){}
 
     public getName(): string {
@@ -9,3 +9,6 @@ export abstract class Command {
         return this.payload;
     }
 }
+
+export abstract class Command extends Action {}
+export abstract class _Event extends Action {}

@@ -1,11 +1,11 @@
 import { TodoItem } from "src/core/entities/TodoItem";
-import { Command } from "src/shared/command/Command";
+import { Command } from "src/shared/actions/Action";
+
 
 
 
 export class UpdateTodoItemCommand extends Command {
     constructor(payload: TodoItem){
-        if(!payload.getId()) throw new Error("cannot update item without id");
         super("updateItem", payload);
     }
 }

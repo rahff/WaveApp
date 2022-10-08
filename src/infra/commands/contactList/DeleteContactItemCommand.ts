@@ -1,4 +1,6 @@
-import { Command } from "src/shared/command/Command";
+import { Command } from "src/shared/actions/Action";
+
+
 
 export class DeleteContactItemCommand extends Command {
     constructor(payload: string) {

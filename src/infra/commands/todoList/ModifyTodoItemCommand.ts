@@ -1,5 +1,6 @@
 import { ITodoItem } from "src/infra/models/ITodoItem";
-import { Command } from "src/shared/command/Command";
+import { Command } from "src/shared/actions/Action";
+
 
 
 

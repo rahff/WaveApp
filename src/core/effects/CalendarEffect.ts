@@ -1,9 +1,10 @@
-import { Command } from "src/shared/command/Command";
+
 import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { CalendarPolicies } from "../policies/CalendarPolicies";
 import { CalendarRepository } from "../ports/driven/CalendarRepository";
+import { Action } from "src/shared/actions/Action";
 
 
 
@@ -15,7 +16,7 @@ export class CalendarEffect implements EffectCreator {
         this.validationPolicy = new CalendarPolicies(this.repository);
     }
     
-    async createEffect(command: Command): Promise<Command> {
+    async createEffect(command: Action): Promise<Action> {
         switch (command.getName()) {
             case "getEvents":
                 try {

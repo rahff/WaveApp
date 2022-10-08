@@ -1,5 +1,6 @@
 import { IContactItem } from "src/infra/models/IContactIem";
-import { Command } from "src/shared/command/Command";
+import { Command } from "src/shared/actions/Action";
+
 
 
 

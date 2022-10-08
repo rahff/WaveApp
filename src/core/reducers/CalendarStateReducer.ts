@@ -1,4 +1,4 @@
-import { Command } from "src/shared/command/Command";
+import { Action } from "src/shared/actions/Action";
 import { CalendarEvent } from "../entities/CalendarEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { Reducer } from "../interfaces/Reducer";
@@ -8,7 +8,7 @@ import { CalendarState } from "../interfaces/states/CalendarState";
 
 export class CalendarStateReducer implements Reducer {
 
-    reduceState(initialState: CalendarState, command: Command): CalendarState {
+    reduceState(initialState: CalendarState, command: Action): CalendarState {
         switch (command.getName()) {
             case "setEvents":
                 return {
@@ -32,12 +32,6 @@ export class CalendarStateReducer implements Reducer {
                 return {
                     ...initialState,
                     events: this.updateEvent(initialState.events, command.getPayload())
-                };
-
-            case "invalidEventRegistration":
-                return {
-                    ...initialState,
-                    onException: {message: command.getPayload()}
                 };
 
             case "onError": 

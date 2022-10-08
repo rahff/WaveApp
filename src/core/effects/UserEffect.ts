@@ -1,9 +1,10 @@
-import { Command } from "src/shared/command/Command";
+
 import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { UserPolicies } from "../policies/UserPolicies";
 import { UserRepository } from "../ports/driven/UserRepository";
+import { Action } from "src/shared/actions/Action";
 
 
 
@@ -15,7 +16,7 @@ export class UserEffect implements EffectCreator {
         this.validationPolicies = new UserPolicies(this.repository);
     }
 
-    async createEffect(command: Command): Promise<Command> {
+    async createEffect(command: Action): Promise<Action> {
         switch (command.getName()){
             case "saveUser":
                 try {

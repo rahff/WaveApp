@@ -1,9 +1,9 @@
 import { CommandNotFoundException } from "src/core/exceptions/CommandNotFoundException";
 import { BaseState } from "src/core/interfaces/states/BaseState";
 import { Reducer } from "src/core/interfaces/Reducer";
-import { Command } from "src/shared/command/Command";
 import { StateSelector } from "src/shared/abstract/StateSelector";
 import { EffectCreator } from "../ports/driver/EffectCreator";
+import { Action } from "src/shared/actions/Action";
 
 
 
@@ -20,18 +20,18 @@ export abstract class StateContainer {
         return this.state;
     }
 
-    public dispatch(command: Command): void {
+    public dispatch(action: Action): void {
         try {
-            this.state = this.reducer.reduceState(this.state, command);
+            this.state = this.reducer.reduceState(this.state, action);
             this.notify();
         } catch (error) {
             if(error instanceof CommandNotFoundException)
-                this.reDispacth(command);
+                this.reDispacth(action);
             else throw error;
         }
     }
 
-    private async reDispacth(command: Command): Promise<void> {
+    private async reDispacth(command: Action): Promise<void> {
         try {
             const _command = await this.effect.createEffect(command);
             this.dispatch(_command);

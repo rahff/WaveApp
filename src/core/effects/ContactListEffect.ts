@@ -1,9 +1,10 @@
-import { Command } from "src/shared/command/Command";
+
 import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { ContactListPolicies } from "../policies/ContactListPolicies";
 import { ContactListRepository } from "../ports/driven/ContactListRepository";
+import { Action } from "src/shared/actions/Action";
 
 
 
@@ -15,7 +16,7 @@ export class ContactListEffect implements EffectCreator {
         this.validationPolicy = new ContactListPolicies(this.repository)
     }
     
-    async createEffect(command: Command): Promise<Command> {
+    async createEffect(command: Action): Promise<Action> {
         switch (command.getName()) {
             case "getContacts":
                 try {

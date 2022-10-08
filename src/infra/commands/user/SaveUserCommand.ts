@@ -1,5 +1,6 @@
 import { IUser } from "src/infra/models/IUser";
-import { Command } from "src/shared/command/Command";
+import { Command } from "src/shared/actions/Action";
+
 
 
 

@@ -1,4 +1,4 @@
-import { Command } from "src/shared/command/Command";
+import { Action } from "src/shared/actions/Action";
 import { TodoItem } from "../entities/TodoItem";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { TodoListState } from "../interfaces/states/TodoListState";
@@ -7,7 +7,7 @@ import { TodoListState } from "../interfaces/states/TodoListState";
 
 export class TodoListStateReducer {
 
-    reduceState(initialState: TodoListState, command: Command): TodoListState {
+    reduceState(initialState: TodoListState, command: Action): TodoListState {
         switch (command.getName()) {
             case "addItem":
                 return {
@@ -39,24 +39,6 @@ export class TodoListStateReducer {
                     items: this.updateItem(initialState.items, command.getPayload())
                 };
 
-            case "itemAlreadyExist":
-                return {
-                    ...initialState,
-                    onException: {message: command.getPayload()}
-                };
-
-            case "itemNotExist":
-                return {
-                    ...initialState,
-                    onException: {message: command.getPayload()}
-                };
-
-            case "canNotModify":
-                return {
-                    ...initialState,
-                    onException: {message: command.getPayload()}
-                };
-            
             case "onError": 
                 return {
                     ...initialState,
