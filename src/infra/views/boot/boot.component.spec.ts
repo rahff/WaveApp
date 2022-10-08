@@ -7,6 +7,8 @@ import { UserRepository } from 'src/core/ports/driven/UserRepository';
 import { UserRepositoryAdapter } from 'src/infra/adapters/UserRepositoryAdapter';
 import { DatabaseModule } from 'src/infra/modules/database.module';
 import { UserModule } from 'src/infra/modules/user.module';
+import { UserSelectorService } from 'src/infra/services/user/user-selector.service';
+import { StateSelector } from 'src/shared/abstract/StateSelector';
 import { BootComponent } from './boot.component';
 
 describe('BootComponent', () => {
@@ -23,8 +25,8 @@ describe('BootComponent', () => {
           deps: [UserRepositoryAdapter]
         },
         {
-          provide: UserStateContainer, useFactory: (e: EffectCreator)=> new UserStateContainer(e),
-          deps: [UserEffect]
+          provide: UserStateContainer, useFactory: (e: EffectCreator, s: StateSelector)=> new UserStateContainer(e, s),
+          deps: [UserEffect, UserSelectorService]
         }
       ],
       declarations: [

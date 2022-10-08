@@ -1,8 +1,10 @@
-import { CalendarEvent } from "src/core/entities/CalendarEvent";
+import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
 import { Command } from "src/shared/command/Command";
 
+
+
 export class SaveCalendarEventCommand extends Command {
-    constructor(payload: CalendarEvent) {
+    constructor(payload: ICalendarEvent) {
         super("saveEvent", payload);
     }
 }

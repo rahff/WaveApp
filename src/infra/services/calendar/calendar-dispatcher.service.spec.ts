@@ -9,6 +9,7 @@ import { GetCalendarEventsCommand } from '../../commands/calendar/GetCalendarEve
 import { SaveCalendarEventCommand } from '../../commands/calendar/SaveCalendarEventCommand';
 import { CalendarFakeRepository } from '../../mocks/CalendarFakeRepository';
 import { CalendarDispatcherService } from './calendar-dispatcher.service';
+import { CalendarSelectorService } from './calendar-selector.service';
 
 
 
@@ -16,9 +17,9 @@ describe('CalendarDispatcherService', () => {
   let service: CalendarDispatcherService;
   let stateContainer: CalendarStateContainer;
   const effectCreator = new CalendarEffect(new CalendarFakeRepository());
-
+  const stateSelector = new CalendarSelectorService()
   beforeEach(() => {
-    stateContainer = new CalendarStateContainer(effectCreator)
+    stateContainer = new CalendarStateContainer(effectCreator, stateSelector);
     service = new CalendarDispatcherService(stateContainer);
   });
 
@@ -38,8 +39,10 @@ describe('CalendarDispatcherService', () => {
   }))
 
   it('should dispatch saveEvent command', fakeAsync(()=>{
-    service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent3));
+    service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent3.asDto()));
     flushMicrotasks();
+    console.log('state', stateContainer.getState());
+    
     expect(stateContainer.getState().events[1]).toEqual(fakeCalendarEvent3);
   }));
 
@@ -50,8 +53,8 @@ describe('CalendarDispatcherService', () => {
   }));
 
   it('should dispatch modifyEvent command', fakeAsync(()=> {
-    service.dispatch(new ModifyCalendarEventCommand({...fakeCalendarEvent1, start: new Date(2018, 8, 22, 6, 0)}));
+    service.dispatch(new ModifyCalendarEventCommand({...fakeCalendarEvent1.asDto(), start: new Date(2018, 8, 22, 6, 0)}));
     flushMicrotasks(); 
-    expect(stateContainer.getState().events[0].start).toEqual( new Date(2018, 8, 22, 6, 0));
+    expect(stateContainer.getState().events[0].getStart()).toEqual( new Date(2018, 8, 22, 6, 0));
   }))
 });

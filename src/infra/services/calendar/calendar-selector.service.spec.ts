@@ -10,8 +10,8 @@ describe('CalendarSelectorService', () => {
   let service: CalendarSelectorService;
   let stateContainer: CalendarStateContainer;
   beforeEach(() => {
-    stateContainer = new CalendarStateContainer(new CalendarEffect(new CalendarFakeRepository()));
-    service = new CalendarSelectorService(stateContainer);
+    service = new CalendarSelectorService();
+    stateContainer = new CalendarStateContainer(new CalendarEffect(new CalendarFakeRepository()), service);
   });
 
   it('should be created', () => {

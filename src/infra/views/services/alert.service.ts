@@ -8,12 +8,12 @@ export class AlertService {
 
   constructor() { }
 
-
   public errorAlert(message: string): Promise<SweetAlertResult> {
     return Swal.fire({
+      position: 'center',
+      icon: 'error',
       title: message,
-      icon: "error",
-      timer: 2500
+      showConfirmButton: true,
     })
   }
 }

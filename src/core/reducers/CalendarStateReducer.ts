@@ -59,12 +59,12 @@ export class CalendarStateReducer implements Reducer {
 
     private updateEvent(list: CalendarEvent[], updatedEvent: CalendarEvent): CalendarEvent[] {
         return list.map((event: CalendarEvent)=> {
-            if(event.id === updatedEvent.id) event = updatedEvent
+            if(event.getId() === updatedEvent.getId()) event = updatedEvent
             return event;
         })
     }
 
     private removeEvent(list: CalendarEvent[], eventId: string): CalendarEvent[] {
-       return list.filter((event: CalendarEvent) => event.id !== eventId);
+       return list.filter((event: CalendarEvent) => event.getId() !== eventId);
     }
 }

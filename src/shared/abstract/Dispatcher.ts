@@ -1,10 +1,14 @@
 
 import { StateContainer } from "src/core/containers/StateContainer";
 import { Command } from "src/shared/command/Command";
+import { StateSelector } from "./StateSelector";
 
-export abstract class Dispatcher {
+export abstract class Dispatcher<T extends StateSelector> {
 
-    constructor(protected stateContainer: StateContainer){}
+    public stateSelector: T
+    constructor(protected stateContainer: StateContainer){
+        this.stateSelector = this.stateContainer.getSelector() as T;
+    }
     
     dispatch(command: Command): void {
         this.stateContainer.dispatch(command);

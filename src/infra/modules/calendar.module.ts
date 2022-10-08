@@ -4,6 +4,8 @@ import { EffectCreator } from 'src/core/interfaces/EffectCreator';
 import { CalendarEffect } from 'src/core/effects/CalendarEffect';
 import { CalendarRepository } from 'src/core/ports/driven/CalendarRepository';
 import { CalendarRepositoryAdapter } from '../adapters/CalendarRepositoryAdapter';
+import { StateSelector } from 'src/shared/abstract/StateSelector';
+import { CalendarSelectorService } from '../services/calendar/calendar-selector.service';
 
 
 
@@ -14,8 +16,8 @@ import { CalendarRepositoryAdapter } from '../adapters/CalendarRepositoryAdapter
       deps: [CalendarRepositoryAdapter]
     },
     {
-      provide: CalendarStateContainer, useFactory: (e: EffectCreator) => new CalendarStateContainer(e),
-      deps: [CalendarEffect]
+      provide: CalendarStateContainer, useFactory: (e: EffectCreator, s: StateSelector) => new CalendarStateContainer(e, s),
+      deps: [CalendarEffect, CalendarSelectorService]
     }
   ]
 })

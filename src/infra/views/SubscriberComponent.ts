@@ -6,7 +6,9 @@ import { Subscription } from "rxjs";
     providedIn: 'any'
 })
 export class SubscriberComponent implements OnDestroy{
+    
     protected subscription: Subscription = new Subscription();
+
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }

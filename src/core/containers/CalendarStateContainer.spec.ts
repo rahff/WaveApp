@@ -1,4 +1,5 @@
 import { CalendarFakeRepository } from "src/infra/mocks/CalendarFakeRepository";
+import { CalendarSelectorService } from "src/infra/services/calendar/calendar-selector.service";
 import { AddCalendarEventCommand } from "../commands/calendar/AddCalendarEventCommand";
 import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarEventCommand";
 import { SetEventListCommand } from "../commands/calendar/SetEventListCommand";
@@ -7,16 +8,18 @@ import { CalendarEffect } from "../effects/CalendarEffect";
 import { CalendarEvent } from "../entities/CalendarEvent";
 import { CalendarStateContainer } from "./CalendarStateContainer";
 
-const fakeCalendarEvent1: CalendarEvent = {id: "123", start: new Date(2018, 8, 22, 4, 0), end: new Date(2018, 8, 22, 6, 0), title: "test"}
-const fakeCalendarEvent2: CalendarEvent = {id: "456", start: new Date(2018, 8, 22, 7, 0), end: new Date(2018, 8, 22, 9, 0), title: "added"}
+const fakeCalendarEvent1: CalendarEvent = new CalendarEvent("test", new Date(2019, 8, 22, 4, 0), new Date(2019, 8, 22, 6, 0), '123');
+const fakeCalendarEvent2: CalendarEvent = new CalendarEvent("added", new Date(2019, 8, 22, 7, 0), new Date(2019, 8, 22, 9, 0), '456');
+
 
 describe("CalendarStateContainer", ()=> {
 
     let stateContainer: CalendarStateContainer;
     const effectCreator: CalendarEffect = new CalendarEffect(new CalendarFakeRepository());
-
+    let stateSelector: CalendarSelectorService
     beforeEach(()=> {
-        stateContainer = new CalendarStateContainer(effectCreator);
+        stateSelector = new CalendarSelectorService()
+        stateContainer = new CalendarStateContainer(effectCreator, stateSelector);
     });
 
     beforeEach(()=>{
@@ -39,7 +42,8 @@ describe("CalendarStateContainer", ()=> {
     });
 
     it('should update an event into the state list', ()=>{
-        stateContainer.dispatch(new UpdateCalendarEventCommand({...fakeCalendarEvent1, start: new Date(2018, 9, 22, 11, 0)}));
-        expect(stateContainer.getState().events[0].start).toEqual(new Date(2018, 9, 22, 11, 0));
+        const updated = new CalendarEvent(fakeCalendarEvent1.getTitle(), new Date(2018, 9, 22, 11, 0), fakeCalendarEvent1.getEnd(), fakeCalendarEvent1.getId());
+        stateContainer.dispatch(new UpdateCalendarEventCommand(updated));
+        expect(stateContainer.getState().events[0].getStart()).toEqual(new Date(2018, 9, 22, 11, 0));
     });
 })

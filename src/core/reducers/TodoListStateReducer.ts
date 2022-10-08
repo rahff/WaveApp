@@ -75,19 +75,19 @@ export class TodoListStateReducer {
     }
 
     private removeItem(list: TodoItem[], deletedId: string): TodoItem[] {
-        return list.filter((item: TodoItem) => item.id !== deletedId)
+        return list.filter((item: TodoItem) => item.getId() !== deletedId)
     }
 
     private doneItemStatus(list: TodoItem[], doneId: string): TodoItem[] {
         return list.map((item: TodoItem) => {
-            if(item.id === doneId ) item.status = true;
+            if(item.getId() === doneId ) item.setStatus(true);
             return item;
         })
     }
 
     private updateItem(list: TodoItem[], updatedItem: TodoItem ): TodoItem[] {
         return list.map((item: TodoItem) => {
-            if(item.id === updatedItem.id) item = updatedItem;
+            if(item.getId() === updatedItem.getId()) item = updatedItem;
             return item;
         })
     }

@@ -70,12 +70,12 @@ export class ContactListStateReducer implements Reducer {
 
     private updateContact(list: ContactItem[], updated: ContactItem): ContactItem[] {
         return list.map((contact: ContactItem) => {
-            if(contact.id === updated.id) contact = updated;
+            if(contact.getId() === updated.getId()) contact = updated;
             return contact;
         })
     }
 
     private removeContact(list: ContactItem[], contactId: string): ContactItem[] {
-        return list.filter((contact: ContactItem) => contact.id !== contactId);
+        return list.filter((contact: ContactItem) => contact.getId() !== contactId);
     }
 }

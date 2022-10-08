@@ -1,7 +1,8 @@
 import { TestBed } from "@angular/core/testing";
 import { TodoItem } from "src/core/entities/TodoItem";
+import { ITodoItem } from "../models/ITodoItem";
 import { DatabaseModule } from "../modules/database.module";
-import { generateId } from "../utils/generateId";
+import { generateId } from "../utils/generators";
 import { TodoListRepositoryAdapter } from "./TodoListRepositoryAdapter";
 
 
@@ -67,8 +68,8 @@ describe('TodoListRepositoryAdapter', ()=>{
         expect(isNotExist).toBeFalse();
     })
 
-    const saveItem = async (generatedId: string): Promise<TodoItem> => {
-        const todoItem: TodoItem = { description: "test", id: generatedId, status: false};
+    const saveItem = async (generatedId: string): Promise<ITodoItem> => {
+        const todoItem: ITodoItem = { description: "test", id: generatedId, status: false};
         return await repository.saveItem(todoItem);
     }
 })

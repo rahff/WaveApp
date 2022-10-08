@@ -7,16 +7,19 @@ import { DoneTodoListItemCommand } from "../commands/todoList/DoneTodoListItemCo
 import { RemoveTodoListItemCommand } from "../commands/todoList/RemoveTodoListItemCommand";
 import { SetTodoListItemsCommand } from "../commands/todoList/SetTodoListItemsCommand";
 import { UpdateTodoItemCommand } from "../commands/todoList/UpdateTodoItemCommand";
+import { TodoListSelectorService } from "src/infra/services/todoList/todo-list-selector.service";
 
-const item1: TodoItem = {id: "123", description: "test1", status: false};
-const item2: TodoItem = {id: "456", description: "test2", status: false};
-const item3: TodoItem = {id: "789", description: "test3", status: false};
+const item1 = new TodoItem("test1", "123")
+const item2 = new TodoItem("test2", "456")
+const item3 = new TodoItem("test3", "789")
+
 
 describe('TodoListStateContainer', ()=> {
     let todoListStateContainer: TodoListStateContainer;
-
+    let stateSelector: TodoListSelectorService;
     beforeEach(()=> {
-        todoListStateContainer = new TodoListStateContainer(new TodoListEffect(new TodoListFakeRepository()));
+        stateSelector = new TodoListSelectorService()
+        todoListStateContainer = new TodoListStateContainer(new TodoListEffect(new TodoListFakeRepository()), stateSelector);
         todoListStateContainer.dispatch(new SetTodoListItemsCommand([item1, item2]));
     })
 
@@ -46,13 +49,14 @@ describe('TodoListStateContainer', ()=> {
     it('should upadate status of an item into the state list', ()=> {
         todoListStateContainer.dispatch(new DoneTodoListItemCommand("456"));
         const state = todoListStateContainer.getState();
-        expect(state.items[1].status).toBeTrue();
+        expect(state.items[1].getStatus()).toBeTrue();
     })
 
     it('should update description of an item into the state list', ()=> {
-        todoListStateContainer.dispatch(new UpdateTodoItemCommand({...item2, description: "new description"}));
+        const updated = new TodoItem("new description", item2.getId());
+        todoListStateContainer.dispatch(new UpdateTodoItemCommand(updated));
         const state = todoListStateContainer.getState();
-        expect(state.items[1].description).toBe("new description");
+        expect(state.items[1].getDescription()).toBe("new description");
     })
 
 })

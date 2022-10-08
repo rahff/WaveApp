@@ -3,6 +3,8 @@ import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, map, Observable, of } from "rxjs";
 import { TodoItem } from "src/core/entities/TodoItem";
 import { TodoListRepository } from "src/core/ports/driven/TodoListRepository";
+import { todoItemMapper } from "../../core/mappers/entities/TodoItemMapper";
+import { ITodoItem } from "../models/ITodoItem";
 import { DatabaseModule } from "../modules/database.module";
 
 @Injectable({
@@ -12,8 +14,8 @@ export class TodoListRepositoryAdapter implements TodoListRepository {
 
     constructor(private service: NgxIndexedDBService){}
 
-    async saveItem(item: TodoItem): Promise<TodoItem> {
-        return firstValueFrom(this.service.add('todo', item)
+    async saveItem(item: ITodoItem): Promise<ITodoItem> {
+        return await firstValueFrom(this.service.add('todo', item)
         .pipe(catchError(()=> {throw new Error("failed to save")})));
     }
 
@@ -24,18 +26,17 @@ export class TodoListRepositoryAdapter implements TodoListRepository {
     }
 
     private performDeletion(id: string): Observable<boolean> {
-        return this.service.delete<TodoItem>("todo", id)
+        return this.service.delete<ITodoItem>("todo", id)
         .pipe(map(()=> true), catchError(()=> of(false)));
     }
 
-    async modifyTodoItem(updated: TodoItem): Promise<TodoItem> {
+    async modifyTodoItem(updated: ITodoItem): Promise<ITodoItem> {
         return await firstValueFrom(this.service.update("todo", updated)
         .pipe(catchError(()=> {throw new Error("failed to update")})));
-        
     }
 
-    async getTodoList(): Promise<TodoItem[]> {
-        return firstValueFrom(this.service.getAll<TodoItem>("todo")
+    async getTodoList(): Promise<ITodoItem[]> {
+        return firstValueFrom(this.service.getAll<ITodoItem>("todo")
         .pipe(catchError(()=> {throw new Error("something goes wrong")})));
     }
 

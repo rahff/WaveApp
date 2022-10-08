@@ -10,9 +10,10 @@ import { TodoListSelectorService } from './todo-list-selector.service';
 describe('TodoListSelectorService', () => {
   let service: TodoListSelectorService;
   let stateContainer: TodoListStateContainer;
+
   beforeEach(() => {
-    stateContainer = new TodoListStateContainer(new TodoListEffect(new TodoListFakeRepository()));
-    service = new TodoListSelectorService(stateContainer);
+    service = new TodoListSelectorService();
+    stateContainer = new TodoListStateContainer(new TodoListEffect(new TodoListFakeRepository()), service);
   });
 
   it('should be created', () => {

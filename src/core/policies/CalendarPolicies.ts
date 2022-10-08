@@ -1,3 +1,5 @@
+import { calendarMapper } from "src/core/mappers/entities/CalendarMapper";
+import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
 import { Command } from "src/shared/command/Command";
 import { AddCalendarEventCommand } from "../commands/calendar/AddCalendarEventCommand";
 import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarEventCommand";
@@ -15,16 +17,23 @@ export class CalendarPolicies {
 
     async applyGetCalendarEventsPolicies(): Promise<Command> {
         const events = await this.repository.getCalendarEvents();
-        return new SetEventListCommand(events);
+        const eventListEntity = events.map((event: ICalendarEvent) => calendarMapper(event))
+        return new SetEventListCommand(eventListEntity);
     }
 
-    async applySaveCalendarEventPolicies(calendarEvent: CalendarEvent, dateRef?: Date): Promise<Command> {
-        const invalidRegistration = await this.isInvalidRegistration(calendarEvent, dateRef);
-        if(!invalidRegistration){
-            const savedEvent = await this.repository.saveCalendarEvent(calendarEvent);
-            return new AddCalendarEventCommand(savedEvent);
+    async applySaveCalendarEventPolicies(_calendarEvent: ICalendarEvent, dateRef?: Date): Promise<Command> {
+        try {
+            const calendarEvent = calendarMapper(_calendarEvent);
+            const invalidRegistration = await this.isInvalidRegistration(calendarEvent, dateRef);
+            if(!invalidRegistration){
+                const savedEvent = await this.repository.saveCalendarEvent(calendarEvent.asDto());
+                const eventEntity = calendarMapper(savedEvent)
+                return new AddCalendarEventCommand(eventEntity);
+            }
+            return invalidRegistration;
+        } catch (error) {
+            return new InvalidEventRegistration("end of the event must be after his start");
         }
-        return invalidRegistration;
     }
 
     async applyDeleteCalendarEventPolicies(eventId: string): Promise<Command> {
@@ -32,22 +41,22 @@ export class CalendarPolicies {
         return new RemoveCalendarEventCommand(deletedId);
     }
 
-    async applyModifyCalendarEventPolicies(updated: CalendarEvent): Promise<Command> {
+    async applyModifyCalendarEventPolicies(updated: ICalendarEvent): Promise<Command> {
         const updatedEvent = await this.repository.modifyCalendarEvent(updated);
-        return new UpdateCalendarEventCommand(updatedEvent);
+        const eventEntity = calendarMapper(updatedEvent);
+        return new UpdateCalendarEventCommand(eventEntity);
     }
 
     private async isInvalidRegistration(calendarEvent: CalendarEvent, dateRef?: Date): Promise<Command | null > {
-        if(this.isInPast(calendarEvent.start, dateRef)) return new InvalidEventRegistration("event start must be in the futur");
-        if(this.isEndsBeforeStarting(calendarEvent.end, calendarEvent.start)) return new InvalidEventRegistration("end of the event must be after his start");
+        if(this.isInPast(calendarEvent.getStart(), dateRef)) return new InvalidEventRegistration("event start must be in the futur");
         const allEvents = await this.repository.getCalendarEvents();
         if(this.haveEventAtSameTime(calendarEvent, allEvents)) return new InvalidEventRegistration("cannot have two event at the same time");
         return null;
     }
 
-    private haveEventAtSameTime(calendarEvent: CalendarEvent, eventList: CalendarEvent[]): boolean {
+    private haveEventAtSameTime(calendarEvent: CalendarEvent, eventList: ICalendarEvent[]): boolean {
         let predicateValue = false;
-        eventList.forEach((event: CalendarEvent)=>{
+        eventList.forEach((event: ICalendarEvent)=>{
             if(this.checkSupperpositionTiming(calendarEvent, event)){
                 predicateValue = true;
             }
@@ -55,16 +64,12 @@ export class CalendarPolicies {
         return predicateValue;
     }
 
-    private checkSupperpositionTiming(eventRef: CalendarEvent, otherEvent: CalendarEvent): boolean {
-        return this.isInPast(otherEvent.start, eventRef.start)
-        && this.isInPast(otherEvent.end, eventRef.end) 
-        && !this.isInPast(otherEvent.end, eventRef.start)
-        || this.isInPast(otherEvent.start, eventRef.end)
-        && this.isInPast(eventRef.end, otherEvent.end);
-    }
-
-    private isEndsBeforeStarting(endTime: Date, start: Date): boolean {
-        return this.isInPast(endTime, start);
+    private checkSupperpositionTiming(eventRef: CalendarEvent, otherEvent: ICalendarEvent): boolean {
+        return this.isInPast(otherEvent.start, eventRef.getStart())
+        && this.isInPast(otherEvent.end, eventRef.getEnd()) 
+        && !this.isInPast(otherEvent.end, eventRef.getStart())
+        || this.isInPast(otherEvent.start, eventRef.getEnd())
+        && this.isInPast(eventRef.getEnd(), otherEvent.end);
     }
 
     private isInPast(dateTime: Date, presentRef: Date = new Date()): boolean {

@@ -3,30 +3,18 @@ import { BaseState } from "src/core/interfaces/states/BaseState";
 import { EffectCreator } from "src/core/interfaces/EffectCreator";
 import { Reducer } from "src/core/interfaces/Reducer";
 import { Command } from "src/shared/command/Command";
-import { StateSubject } from "../ports/driver/StateSubject";
 import { StateSelector } from "src/shared/abstract/StateSelector";
 
 
 
 
 
-export abstract class StateContainer implements StateSubject {
+export abstract class StateContainer {
 
     protected state: BaseState = {onException: null};
     protected reducer!: Reducer;
-    private selectors: StateSelector[] = [];
 
-    constructor(protected effect: EffectCreator){}
-
-    public attach(selector: StateSelector): void {
-        if(!this.selectors.includes(selector)){
-            this.selectors.push(selector);
-        }
-    }
-
-    public detach(selector: StateSelector): void {
-        this.selectors = this.selectors.filter((s) => s.id !== selector.id);
-    }
+    constructor(protected effect: EffectCreator, protected selector: StateSelector){}
 
     public getState(): BaseState {
         return this.state;
@@ -52,11 +40,9 @@ export abstract class StateContainer implements StateSubject {
         }
     }
 
-    private notify(): void {
-        this.selectors.forEach((selector: StateSelector) => selector.update());
-    }
+    protected abstract notify(): void
 
-    public getSelectors(): StateSelector[] {
-        return this.selectors;
+    public getSelector(): StateSelector {
+        return this.selector;
     }
 }

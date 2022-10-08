@@ -1,12 +1,13 @@
 import { TestBed } from "@angular/core/testing";
 import { ContactItem } from "src/core/entities/ContactItem";
+import { IContactItem } from "../models/IContactIem";
 import { DatabaseModule } from "../modules/database.module";
-import { generateEmail, generateId } from "../utils/generateId";
+import { generateEmail, generateId, generateTel } from "../utils/generators";
 import { ContactListRepositoryAdapter } from "./ContactListRepositoryAdapter";
 
 const generatedEmail = generateEmail();
-const generatedTel = generateId();
-const itemRef = {name: "Jamy", firstname: "Fred", email: generatedEmail, id: "", tel: generatedTel }
+const generatedTel = generateTel();
+const itemRef: IContactItem = {name: "Jamy", firstname: "Fred", email: generatedEmail, id: "", tel: generatedTel }
 
 describe("ContactListRepositoryAdapter", ()=> {
 
@@ -36,25 +37,27 @@ describe("ContactListRepositoryAdapter", ()=> {
     })
 
     it("should delete a item", async ()=> {
-        const ref: ContactItem = {...itemRef, name: "tester", email: generateEmail(), tel: generateEmail()};
-        const { id } = await repository.saveContact(ref);
-        const expectedId = await repository.deleteContact(id);
+        const ref: IContactItem = {...itemRef, name: "tester", email: generateEmail(), tel: generateTel()};
+        const savedContact = await repository.saveContact(ref);
+        const expectedId = await repository.deleteContact(savedContact.id);
         expect(expectedId).toBeInstanceOf(String);
         const list = await repository.getContactList();
         expect(list).not.toContain(ref);
     });
 
     it('should modify an item', async ()=>{
-        const ref: ContactItem = { id: "itemToModify", name: "tester", firstname: "beta", email: generateEmail(), tel: generateEmail()};
-        const { id } = await repository.saveContact(ref);
-        const upadtedItem = await repository.modifyContact({...ref, id, name: "modified"});
+        const ref = new ContactItem("tester", "beta", generateEmail(), generateTel(), "itemToModifyId")
+        const savedContact = await repository.saveContact(ref.asDto());
+        const upadtedItem = await repository.modifyContact({...ref.asDto(), id: savedContact.id, name: "modified"});
         expect(upadtedItem.name).toBe("modified");
     });
 
     it('should verify existance of value in db', async ()=>{
         const _generatedEmail = generateEmail();
-        const _generatedTel = generateId();
-        await repository.saveContact({...itemRef, id: generateId(),  email: _generatedEmail, tel: generateId()});
+        const _generatedTel = generateTel();
+        console.log("tel g : ", _generatedTel);
+        
+        await repository.saveContact({...itemRef, id: generateId(),  email: _generatedEmail, tel: generateTel()});
         await repository.saveContact({...itemRef, id: generateId(), tel: _generatedTel, email: generateEmail()});
         const isExistingValues = await repository.isExistingContactByValues("notExistingEmail@gmail.com", "0236333210");
         expect(isExistingValues).toBeFalse();
@@ -66,8 +69,8 @@ describe("ContactListRepositoryAdapter", ()=> {
 
     it('should verify existance of item by id', async ()=> {
         const _id = generateId();
-        const {id} = await repository.saveContact({...itemRef, id: _id,  email: generateEmail(), tel: generateId()});
-        const isExisting = await repository.isExistingContactById(id);
+        const savedContact = await repository.saveContact({...itemRef, id: _id,  email: generateEmail(), tel: generateTel()});
+        const isExisting = await repository.isExistingContactById(savedContact.id);
         expect(isExisting).toBeTrue();
         const isExisting2 = await repository.isExistingContactById("__notExistingId__");
         expect(isExisting2).toBeFalse();

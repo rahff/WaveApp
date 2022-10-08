@@ -9,6 +9,7 @@ import { SaveContactItemCommand } from 'src/infra/commands/contactList/SaveConta
 import { ContactListFakeRepository } from 'src/infra/mocks/ContactListFakeRepository';
 import { conatct1, conatct2 } from 'src/infra/mocks/fake-data';
 import { ContactListDispatcherService } from './contact-list-dispatcher.service';
+import { ContactListSelectorService } from './contact-list-selector.service';
 
 
 
@@ -16,9 +17,9 @@ describe('ContactListDispatcherService', () => {
   let service: ContactListDispatcherService;
   let stateContainer: ContactListStateContainer;
   const effectCreator = new ContactListEffect(new ContactListFakeRepository());
-
+  const stateSelector = new ContactListSelectorService()
   beforeEach(() => {
-    stateContainer = new ContactListStateContainer(effectCreator);
+    stateContainer = new ContactListStateContainer(effectCreator, stateSelector);
     service = new ContactListDispatcherService(stateContainer);
     stateContainer.dispatch(new SetContactListCommand([conatct1]))
   });
@@ -34,13 +35,13 @@ describe('ContactListDispatcherService', () => {
   }));
 
   it('should dispatch saveContactItemCommand', fakeAsync(()=>{
-    service.dispatch(new SaveContactItemCommand(conatct2));
+    service.dispatch(new SaveContactItemCommand(conatct2.asDto()));
     flushMicrotasks();
     expect(stateContainer.getState().contacts[1]).toEqual(conatct2);
   }));
 
   it('should dispatch contact already exist event when user tries to save a contact with same email or tel', fakeAsync(()=>{
-    service.dispatch(new SaveContactItemCommand({...conatct1, id: "456", tel: "0789698545"}));
+    service.dispatch(new SaveContactItemCommand({...conatct1.asDto(), id: "456", tel: "0789698545"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "this contact already exist with this tel or email"});
   }))
@@ -58,13 +59,13 @@ describe('ContactListDispatcherService', () => {
   }))
 
   it('should dispatch modifyContact command', fakeAsync(()=>{
-    service.dispatch(new ModifyContactItemCommand({...conatct1, tel: "0412121222"}));
+    service.dispatch(new ModifyContactItemCommand({...conatct1.asDto(), tel: "0412121222"}));
     flushMicrotasks();
-    expect(stateContainer.getState().contacts[0].tel).toBe("0412121222");
+    expect(stateContainer.getState().contacts[0].getTel()).toBe("0412121222");
   }))
 
   it('should dispatch cannot modify item event when there is not id in payload', fakeAsync(()=>{
-    service.dispatch(new ModifyContactItemCommand({...conatct1, id: "", tel: "0412121222"}));
+    service.dispatch(new ModifyContactItemCommand({...conatct1.asDto(), id: "", tel: "0412121222"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "cannot modify item without identifier"});
   }))

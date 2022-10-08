@@ -10,8 +10,8 @@ describe('ContactListSelectorService', () => {
   let service: ContactListSelectorService;
   let stateContainer: ContactListStateContainer;
   beforeEach(() => {
-    stateContainer = new ContactListStateContainer(new ContactListEffect(new ContactListFakeRepository()))
-    service = new ContactListSelectorService(stateContainer);
+    service = new ContactListSelectorService();
+    stateContainer = new ContactListStateContainer(new ContactListEffect(new ContactListFakeRepository()), service)
   });
 
   it('should be created', () => {

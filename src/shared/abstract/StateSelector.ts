@@ -1,22 +1,21 @@
 import { BehaviorSubject, map, Observable } from "rxjs";
-import { StateContainer } from "src/core/containers/StateContainer";
 import { BaseState } from "src/core/interfaces/states/BaseState";
 
 
 
 export abstract class StateSelector {
-    id!: string;
+
     protected state$!: BehaviorSubject<any>
 
-    constructor(protected stateContainer: StateContainer){
-        this.stateContainer.attach(this);
+    constructor(){
+        
     }
 
-    public update(): void {
-        this.state$.next(this.stateContainer.getState());
+    public update(state: BaseState): void {
+        this.state$.next(state);
     }
 
-    public getOnException(): Observable<{message: string} | null> {
+    public getException(): Observable<{message: string} | null> {
         return this.state$.asObservable()
         .pipe(map((state: BaseState) => state.onException))
       }

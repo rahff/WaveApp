@@ -1,8 +1,9 @@
 import { TestBed } from "@angular/core/testing";
+import { CalendarEvent } from "src/core/entities/CalendarEvent";
 import { DatabaseModule } from "../modules/database.module";
 import { CalendarRepositoryAdapter } from "./CalendarRepositoryAdapter";
 
-const ref = {id: "133", title: "test event", start: new Date(2022, 8, 5, 5, 0), end: new Date(2022, 8, 5, 8, 0)}
+const ref = new CalendarEvent("test event", new Date(2022, 8, 5, 5, 0), new Date(2022, 8, 5, 8, 0), "147");
 
 describe('CalendarRepositoryAdapter', ()=> {
 
@@ -22,24 +23,24 @@ describe('CalendarRepositoryAdapter', ()=> {
     })
 
     it('should save a new calendar event', async()=> {
-        const savedEvent = await repository.saveCalendarEvent(ref);
+        const savedEvent = await repository.saveCalendarEvent(ref.asDto());
         expect(savedEvent.title).toBe("test event");
     });
 
     it('should get All events', async()=> {
-        const savedEvent = await repository.saveCalendarEvent(ref);
+        const savedEvent = await repository.saveCalendarEvent(ref.asDto());
         const eventList = await repository.getCalendarEvents();
         expect(eventList).toContain(savedEvent);
     })
 
     it('should delete an event', async()=> {
-        const savedRef = await repository.saveCalendarEvent({...ref, title: "rrr"});
+        const savedRef = await repository.saveCalendarEvent({...ref.asDto(), title: "rrr"});
         const deltedId = await repository.deleteCalendarEvent(savedRef.id);
         expect(deltedId).toEqual(savedRef.id);
     });
 
     it('should modify an event', async ()=>{
-        const savedRef = await repository.saveCalendarEvent({...ref, title: "to modify"});
+        const savedRef = await repository.saveCalendarEvent({...ref.asDto(), title: "to modify"});
         const updatedRef = await repository.modifyCalendarEvent({...savedRef, start: new Date(2022, 8, 5, 6, 0), title: "modified"});
         expect(updatedRef.start).toEqual(new Date(2022, 8, 5, 6, 0));
         expect(updatedRef.title).toEqual("modified");

@@ -1,14 +1,14 @@
-import { CalendarEvent } from "src/core/entities/CalendarEvent";
 import { CalendarRepository } from "src/core/ports/driven/CalendarRepository";
-import { fakeCalendarEvent1, fakeCalendarEvent2 } from "./fake-data";
+import { ICalendarEvent } from "../models/ICalendarEvent";
+import { fakeCalendarEvent1, fakeCalendarEvent2, fakeCalendarEvent3 } from "./fake-data";
 
 
 
 export class CalendarFakeRepository implements CalendarRepository {
 
-    modifyCalendarEvent(update: Partial<CalendarEvent>): Promise<CalendarEvent> {
+    modifyCalendarEvent(update: Partial<ICalendarEvent>): Promise<ICalendarEvent> {
         return new Promise((resolve)=> {
-            const updatedEvent: CalendarEvent = {...fakeCalendarEvent1, ...update};
+            const updatedEvent: ICalendarEvent = {...fakeCalendarEvent1.asDto(), ...update};
             resolve(updatedEvent);
         });
     }
@@ -17,16 +17,16 @@ export class CalendarFakeRepository implements CalendarRepository {
         return new Promise((resolve)=> resolve(calendarEventId));
     }
     
-    saveCalendarEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
+    saveCalendarEvent(calendarEvent: ICalendarEvent): Promise<ICalendarEvent> {
         return new Promise((resolve)=>{
-            const savedEvent = {...calendarEvent, id: fakeCalendarEvent2.id};
+            const savedEvent = {...calendarEvent, id: fakeCalendarEvent3.getId()};
             resolve(savedEvent);
         });
     }
 
-    getCalendarEvents(): Promise<CalendarEvent[]> {
+    getCalendarEvents(): Promise<ICalendarEvent[]> {
         return new Promise((resolve)=> {
-            resolve([fakeCalendarEvent1, fakeCalendarEvent2])
+            resolve([fakeCalendarEvent1.asDto(), fakeCalendarEvent2.asDto()])
         })
     }
 

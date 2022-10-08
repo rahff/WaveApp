@@ -1,4 +1,6 @@
 import { DeleteContactItemCommand } from "src/infra/commands/contactList/DeleteContactItemCommand";
+import { contactMapper } from "src/core/mappers/entities/ContactMapper";
+import { IContactItem } from "src/infra/models/IContactIem";
 import { Command } from "src/shared/command/Command";
 import { AddContactItemCommand } from "../commands/contactList/AddContactItemCommand";
 import { RemoveContactItemCommand } from "../commands/contactList/RemoveContactItemCommand";
@@ -8,6 +10,7 @@ import { ContactItem } from "../entities/ContactItem";
 import { CanotModifyItemEvent } from "../events/shared/CanotModifyItemEvent";
 import { ItemAlreadyExistEvent } from "../events/shared/ItemAlreadyExistEvent";
 import { ItemNotExistEvent } from "../events/shared/ItemNotExistEvent";
+import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
 import { ContactListRepository } from "../ports/driven/ContactListRepository";
 
 
@@ -18,15 +21,22 @@ export class ContactListPolicies {
 
     async applyGetContactListPolicies(): Promise<Command> {
         const contactList = await this.repository.getContactList();
-        return new SetContactListCommand(contactList);
+        const entityList = contactList.map((contact: IContactItem) => contactMapper(contact));
+        return new SetContactListCommand(entityList);
     }
 
-    async applySaveContactPolicies(contact: ContactItem): Promise<Command> {
-        const { email, tel } = contact;
-        const isExistingContact = await this.repository.isExistingContactByValues(email, tel);
-        if(isExistingContact) return new ItemAlreadyExistEvent("this contact already exist with this tel or email");
-        const savedContact = await this.repository.saveContact(contact);
-        return new AddContactItemCommand(savedContact);
+    async applySaveContactPolicies(contact: IContactItem): Promise<Command> {
+        try {
+            const _contact = contactMapper(contact);
+            const { email, tel } = _contact.asDto();
+            const isExistingContact = await this.repository.isExistingContactByValues(email, tel);
+            if(isExistingContact) return new ItemAlreadyExistEvent("this contact already exist with this tel or email");
+            const savedContact = await this.repository.saveContact(contact);
+            const savedEntity = contactMapper(savedContact);
+            return new AddContactItemCommand(savedEntity);
+        } catch (error: any) {
+            return new UnknownErrorEvent(error.message);
+        }
     }
 
     async applyDeleteContactPolicies(contactId: string): Promise<Command> {
@@ -36,9 +46,10 @@ export class ContactListPolicies {
         return new RemoveContactItemCommand(deletedId);
     }
 
-    async applyModifyContactPolicies(updated: ContactItem): Promise<Command> {
+    async applyModifyContactPolicies(updated: IContactItem): Promise<Command> {
         if(!updated.id) return new CanotModifyItemEvent("cannot modify item without identifier")
         const updatedContact = await this.repository.modifyContact(updated);
-        return new UpdateContactItemCommand(updatedContact);
+        const updatedEntity = contactMapper(updatedContact)
+        return new UpdateContactItemCommand(updatedEntity);
     }
 }

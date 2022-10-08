@@ -1,37 +1,31 @@
+import { BehaviorSubject } from "rxjs";
 import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { StateSelector } from "src/shared/abstract/StateSelector";
 import { UserEffect } from "../effects/UserEffect";
-import { StateContainer } from "./StateContainer"
+import { BaseState } from "../interfaces/states/BaseState";
 import { UserStateContainer } from "./UserStateContainer";
 
 
 
 class FakeSlector extends StateSelector {
 
-    constructor(stateContainer: StateContainer){
-        super(stateContainer)
-        this.id = "FakeSlector";
+    protected override state$ = new BehaviorSubject<BaseState>({onException: null});
+    constructor(){
+        super();
     }
 }
 
 describe("StateContainer", ()=> {
-    let stateContainer: StateContainer;
+    let stateContainer: UserStateContainer;
     let selector: FakeSlector;
 
     beforeEach(()=>{
-        stateContainer = new UserStateContainer(new UserEffect(new UserFakeRepository()));
-        selector = new FakeSlector(stateContainer);
-        stateContainer.attach(selector);
+        selector = new FakeSlector();
+        stateContainer = new UserStateContainer(new UserEffect(new UserFakeRepository()), selector);
     })
 
-    it('should attach selector only once', ()=> {
-        stateContainer.attach(selector);
-        stateContainer.attach(selector);
-        expect(stateContainer.getSelectors().length).toBe(1);
+    it('should have state selector', ()=> {
+        expect(stateContainer.getSelector()).toBeInstanceOf(StateSelector)
     })
 
-    it("should detach a selector", ()=>{
-        stateContainer.detach(selector);
-        expect(stateContainer.getSelectors().length).toBe(0);
-    })
 })

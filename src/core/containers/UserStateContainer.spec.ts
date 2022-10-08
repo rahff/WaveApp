@@ -6,17 +6,19 @@ import { UserEffect } from "../effects/UserEffect";
 import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
 import { IsNewUserEvent } from "../events/user/IsNewUserEvent";
+import { UserSelectorService } from "src/infra/services/user/user-selector.service";
 
-const user1: User = {id: "", username: "francis", email: "francis@gmail.com", password: "Mot2$asse"};
+const user1: User = new User("francis", "francis@gmail.com", "Mot2$asse", "8488");
 
 describe('UserStateContainer', ()=> {
 
     let userStateContainer: UserStateContainer;
     let userEffect: EffectCreator;
-
+    let selector: UserSelectorService
     beforeEach(()=>{
+        selector = new UserSelectorService();
         userEffect = new UserEffect(new UserFakeRepository());
-        userStateContainer = new UserStateContainer(userEffect);
+        userStateContainer = new UserStateContainer(userEffect, selector);
     })
 
     it('should have a initial state as null user', ()=> {
@@ -27,7 +29,7 @@ describe('UserStateContainer', ()=> {
     it('should update user state', ()=> {
         userStateContainer.dispatch(new SetUserCommand(user1));
         const { user } = userStateContainer.getState();
-        expect(user?.username).toBe("francis");
+        expect(user?.getUsername()).toBe("francis");
     })
 
     it('should set isAuth into the state', ()=>{

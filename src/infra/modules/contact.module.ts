@@ -3,7 +3,9 @@ import { ContactListStateContainer } from 'src/core/containers/ContactListStateC
 import { ContactListEffect } from 'src/core/effects/ContactListEffect';
 import { EffectCreator } from 'src/core/interfaces/EffectCreator';
 import { ContactListRepository } from 'src/core/ports/driven/ContactListRepository';
+import { StateSelector } from 'src/shared/abstract/StateSelector';
 import { ContactListRepositoryAdapter } from '../adapters/ContactListRepositoryAdapter';
+import { ContactListSelectorService } from '../services/contactList/contact-list-selector.service';
 
 
 
@@ -16,8 +18,8 @@ import { ContactListRepositoryAdapter } from '../adapters/ContactListRepositoryA
       deps: [ContactListRepositoryAdapter]
     },
     {
-      provide: ContactListStateContainer, useFactory: (e: EffectCreator) => new ContactListStateContainer(e),
-      deps: [ContactListEffect]
+      provide: ContactListStateContainer, useFactory: (e: EffectCreator, s: StateSelector) => new ContactListStateContainer(e, s),
+      deps: [ContactListEffect, ContactListSelectorService]
     }
   ]
 })

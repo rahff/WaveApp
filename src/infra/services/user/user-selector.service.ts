@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { UserStateContainer } from 'src/core/containers/UserStateContainer';
-import { User } from 'src/core/entities/User';
-import { UserState } from 'src/core/interfaces/states/UserState';
+import { IUser } from 'src/infra/models/IUser';
+import { IUserState } from 'src/shared/abstract/IUserState';
 import { StateSelector } from '../../../shared/abstract/StateSelector';
 
 
@@ -11,32 +10,31 @@ import { StateSelector } from '../../../shared/abstract/StateSelector';
   providedIn: 'root'
 })
 export class UserSelectorService extends StateSelector {
+  private initialState: IUserState = {onException: null, user: null, isNewUser: null, isAuth: false, onWrongPassword: false}
+  override state$ = new BehaviorSubject<IUserState>(this.initialState);
 
-  protected override state$ = new BehaviorSubject<UserState>(this.stateContainer.getState() as UserState);
-
-  constructor(stateContainer: UserStateContainer) {
-    super(stateContainer)
-    this.id = UserSelectorService.name;
+  constructor() {
+    super();
   }
 
-  public getUser(): Observable<User | null> {
+  public getUser(): Observable<IUser | null> {
     return this.state$.asObservable()
-    .pipe(map((state: UserState) => state.user))
+    .pipe(map((state: IUserState) => state.user))
   }
 
   public getIsAuth(): Observable<boolean> {
     return this.state$.asObservable()
-    .pipe(map((state: UserState) => state.isAuth))
+    .pipe(map((state: IUserState) => state.isAuth))
   }
 
   public getOnWrongPassword(): Observable<boolean> {
     return this.state$.asObservable()
-    .pipe(map((state: UserState) => state.onWrongPassword))
+    .pipe(map((state: IUserState) => state.onWrongPassword))
   }
 
   public getIsNewUser(): Observable<boolean | null> {
     return this.state$.asObservable()
-    .pipe(map((state: UserState)=> state.isNewUser));
+    .pipe(map((state: IUserState)=> state.isNewUser));
   }
  
 }

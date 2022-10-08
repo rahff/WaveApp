@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, lastValueFrom, map, Observable, of } from "rxjs";
-import { ContactItem } from "src/core/entities/ContactItem";
-import { User } from "src/core/entities/User";
 import { ContactListRepository } from "src/core/ports/driven/ContactListRepository";
+import { IContactItem } from "../models/IContactIem";
 import { DatabaseModule } from "../modules/database.module";
-import { generateId } from "../utils/generateId";
+import { generateId } from "../utils/generators";
+
+
 
 @Injectable({
     providedIn: DatabaseModule
@@ -14,14 +15,14 @@ export class ContactListRepositoryAdapter implements ContactListRepository {
 
     constructor(private service: NgxIndexedDBService){}
 
-    async getContactList(): Promise<ContactItem[]> {
-        return firstValueFrom(this.service.getAll<ContactItem>("contact")
+    async getContactList(): Promise<IContactItem[]> {
+        return firstValueFrom(this.service.getAll<IContactItem>("contact")
         .pipe(catchError(()=> {throw new Error("something goes wrong")})));
     }
 
-    async saveContact(contact: ContactItem): Promise<ContactItem> {
+    async saveContact(contact: IContactItem): Promise<IContactItem> {
         contact.id = generateId();
-        return firstValueFrom(this.service.add("contact", contact)
+        return await firstValueFrom(this.service.add("contact", contact)
         .pipe(catchError(()=> {throw new Error("failed to save")})));
     }
 
@@ -36,8 +37,8 @@ export class ContactListRepositoryAdapter implements ContactListRepository {
         .pipe(map(()=> true), catchError(()=> of(false)));
     }
 
-    async modifyContact(upadated: ContactItem): Promise<ContactItem> {
-        return firstValueFrom(this.service.update("contact", upadated)
+    async modifyContact(updated: IContactItem): Promise<IContactItem> {
+        return await firstValueFrom(this.service.update("contact", updated)
         .pipe(catchError(()=> {throw new Error("failed to update")})));
     }
 

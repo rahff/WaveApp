@@ -9,6 +9,7 @@ import { ModifyTodoItemCommand } from '../../commands/todoList/ModifyTodoItemCom
 import { SaveTodoListItemCommand } from '../../commands/todoList/SaveTodoListItem';
 import { TodoListFakeRepository } from '../../mocks/TodoListFakeRepository';
 import { TodoListDispatcherService } from './todo-list-dispatcher.service';
+import { TodoListSelectorService } from './todo-list-selector.service';
 
 
 
@@ -16,10 +17,11 @@ describe('TodoListDispatcherService', () => {
   let service: TodoListDispatcherService;
   let stateContainer: TodoListStateContainer;
   let effect: TodoListEffect;
-
+  let stateSelector: TodoListSelectorService;
   beforeEach(() => {
+    stateSelector = new TodoListSelectorService()
     effect = new TodoListEffect(new TodoListFakeRepository())
-    stateContainer = new TodoListStateContainer(effect);
+    stateContainer = new TodoListStateContainer(effect, stateSelector);
     service = new TodoListDispatcherService(stateContainer);
   });
   
@@ -39,13 +41,13 @@ describe('TodoListDispatcherService', () => {
   }))
 
   it('should dispatch saveTodo command', fakeAsync(()=>{
-    service.dispatch(new SaveTodoListItemCommand({...item2, id: "789", description: "new value"}));
+    service.dispatch(new SaveTodoListItemCommand({...item2.asDto(), id: "789", description: "new value"}));
     flushMicrotasks();
-    expect(stateContainer.getState().items[2]?.description).toBe("new value");
+    expect(stateContainer.getState().items[2]?.getDescription()).toBe("new value");
   }))
 
   it('should dispatch todo alredy exist event when the user try to save a todo with same existing description',fakeAsync(()=> {
-    service.dispatch(new SaveTodoListItemCommand({...item2, id: "789", description: "test2"}));
+    service.dispatch(new SaveTodoListItemCommand({...item2.asDto(), id: "789", description: "test2"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "this.todo already exist"});
   }));
@@ -54,7 +56,7 @@ describe('TodoListDispatcherService', () => {
     service.dispatch(new DeleteTodoListItemCommand("123"));
     flushMicrotasks();
     expect(stateContainer.getState().items.length).toBe(1);
-    expect(stateContainer.getState().items[0].id).toBe("456");
+    expect(stateContainer.getState().items[0].getId()).toBe("456");
   }));
 
   it('should dispatch noExistingTodo event when user tries delete an non existing todo', fakeAsync(()=>{
@@ -64,16 +66,16 @@ describe('TodoListDispatcherService', () => {
   }))
 
   it('should dispatch modifyTodoItem command', fakeAsync(()=>{
-    service.dispatch(new ModifyTodoItemCommand({...item2, description: "brand new description"}));
+    service.dispatch(new ModifyTodoItemCommand({...item2.asDto(), description: "brand new description"}));
     flushMicrotasks();
-    expect(stateContainer.getState().items[1].description).toBe("brand new description")
+    expect(stateContainer.getState().items[1].getDescription()).toBe("brand new description")
   }))
 
   it('should dispatch canotModify event when modify item policies are not followed', fakeAsync(()=>{
-    service.dispatch(new ModifyTodoItemCommand({...item1, id: "987", description: "brand new description"}));
+    service.dispatch(new ModifyTodoItemCommand({...item1.asDto(), id: "987", description: "brand new description"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "this todo does not exist"});
-    service.dispatch(new ModifyTodoItemCommand({...item1, id: "", description: "brand new description"}));
+    service.dispatch(new ModifyTodoItemCommand({...item1.asDto(), id: "", description: "brand new description"}));
     flushMicrotasks();
     expect(stateContainer.getState().onException).toEqual({message: "cannot modify without identifier"});
   }))

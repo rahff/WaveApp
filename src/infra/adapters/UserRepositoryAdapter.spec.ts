@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { DatabaseModule } from '../modules/database.module';
-import { generateEmail } from '../utils/generateId';
+import { generateEmail } from '../utils/generators';
 import { UserRepositoryAdapter } from "./UserRepositoryAdapter";
 
 
@@ -24,20 +24,20 @@ describe("UserRepositoryAdapter", ()=> {
     
     it("should save a user", async ()=> {
         const generatedEmail = generateEmail();
-        const result = await repository.saveUser({id: "", username: "Eric", email: generatedEmail, password: "123123"});
+        const result = await repository.saveUser({id: "", username: "Eric", email: generatedEmail, password: "Mot2$asse"});
         expect(result.email).toEqual(generatedEmail);
     })
 
     it('should get the user', async ()=> {
         const generatedEmail = generateEmail()
-        const {id} = await repository.saveUser({id: "", username: "Eric", email: generatedEmail, password: "123123"});
-        const result = await repository.getUser(id);
+        const savedUser = await repository.saveUser({id: "", username: "Eric", email: generatedEmail, password: "Mot2$asse"});
+        const result = await repository.getUser(savedUser.id);
         expect(result.email).toBeDefined();
     })
 
     it('should get default user', async ()=> {
         const generatedEmail = generateEmail();
-        await repository.saveUser({id: "", username: "User", email: generatedEmail, password: "123123"});
+        await repository.saveUser({id: "", username: "User", email: generatedEmail, password: "Mot2$asse"});
         const defaultUser = await repository.getDefaultUser();
         expect(defaultUser).toBeTruthy();
     })
