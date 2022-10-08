@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CalendarStateContainer } from 'src/core/containers/CalendarStateContainer';
-import { EffectCreator } from 'src/core/interfaces/EffectCreator';
 import { CalendarEffect } from 'src/core/effects/CalendarEffect';
 import { CalendarRepository } from 'src/core/ports/driven/CalendarRepository';
 import { CalendarRepositoryAdapter } from '../adapters/CalendarRepositoryAdapter';
@@ -16,7 +15,7 @@ import { CalendarSelectorService } from '../services/calendar/calendar-selector.
       deps: [CalendarRepositoryAdapter]
     },
     {
-      provide: CalendarStateContainer, useFactory: (e: EffectCreator, s: StateSelector) => new CalendarStateContainer(e, s),
+      provide: CalendarStateContainer, useFactory: (e: CalendarEffect, s: StateSelector) => new CalendarStateContainer(e, s),
       deps: [CalendarEffect, CalendarSelectorService]
     }
   ]

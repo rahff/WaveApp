@@ -1,7 +1,7 @@
 import { Command } from "src/shared/command/Command";
-import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
+import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
-import { EffectCreator } from "../interfaces/EffectCreator";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 import { CalendarPolicies } from "../policies/CalendarPolicies";
 import { CalendarRepository } from "../ports/driven/CalendarRepository";
 
@@ -21,25 +21,25 @@ export class CalendarEffect implements EffectCreator {
                 try {
                     return await this.validationPolicy.applyGetCalendarEventsPolicies();
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "saveEvent":
                 try {
                     return await this.validationPolicy.applySaveCalendarEventPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "deleteEvent":
                 try {
                     return await this.validationPolicy.applyDeleteCalendarEventPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "modifyEvent":
                 try {
                     return await this.validationPolicy.applyModifyCalendarEventPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
                 
             default: throw new CommandNotFoundException();

@@ -10,7 +10,7 @@ import { StateSelector } from '../../../shared/abstract/StateSelector';
   providedIn: 'root'
 })
 export class UserSelectorService extends StateSelector {
-  private initialState: IUserState = {onException: null, user: null, isNewUser: null, isAuth: false, onWrongPassword: false}
+  private initialState: IUserState = {onException: null, user: null, isNewUser: null, isAuth: false}
   override state$ = new BehaviorSubject<IUserState>(this.initialState);
 
   constructor() {
@@ -25,11 +25,6 @@ export class UserSelectorService extends StateSelector {
   public getIsAuth(): Observable<boolean> {
     return this.state$.asObservable()
     .pipe(map((state: IUserState) => state.isAuth))
-  }
-
-  public getOnWrongPassword(): Observable<boolean> {
-    return this.state$.asObservable()
-    .pipe(map((state: IUserState) => state.onWrongPassword))
   }
 
   public getIsNewUser(): Observable<boolean | null> {

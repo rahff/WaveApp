@@ -1,7 +1,6 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { UserStateContainer } from 'src/core/containers/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
-import { EffectCreator } from 'src/core/interfaces/EffectCreator';
 import { GetUserCommand } from 'src/infra/commands/user/GetUserCommand';
 import { user1 } from 'src/infra/mocks/fake-data';
 import { SaveUserCommand } from '../../commands/user/SaveUserCommand';
@@ -15,7 +14,7 @@ import { UserSelectorService } from './user-selector.service';
 describe('UserDispatcherService', () => {
   let service: UserDispatcherService;
   let stateContainer: UserStateContainer;
-  const effectCreator: EffectCreator = new UserEffect(new UserFakeRepository());
+  const effectCreator = new UserEffect(new UserFakeRepository());
   const stateSelector = new UserSelectorService()
   beforeEach(() => {
     stateContainer = new UserStateContainer(effectCreator, stateSelector);
@@ -59,6 +58,6 @@ describe('UserDispatcherService', () => {
     service.dispatch(new VerifyPasswordCommand({password: "Mot2$a$$e", id: ""}));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeFalse();
-    expect(stateContainer.getState().onWrongPassword).toBeTrue();
+    expect(stateContainer.getState().onException?.message).toBe('invalid credentials');
   }))
 });

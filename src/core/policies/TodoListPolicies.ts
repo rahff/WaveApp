@@ -9,7 +9,7 @@ import { TodoItem } from "../entities/TodoItem";
 import { CanotModifyItemEvent } from "../events/shared/CanotModifyItemEvent";
 import { ItemAlreadyExistEvent } from "../events/shared/ItemAlreadyExistEvent";
 import { ItemNotExistEvent } from "../events/shared/ItemNotExistEvent";
-import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
+import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { TodoListRepository } from "../ports/driven/TodoListRepository";
 
 export class TodoListPolicies {
@@ -29,7 +29,7 @@ export class TodoListPolicies {
             const todoItemEntity = todoItemMapper(savedItem);
             return new AddTodoListItemCommand(todoItemEntity);
         } catch (error: any) {
-            return new UnknownErrorEvent(error.message);
+            return new ErrorEvent(error.message);
         }
     }
 
@@ -49,7 +49,7 @@ export class TodoListPolicies {
             const todoItemEntity = todoItemMapper(modifiedItem)
             return new UpdateTodoItemCommand(todoItemEntity);  
         } catch (error: any) {
-            return new UnknownErrorEvent(error.message);
+            return new ErrorEvent(error.message);
         }
     }
 

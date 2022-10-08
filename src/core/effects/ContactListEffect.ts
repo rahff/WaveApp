@@ -1,11 +1,7 @@
 import { Command } from "src/shared/command/Command";
-import { AddContactItemCommand } from "../commands/contactList/AddContactItemCommand";
-import { RemoveContactItemCommand } from "../commands/contactList/RemoveContactItemCommand";
-import { SetContactListCommand } from "../commands/contactList/SetContactListCommand";
-import { UpdateContactItemCommand } from "../commands/contactList/UpdateContactItemCommand";
-import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
+import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
-import { EffectCreator } from "../interfaces/EffectCreator";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 import { ContactListPolicies } from "../policies/ContactListPolicies";
 import { ContactListRepository } from "../ports/driven/ContactListRepository";
 
@@ -25,25 +21,25 @@ export class ContactListEffect implements EffectCreator {
                 try {
                     return this.validationPolicy.applyGetContactListPolicies();
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "saveContact":
                 try {
                     return await this.validationPolicy.applySaveContactPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "deleteContact":
                 try {
                     return await this.validationPolicy.applyDeleteContactPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "modifyContact": 
                 try {
                     return await this.validationPolicy.applyModifyContactPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
                 
             default: throw new CommandNotFoundException();

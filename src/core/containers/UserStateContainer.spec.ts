@@ -1,7 +1,7 @@
 import { User } from "../entities/User";
 import { SetUserCommand } from "../commands/user/UserCommand";
 import { UserStateContainer } from "./UserStateContainer";
-import { EffectCreator } from "../interfaces/EffectCreator";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 import { UserEffect } from "../effects/UserEffect";
 import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
 import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";

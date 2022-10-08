@@ -34,9 +34,6 @@ describe('UserSelectorService', () => {
     service.getIsAuth().subscribe((isAuth: boolean)=> {
       expect(isAuth).toEqual(stateContainer.getState().isAuth);
     });
-    service.getOnWrongPassword().subscribe((onWrong: boolean)=> {
-      expect(onWrong).toEqual(stateContainer.getState().onWrongPassword);
-    });
     service.getException().subscribe((exception: {message: string} | null)=> {
       expect(exception).toEqual(stateContainer.getState().onException);
     })

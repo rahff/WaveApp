@@ -1,4 +1,4 @@
-import { EffectCreator } from "../interfaces/EffectCreator";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 import { UserState } from "../interfaces/states/UserState";
 import { StateContainer } from "./StateContainer";
 import { UserStateReducer } from "../reducers/UserStateReducer";
@@ -9,7 +9,7 @@ import { userStateMapper } from "../mappers/states/UserStateMapper";
 
 export class UserStateContainer extends StateContainer{
 
-    protected override state: UserState = { user: null, isAuth: false, onWrongPassword: false, onException: null, isNewUser: null};
+    protected override state: UserState = { user: null, isAuth: false, onException: null, isNewUser: null};
     protected override reducer: UserStateReducer = new UserStateReducer();
 
     constructor(effect: EffectCreator, selector: StateSelector){

@@ -1,9 +1,9 @@
 import { CommandNotFoundException } from "src/core/exceptions/CommandNotFoundException";
 import { BaseState } from "src/core/interfaces/states/BaseState";
-import { EffectCreator } from "src/core/interfaces/EffectCreator";
 import { Reducer } from "src/core/interfaces/Reducer";
 import { Command } from "src/shared/command/Command";
 import { StateSelector } from "src/shared/abstract/StateSelector";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 
 
 

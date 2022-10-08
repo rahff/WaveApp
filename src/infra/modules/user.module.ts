@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { UserStateContainer } from 'src/core/containers/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
-import { EffectCreator } from 'src/core/interfaces/EffectCreator';
 import { UserRepository } from 'src/core/ports/driven/UserRepository';
 import { StateSelector } from 'src/shared/abstract/StateSelector';
 import { UserRepositoryAdapter } from '../adapters/UserRepositoryAdapter';
 import { UserSelectorService } from '../services/user/user-selector.service';
-
 
 
 
@@ -19,7 +17,7 @@ import { UserSelectorService } from '../services/user/user-selector.service';
       deps: [UserRepositoryAdapter]
     },
     {
-      provide: UserStateContainer, useFactory: (e: EffectCreator, s: StateSelector)=> new UserStateContainer(e, s),
+      provide: UserStateContainer, useFactory: (e: UserEffect, s: StateSelector)=> new UserStateContainer(e, s),
       deps: [UserEffect, UserSelectorService]
     }
   ]

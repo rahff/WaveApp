@@ -10,7 +10,7 @@ import { ContactItem } from "../entities/ContactItem";
 import { CanotModifyItemEvent } from "../events/shared/CanotModifyItemEvent";
 import { ItemAlreadyExistEvent } from "../events/shared/ItemAlreadyExistEvent";
 import { ItemNotExistEvent } from "../events/shared/ItemNotExistEvent";
-import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
+import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { ContactListRepository } from "../ports/driven/ContactListRepository";
 
 
@@ -35,7 +35,7 @@ export class ContactListPolicies {
             const savedEntity = contactMapper(savedContact);
             return new AddContactItemCommand(savedEntity);
         } catch (error: any) {
-            return new UnknownErrorEvent(error.message);
+            return new ErrorEvent(error.message);
         }
     }
 

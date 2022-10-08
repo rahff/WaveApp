@@ -1,7 +1,7 @@
 import { Command } from "src/shared/command/Command";
-import { UnknownErrorEvent } from "../events/shared/UnknownErrorEvent";
+import { ErrorEvent } from "../events/shared/ErrorEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
-import { EffectCreator } from "../interfaces/EffectCreator";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 import { TodoListPolicies } from "../policies/TodoListPolicies";
 import { TodoListRepository } from "../ports/driven/TodoListRepository";
 
@@ -21,25 +21,25 @@ export class TodoListEffect implements EffectCreator {
                 try {
                     return await this.validationPolicies.applySaveItemPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "deleteItem":
                 try {
                     return await this.validationPolicies.applyDeleteItemPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "modifyItem":
                 try {
                     return await this.validationPolicies.applyModifyTodoItemPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
             case "getItems":
                 try {
                     return await this.validationPolicies.applyGetTodoListPolicies();
                 } catch (error: any) {
-                    return new UnknownErrorEvent(error.message);
+                    return new ErrorEvent(error.message);
                 }
 
             default: throw new CommandNotFoundException();

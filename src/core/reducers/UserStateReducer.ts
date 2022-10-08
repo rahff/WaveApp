@@ -23,12 +23,6 @@ export class UserStateReducer {
                     isAuth: command.getPayload()
                 };
 
-            case "wrongPassword":
-                return {
-                    ...initialState,
-                    onWrongPassword: true
-                };
-
             case "invalidForm":
                 return {
                     ...initialState,

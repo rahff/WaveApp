@@ -6,7 +6,6 @@ export const userStateMapper = (userState: UserState): IUserState => {
         user: userState.user ? userState.user.asDto() : null,
         isAuth: userState.isAuth,
         isNewUser: userState.isNewUser,
-        onWrongPassword: userState.onWrongPassword,
         onException: userState.onException
     }
 }

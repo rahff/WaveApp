@@ -1,4 +1,4 @@
-import { EffectCreator } from "../interfaces/EffectCreator";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 import { CalendarState } from "../interfaces/states/CalendarState";
 import { StateContainer } from "./StateContainer";
 import { CalendarStateReducer } from "../reducers/CalendarStateReducer";

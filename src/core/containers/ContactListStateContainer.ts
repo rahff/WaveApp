@@ -1,4 +1,4 @@
-import { EffectCreator } from "../interfaces/EffectCreator";
+import { EffectCreator } from "../ports/driver/EffectCreator";
 import { ContactListState } from "../interfaces/states/ ContactListState";
 import { StateContainer } from "./StateContainer"
 import { ContactListStateReducer } from "../reducers/ContactListStateReducer";
