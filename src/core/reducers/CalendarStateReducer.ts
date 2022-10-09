@@ -46,7 +46,6 @@ export class CalendarStateReducer implements Reducer {
                     onException: command.getPayload()
                 };
                 
-
             default: throw new CommandNotFoundException();
         }
     }

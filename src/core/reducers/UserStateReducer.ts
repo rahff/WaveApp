@@ -12,7 +12,7 @@ export class UserStateReducer {
                 return {
                     ...initialState,
                     signupEvent: false,
-                    isAuth: true,
+                    isAuth: false,
                     user: command.getPayload()
                 };
 

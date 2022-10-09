@@ -26,8 +26,8 @@ export class UserEffect implements EffectCreator {
                 }
             case "verifyPassword":
                 try {
-                    const { id, password } = command.getPayload();
-                    return await this.validationPolicies.applyVerifyPasswordPolicies(password, id);
+                    const { email, password } = command.getPayload();
+                    return await this.validationPolicies.applyVerifyPasswordPolicies(password, email);
                 } catch (error: any) {
                     return new ErrorEvent(error.message);
                 }

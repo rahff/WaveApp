@@ -13,11 +13,11 @@ const routes: Routes = [
     path: "signup", component: SignupComponent
   },
   {
-    path: "dashboard", component: DashboardComponent
+    path: "login", component: LoginComponent
   },
   {
-    path: "login", component: LoginComponent
-  }
+    path: "dashboard", loadChildren: ()=> import("../modules/dashboard.module").then(m => m.DashboardModule)
+  },
 ];
 
 @NgModule({

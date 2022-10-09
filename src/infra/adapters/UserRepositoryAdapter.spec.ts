@@ -31,8 +31,8 @@ describe("UserRepositoryAdapter", ()=> {
     it('should get the user', async ()=> {
         const generatedEmail = generateEmail()
         const savedUser = await repository.saveUser({id: "", username: "Eric", email: generatedEmail, password: "Mot2$asse"});
-        const result = await repository.getUser(savedUser.id);
-        expect(result.email).toBeDefined();
+        const result = await repository.getUser(savedUser.email);
+        expect(result.email).toEqual(generatedEmail);
     })
 
     it('should get default user', async ()=> {

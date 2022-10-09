@@ -12,7 +12,7 @@ export class UserFakeRepository implements UserRepository {
         return new Promise((resolve)=> resolve(user1.asDto()));
     }
 
-    getUser(id: string): Promise<IUser> {
+    getUser(email: string): Promise<IUser> {
         return new Promise((resolve)=> resolve(user1.asDto()));
     }
 

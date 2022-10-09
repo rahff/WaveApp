@@ -28,9 +28,9 @@ export class UserRepositoryAdapter implements UserRepository {
         .pipe(catchError(()=> {throw new Error("failed to save")})));
     }
 
-    async getUser(id: string): Promise<IUser> {
-       return await firstValueFrom(this.service.getByID<IUser>("user", id)
-       .pipe(catchError(()=> {throw new Error("something goes wrong")})));
+    async getUser(email: string): Promise<IUser> {      
+       return await firstValueFrom(this.service.getByIndex<IUser>("user", "email", email)
+       .pipe(catchError((err)=> {throw new Error("something goes wrong")})));
     }
 
    

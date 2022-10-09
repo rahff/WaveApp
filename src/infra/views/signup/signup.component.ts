@@ -16,8 +16,9 @@ import { SubscriberComponent } from '../SubscriberComponent';
 })
 export class SignupComponent extends SubscriberComponent implements OnInit {
 
-  public chide: boolean = true;
-  public hide: boolean = true;
+  public focus: boolean = false;
+  public focus1: boolean = false;
+  public focus2: boolean = false;
   public signupForm: FormGroup = new FormGroup({});
 
   constructor(private fb: FormBuilder,

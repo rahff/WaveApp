@@ -14,11 +14,15 @@ export class UserPolicies {
 
     constructor(private repository: UserRepository) {}
 
-    async applyVerifyPasswordPolicies(password: string, id: string): Promise<Action> {
-        const user = await this.repository.getUser(id);
-        const match = user.password === password;
-        if(!match) return new ErrorEvent("invalid credentials");
-        return new SetIsAuthCommand(true);
+    async applyVerifyPasswordPolicies(password: string, email: string): Promise<Action> {
+        try {
+            const user = await this.repository.getUser(email);
+            const match = user.password === password;
+            if(!match) return new ErrorEvent("invalid credentials");
+            return new SetIsAuthCommand(true);
+        } catch (error) {
+            return new ErrorEvent("invalid credential");
+        }
     }  
     async applySaveUserPolicies(user: IUser): Promise<Action> {
         try {

@@ -49,13 +49,13 @@ describe('UserDispatcherService', () => {
   }))
 
   it('should dispatch verifyPassword command', fakeAsync(()=>{
-    service.dispatch(new VerifyPasswordCommand({password: "Mot2$asse", id: ""}));
+    service.dispatch(new VerifyPasswordCommand({password: "Mot2$asse", email: ""}));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeTrue();
   }));
 
   it('should dispatch WrongPassword event', fakeAsync(()=>{
-    service.dispatch(new VerifyPasswordCommand({password: "Mot2$a$$e", id: ""}));
+    service.dispatch(new VerifyPasswordCommand({password: "Mot2$a$$e", email: ""}));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeFalse();
     expect(stateContainer.getState().onException?.message).toBe('invalid credentials');
