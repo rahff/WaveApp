@@ -1,1 +1,77 @@
-<p>contact works!</p>
+<div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Card tables</h3>
+        </div>
+        <div class="table-responsive" *ngIf="contactList$ | async; let contactList">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Tel</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let contact of contactList">
+                <th  scope="row">
+                  <div class="media align-items-center">
+                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                      <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
+                    </a>
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{contact.name}} {{contact.firstname}}</span>
+                    </div>
+                  </div>
+                </th>
+                <td>
+                    <i class="bi bi-email"></i> {{contact.email}}
+                </td>
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <i class="bi bi-mobile"></i> {{contact.tel}}
+                  </span>
+                </td>
+        
+                <td class="text-right">
+                  <div placement="bottom-right">
+                    <a class="btn btn-sm text-light">
+                      <i style="font-size: 25px;" class="bi bi-envelope-plus"></i>
+                    </a>
+            
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                  <i class="ni ni-bold-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                  <i class="ni ni-bold-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>

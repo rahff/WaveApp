@@ -35,7 +35,7 @@ describe('TodoListDispatcherService', () => {
 
   it('should dispatch getTodoList command', fakeAsync(()=> {
     stateContainer.dispatch(new SetTodoListItemsCommand([]));
-    service.dispatch(new GetTodoListItemsCommand(null));
+    service.dispatch(new GetTodoListItemsCommand());
     flushMicrotasks();
     expect(stateContainer.getState().items).toEqual([item1, item2])
   }))

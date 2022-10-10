@@ -30,4 +30,6 @@ const ROUTES: Routes = [
   imports: [RouterModule.forChild(ROUTES)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {
+  public static viewComponents = [DashboardComponent, CalendarComponent, ContactComponent, TodoComponent]
+}

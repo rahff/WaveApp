@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { CalendarEvent } from 'src/core/entities/CalendarEvent';
-import { CalendarState } from 'src/core/interfaces/states/CalendarState';
+import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
+import { ICalendarState } from 'src/shared/abstract/ICalendarState';
 import { StateSelector } from '../../../shared/abstract/StateSelector';
 
 
@@ -11,14 +11,14 @@ import { StateSelector } from '../../../shared/abstract/StateSelector';
 })
 export class CalendarSelectorService extends StateSelector {
 
-  protected override state$ = new BehaviorSubject<CalendarState>({onException: null, events: []});
+  protected override state$ = new BehaviorSubject<ICalendarState>({onException: null, events: []});
 
   constructor() {
     super();
   }
 
-  public getCalendarEvents(): Observable<CalendarEvent[]> {
+  public getCalendarEvents(): Observable<ICalendarEvent[]> {
     return this.state$.asObservable()
-    .pipe(map((state: CalendarState) => state.events))
+    .pipe(map((state: ICalendarState) => state.events))
   }
 }

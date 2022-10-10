@@ -1,7 +1,7 @@
 import { TodoListStateContainer } from 'src/core/containers/TodoListStateContainer';
 import { TodoListEffect } from 'src/core/effects/TodoListEffect';
-import { TodoItem } from 'src/core/entities/TodoItem';
 import { TodoListFakeRepository } from 'src/infra/mocks/TodoListFakeRepository';
+import { ITodoItem } from 'src/infra/models/ITodoItem';
 import { TodoListSelectorService } from './todo-list-selector.service';
 
 
@@ -21,8 +21,8 @@ describe('TodoListSelectorService', () => {
   });
 
   it('should observe state of container', ()=>{
-    service.getTodoList().subscribe((list: TodoItem[]) =>{
-      expect(list).toEqual(stateContainer.getState().items);
+    service.getTodoList().subscribe((list: ITodoItem[]) =>{
+      expect(list).toEqual( stateContainer.getState().items.map((item)=> item.asDto()));
     });
   })
 });

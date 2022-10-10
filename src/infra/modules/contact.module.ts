@@ -9,8 +9,6 @@ import { ContactListSelectorService } from '../services/contactList/contact-list
 
 
 @NgModule({
-  declarations: [],
-  imports: [],
   providers: [
     {
       provide: ContactListEffect, useFactory: (r: ContactListRepository) => new ContactListEffect(r),

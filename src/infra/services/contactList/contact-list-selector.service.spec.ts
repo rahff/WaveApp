@@ -1,7 +1,7 @@
 import { ContactListStateContainer } from 'src/core/containers/ContactListStateContainer';
 import { ContactListEffect } from 'src/core/effects/ContactListEffect';
-import { ContactItem } from 'src/core/entities/ContactItem';
 import { ContactListFakeRepository } from 'src/infra/mocks/ContactListFakeRepository';
+import { IContactItem } from 'src/infra/models/IContactIem';
 import { ContactListSelectorService } from './contact-list-selector.service';
 
 
@@ -19,8 +19,8 @@ describe('ContactListSelectorService', () => {
   });
 
   it('should observe state of container', ()=>{
-    service.getContactList().subscribe((list: ContactItem[])=>{
-      expect(list).toEqual(stateContainer.getState().contacts);
+    service.getContactList().subscribe((list: IContactItem[])=>{
+      expect(list).toEqual(stateContainer.getState().contacts.map((item)=> item.asDto()));
     })
   })
 });

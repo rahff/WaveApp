@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { ContactItem } from 'src/core/entities/ContactItem';
 import { ContactListState } from 'src/core/interfaces/states/ ContactListState';
+import { IContactItem } from 'src/infra/models/IContactIem';
+import { IContactListState } from 'src/shared/abstract/IContactListState';
 import { StateSelector } from '../../../shared/abstract/StateSelector';
 
 
@@ -11,14 +12,14 @@ import { StateSelector } from '../../../shared/abstract/StateSelector';
 })
 export class ContactListSelectorService extends StateSelector{
 
-  protected override state$ = new BehaviorSubject<ContactListState>({onException: null, contacts: []});
+  protected override state$ = new BehaviorSubject<IContactListState>({onException: null, contacts: []});
 
   constructor() {
     super();
   }
 
-  public getContactList(): Observable<ContactItem[]> {
+  public getContactList(): Observable<IContactItem[]> {
     return this.state$.asObservable()
-    .pipe(map((state: ContactListState) => state.contacts));
+    .pipe(map((state: IContactListState) => state.contacts));
   }
 }

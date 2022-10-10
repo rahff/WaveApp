@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ContactItem } from "src/core/entities/ContactItem";
+import { IContactItem } from "src/infra/models/IContactIem";
+import { ContactModule } from "src/infra/modules/contact.module";
 import { Facade } from "src/shared/abstract/Facade";
 import { ContactListDispatcherService } from "./contact-list-dispatcher.service";
 import { ContactListSelectorService } from "./contact-list-selector.service";
@@ -8,7 +9,7 @@ import { ContactListSelectorService } from "./contact-list-selector.service";
 
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: ContactModule
 })
 export class ContactListFacade extends Facade<ContactListSelectorService> {
 
@@ -16,7 +17,7 @@ export class ContactListFacade extends Facade<ContactListSelectorService> {
         super(dispatcher)
     }
 
-    public getContactList(): Observable<ContactItem[]> {
+    public getContactList(): Observable<IContactItem[]> {
         return this.dispatcher.stateSelector.getContactList();
     }
 }

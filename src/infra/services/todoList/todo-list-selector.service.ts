@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { TodoItem } from 'src/core/entities/TodoItem';
-import { TodoListState } from 'src/core/interfaces/states/TodoListState';
+import { ITodoItem } from 'src/infra/models/ITodoItem';
+import { ITodoListState } from 'src/shared/abstract/ITodoListState';
 import { StateSelector } from '../../../shared/abstract/StateSelector';
 
 
@@ -11,15 +11,15 @@ import { StateSelector } from '../../../shared/abstract/StateSelector';
 })
 export class TodoListSelectorService extends StateSelector {
 
-  protected override state$ = new BehaviorSubject<TodoListState>({onException: null, items: []});
+  protected override state$ = new BehaviorSubject<ITodoListState>({onException: null, items: []});
 
   constructor() {
     super();
   }
 
-  public getTodoList(): Observable<TodoItem[]> {
+  public getTodoList(): Observable<ITodoItem[]> {
     return this.state$.asObservable()
-    .pipe(map((state: TodoListState)=> state.items));
+    .pipe(map((state: ITodoListState)=> state.items));
   }
 
 }

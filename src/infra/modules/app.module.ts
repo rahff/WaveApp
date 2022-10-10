@@ -9,6 +9,7 @@ import { SignupComponent } from '../views/signup/signup.component';
 import { AppComponent } from '../views/app/app.component';
 import { SharedModule } from './shared.module';
 import { LoginComponent } from '../views/login/login.component';
+import { CoreModule } from './core.module';
 
 
 
@@ -23,6 +24,7 @@ import { LoginComponent } from '../views/login/login.component';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
+    CoreModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:10000'

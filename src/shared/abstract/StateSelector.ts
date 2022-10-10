@@ -1,5 +1,5 @@
 import { BehaviorSubject, map, Observable } from "rxjs";
-import { BaseState } from "src/core/interfaces/states/BaseState";
+import { IBaseState } from "./IBaseState";
 
 
 
@@ -11,13 +11,13 @@ export abstract class StateSelector {
         
     }
 
-    public update(state: BaseState): void {
+    public update(state: IBaseState): void {
         this.state$.next(state);
     }
 
     public getException(): Observable<{message: string} | null> {
         return this.state$.asObservable()
-        .pipe(map((state: BaseState) => state.onException))
+        .pipe(map((state: IBaseState) => state.onException))
       }
 
 }

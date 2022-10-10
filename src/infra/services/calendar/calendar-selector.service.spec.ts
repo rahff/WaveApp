@@ -3,6 +3,7 @@ import { CalendarStateContainer } from 'src/core/containers/CalendarStateContain
 import { CalendarEffect } from 'src/core/effects/CalendarEffect';
 import { CalendarEvent } from 'src/core/entities/CalendarEvent';
 import { CalendarFakeRepository } from 'src/infra/mocks/CalendarFakeRepository';
+import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
 
 import { CalendarSelectorService } from './calendar-selector.service';
 
@@ -19,8 +20,8 @@ describe('CalendarSelectorService', () => {
   });
 
   it('should observe state of container', ()=>{
-    service.getCalendarEvents().subscribe((events: CalendarEvent[])=>{
-      expect(events).toEqual(stateContainer.getState().events);
+    service.getCalendarEvents().subscribe((events: ICalendarEvent[])=>{
+      expect(events).toEqual(stateContainer.getState().events.map((item)=> item.asDto()));
     })
   })
 });
