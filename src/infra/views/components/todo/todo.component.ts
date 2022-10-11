@@ -17,8 +17,7 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoFacade.dispatch(new GetTodoListItemsCommand());
-    this.todoList$ = this.todoFacade.getTodoList()
-
+    this.todoList$ = this.todoFacade.getTodoList();
   }
 
 }

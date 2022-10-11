@@ -8,6 +8,7 @@ import { UserRepository } from 'src/core/ports/driven/UserRepository';
 import { EffectCreator } from 'src/core/ports/driver/EffectCreator';
 import { UserRepositoryAdapter } from 'src/infra/adapters/UserRepositoryAdapter';
 import { DatabaseModule } from 'src/infra/modules/database.module';
+import { UserModule } from 'src/infra/modules/user.module';
 import { UserSelectorService } from 'src/infra/services/user/user-selector.service';
 import { StateSelector } from 'src/shared/abstract/StateSelector';
 import { SignupComponent } from './signup.component';
@@ -23,7 +24,8 @@ describe('SignupComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        DatabaseModule
+        DatabaseModule,
+        UserModule
       ],
       providers: [
         {

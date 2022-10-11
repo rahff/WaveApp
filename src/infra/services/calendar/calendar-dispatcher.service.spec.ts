@@ -41,8 +41,6 @@ describe('CalendarDispatcherService', () => {
   it('should dispatch saveEvent command', fakeAsync(()=>{
     service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent3.asDto()));
     flushMicrotasks();
-    console.log('state', stateContainer.getState());
-    
     expect(stateContainer.getState().events[1]).toEqual(fakeCalendarEvent3);
   }));
 

@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/core';
+import { lastValueFrom, Observable, Observer } from 'rxjs';
+import { GetCalendarEventsCommand } from 'src/infra/commands/calendar/GetCalendarEventsCommand';
+import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
+import { CalendarFacade } from 'src/infra/services/calendar/CalendarFacade';
+import { SubscriberComponent } from '../../SubscriberComponent';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent extends SubscriberComponent implements OnInit {
 
-  public calendarOptions: any = {
+  public calendarOptions: CalendarOptions = {
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev,next',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      right: 'dayGridMonth,timeGridWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: [], // alternatively, use the `events` setting to fetch from a feed
+    events: [], // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
     selectable: true,
@@ -22,11 +28,23 @@ export class CalendarComponent implements OnInit {
     dayMaxEvents: true,
     // select: this.handleDateSelect.bind(this),
     // eventClick: this.handleEventClick.bind(this),
-    // eventsSet: this.handleEvents.bind(this)
   }
-  constructor() { }
+  constructor(private calendarFacade: CalendarFacade) {
+    super()
+  }
 
   ngOnInit(): void {
+    this.calendarFacade.dispatch(new GetCalendarEventsCommand());
+    this.addListenerForCalendarEvent();
+  }
+
+  private addListenerForCalendarEvent(): void {
+    this.subscription.add(this.calendarFacade.getCalendarEvent()
+    .subscribe({next: this.setEventList.bind(this)}));
+  }
+
+  private setEventList(list: ICalendarEvent[]): void {
+    this.calendarOptions.events = list;
   }
 
 }

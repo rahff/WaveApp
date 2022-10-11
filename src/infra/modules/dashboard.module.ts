@@ -8,6 +8,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -27,7 +29,9 @@ FullCalendarModule.registerPlugins([
   imports: [
     DashboardRoutingModule,
     CoreModule,
-    FullCalendarModule
+    FullCalendarModule,
+    FormsModule,
+    FlatpickrModule.forRoot()
   ]
 })
 export class DashboardModule { }

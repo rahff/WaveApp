@@ -7,7 +7,8 @@ import { ContactListRepositoryAdapter } from "./ContactListRepositoryAdapter";
 
 const generatedEmail = generateEmail();
 const generatedTel = generateTel();
-const itemRef: IContactItem = {name: "Jamy", firstname: "Fred", email: generatedEmail, id: "", tel: generatedTel }
+const itemRef: IContactItem = {name: "Jamy", firstname: "Fred", email: generatedEmail, id: "", tel: generatedTel };
+const itemRef2: IContactItem = {name: "test", firstname: "tester", id: generateId(), email: generateEmail(), tel: generateTel()};
 
 describe("ContactListRepositoryAdapter", ()=> {
 
@@ -32,6 +33,7 @@ describe("ContactListRepositoryAdapter", ()=> {
     });
 
     it('should get the contact list', async ()=>{
+        const newContact = await repository.saveContact(itemRef2);
         const contactList = await repository.getContactList();
         expect(contactList.length).toBeGreaterThan(0);
     })
@@ -55,8 +57,6 @@ describe("ContactListRepositoryAdapter", ()=> {
     it('should verify existance of value in db', async ()=>{
         const _generatedEmail = generateEmail();
         const _generatedTel = generateTel();
-        console.log("tel g : ", _generatedTel);
-        
         await repository.saveContact({...itemRef, id: generateId(),  email: _generatedEmail, tel: generateTel()});
         await repository.saveContact({...itemRef, id: generateId(), tel: _generatedTel, email: generateEmail()});
         const isExistingValues = await repository.isExistingContactByValues("notExistingEmail@gmail.com", "0236333210");

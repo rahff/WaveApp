@@ -2,6 +2,10 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.nav-item {
+.nav-item, .cursor {
     cursor: pointer;
+}
+.scale-hover:hover {
+    transform: scale(1.1);
+    transition: all 800ms;
 }

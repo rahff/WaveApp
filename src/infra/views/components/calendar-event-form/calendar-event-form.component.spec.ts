@@ -1,22 +1,20 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavBarComponent } from './nav-bar.component';
+import { CalendarEventFormComponent } from './calendar-event-form.component';
 
-describe('NavBarComponent', () => {
-  let component: NavBarComponent;
-  let fixture: ComponentFixture<NavBarComponent>;
+describe('CalendarEventFormComponent', () => {
+  let component: CalendarEventFormComponent;
+  let fixture: ComponentFixture<CalendarEventFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavBarComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [ CalendarEventFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavBarComponent);
+    fixture = TestBed.createComponent(CalendarEventFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
