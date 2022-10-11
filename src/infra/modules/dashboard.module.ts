@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { DashboardRoutingModule } from '../routes/dashboard-routing.module';
 import { HeaderComponent } from '../views/components/header/header.component';
@@ -8,9 +8,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { FormsModule } from '@angular/forms';
-
 
 
 FullCalendarModule.registerPlugins([
@@ -29,9 +26,7 @@ FullCalendarModule.registerPlugins([
   imports: [
     DashboardRoutingModule,
     CoreModule,
-    FullCalendarModule,
-    FormsModule,
-    FlatpickrModule.forRoot()
+    FullCalendarModule
   ]
 })
 export class DashboardModule { }

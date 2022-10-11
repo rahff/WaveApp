@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
-import { lastValueFrom, Observable, Observer } from 'rxjs';
+import { CalendarOptions } from '@fullcalendar/angular';
 import { GetCalendarEventsCommand } from 'src/infra/commands/calendar/GetCalendarEventsCommand';
 import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
 import { CalendarFacade } from 'src/infra/services/calendar/CalendarFacade';
