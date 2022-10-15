@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { conatct1, conatct2 } from 'src/infra/mocks/fake-data';
 import { IContactItem } from 'src/infra/models/IContactIem';
@@ -14,7 +15,7 @@ describe('ContactComponent', () => {
   beforeEach(async () => {
     facadeSpy =  jasmine.createSpyObj("ContactListFacade", ["dispatch", "getContactList"])
     await TestBed.configureTestingModule({
-      imports: [DashboardModule],
+      imports: [DashboardModule, RouterTestingModule],
       declarations: [ ContactComponent ],
       providers: [
         {

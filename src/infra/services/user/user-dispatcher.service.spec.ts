@@ -33,6 +33,7 @@ describe('UserDispatcherService', () => {
 
   it('should dispatch saveUser command', fakeAsync(()=>{
     service.dispatch(new SaveUserCommand(user1.asDto()));
+    user1.setIsAuth(true);
     flushMicrotasks();
     expect(stateContainer.getState().user).toEqual(user1);
     expect(stateContainer.getState().onException).toBeNull();

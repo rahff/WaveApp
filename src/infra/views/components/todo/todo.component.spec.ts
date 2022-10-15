@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { item1, item2 } from 'src/infra/mocks/fake-data';
 import { ITodoItem } from 'src/infra/models/ITodoItem';
@@ -14,7 +16,7 @@ describe('TodoComponent', () => {
   beforeEach(async () => {
     todoFacadeSpy = jasmine.createSpyObj('TodoListFacade', ["dispatch", "getTodoList"])
     await TestBed.configureTestingModule({
-      imports: [DashboardModule],
+      imports: [DashboardModule, RouterTestingModule],
       providers: [
         {
           provide: TodoListFacade, useValue: todoFacadeSpy

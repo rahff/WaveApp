@@ -1,5 +1,5 @@
 
-import { ErrorEvent } from "../events/shared/ErrorEvent";
+import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { CalendarPolicies } from "../policies/CalendarPolicies";
@@ -22,25 +22,25 @@ export class CalendarEffect implements EffectCreator {
                 try {
                     return await this.validationPolicy.applyGetCalendarEventsPolicies();
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "saveEvent":
                 try {
                     return await this.validationPolicy.applySaveCalendarEventPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "deleteEvent":
                 try {
                     return await this.validationPolicy.applyDeleteCalendarEventPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "modifyEvent":
                 try {
                     return await this.validationPolicy.applyModifyCalendarEventPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
                 
             default: throw new CommandNotFoundException();

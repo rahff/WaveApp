@@ -19,7 +19,8 @@ export class CalendarStateReducer implements Reducer {
             case "addEvent":
                 return {
                     ...initialState,
-                    events: [...initialState.events, command.getPayload()]
+                    events: [...initialState.events, command.getPayload()],
+                    onSuccessSave: true
                 };
 
             case "removeEvent":
@@ -31,21 +32,28 @@ export class CalendarStateReducer implements Reducer {
             case "updateEvent":
                 return {
                     ...initialState,
-                    events: this.updateEvent(initialState.events, command.getPayload())
+                    events: this.updateEvent(initialState.events, command.getPayload()),
+                    onSuccessSave: true
                 };
 
-            case "onError": 
+            case "onException": 
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
                 };
 
-            case "exceptionThrowed": 
+            case "exceptionHandled": 
                 return {
                     ...initialState,
                     onException: command.getPayload()
                 };
-                
+
+            case "eventSaved":
+                return {
+                    ...initialState,
+                    onSuccessSave: false
+                }
+
             default: throw new CommandNotFoundException();
         }
     }

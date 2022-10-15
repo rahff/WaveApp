@@ -4,5 +4,6 @@ import { IBaseState } from "./IBaseState";
 
 
 export interface IContactListState extends IBaseState {
-    contacts: IContactItem[]
+    contacts: IContactItem[],
+    onSuccessSave: boolean
 }

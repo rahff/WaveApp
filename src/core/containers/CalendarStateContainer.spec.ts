@@ -34,6 +34,7 @@ describe("CalendarStateContainer", ()=> {
     it('should add an event into state list', ()=>{
         stateContainer.dispatch(new AddCalendarEventCommand(fakeCalendarEvent2));
         expect(stateContainer.getState().events[1]).toEqual(fakeCalendarEvent2);
+        expect(stateContainer.getState().onSuccessSave).toBeTrue();
     });
 
     it('should remove an event into the state list', ()=>{
@@ -45,5 +46,6 @@ describe("CalendarStateContainer", ()=> {
         const updated = new CalendarEvent(fakeCalendarEvent1.getTitle(), new Date(2018, 9, 22, 11, 0), fakeCalendarEvent1.getEnd(), fakeCalendarEvent1.getId());
         stateContainer.dispatch(new UpdateCalendarEventCommand(updated));
         expect(stateContainer.getState().events[0].getStart()).toEqual(new Date(2018, 9, 22, 11, 0));
+        expect(stateContainer.getState().onSuccessSave).toBeTrue();
     });
 })

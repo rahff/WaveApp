@@ -24,5 +24,8 @@ describe('TodoListSelectorService', () => {
     service.getTodoList().subscribe((list: ITodoItem[]) =>{
       expect(list).toEqual( stateContainer.getState().items.map((item)=> item.asDto()));
     });
+    service.getSuccessSaveEvent().subscribe((event: boolean) =>{
+      expect(event).toEqual( stateContainer.getState().onSuccessSave);
+    });
   })
 });

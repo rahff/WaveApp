@@ -22,7 +22,7 @@ export class UserSelectorService extends StateSelector {
     .pipe(map((state: IUserState) => state.user))
   }
 
-  public getIsAuth(): Observable<boolean> {
+  public getIsAuth(): Observable<boolean | undefined> {
     return this.state$.asObservable()
     .pipe(map((state: IUserState) => state.isAuth))
   }

@@ -4,9 +4,9 @@ import { IContactItem } from "src/infra/models/IContactIem";
 
 export class ContactItem {
 
-    constructor(private name: string, private firstname: string, private email: string, private tel: string, private id: string){
+    constructor(private name: string, private firstname: string, private email: string, private tel: string | null, private id: string){
         this.checkEmailValidity(this.email);
-        this.checkTelvalidity(this.tel);
+        if(this.tel) this.checkTelvalidity(this.tel);
     }
 
     private checkEmailValidity(email: string): void {
@@ -36,7 +36,7 @@ export class ContactItem {
         return this.email;
     }
 
-    public getTel(): string {
+    public getTel(): string | null{
         return this.tel;
     }
 

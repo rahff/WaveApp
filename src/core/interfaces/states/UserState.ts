@@ -3,6 +3,6 @@ import { BaseState } from "./BaseState";
 
 export interface UserState extends BaseState {
     user: User | null;
-    isAuth: boolean;
+    isAuth: boolean | undefined;
     signupEvent: boolean | null
 }

@@ -43,9 +43,12 @@ export class ContactListRepositoryAdapter implements ContactListRepository {
     }
 
     async isExistingContactByValues(email: string, tel: string): Promise<boolean> {
+        if(tel) {
+            const isExistByTel = await firstValueFrom(this.service.getByIndex('contact', 'tel', tel));
+            if(isExistByTel) return true;
+        }
         const isExistByEmail = await firstValueFrom(this.service.getByIndex('contact', 'email', email));
-        const isExistByTel = await firstValueFrom(this.service.getByIndex('contact', 'tel', tel));
-        if(isExistByEmail || isExistByTel) return true;
+        if(isExistByEmail) return true;
         return false;
     }
 

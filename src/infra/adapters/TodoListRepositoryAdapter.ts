@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, map, Observable, of } from "rxjs";
-import { TodoItem } from "src/core/entities/TodoItem";
 import { TodoListRepository } from "src/core/ports/driven/TodoListRepository";
-import { todoItemMapper } from "../../core/mappers/entities/TodoItemMapper";
 import { ITodoItem } from "../models/ITodoItem";
 import { DatabaseModule } from "../modules/database.module";
+import { generateId } from "../utils/generators";
+
 
 @Injectable({
     providedIn: DatabaseModule
@@ -15,6 +15,7 @@ export class TodoListRepositoryAdapter implements TodoListRepository {
     constructor(private service: NgxIndexedDBService){}
 
     async saveItem(item: ITodoItem): Promise<ITodoItem> {
+        item.id = generateId();
         return await firstValueFrom(this.service.add('todo', item)
         .pipe(catchError(()=> {throw new Error("failed to save")})));
     }

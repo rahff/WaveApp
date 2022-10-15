@@ -4,4 +4,5 @@ import { IBaseState } from "./IBaseState";
 
 export interface ITodoListState extends IBaseState {
     items: ITodoItem[];
+    onSuccessSave: boolean
 }

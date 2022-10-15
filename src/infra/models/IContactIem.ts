@@ -1,6 +1,6 @@
 export interface IContactItem {
     email: string;
-    tel: string;
+    tel: string | null;
     name: string;
     firstname: string;
     id: string;

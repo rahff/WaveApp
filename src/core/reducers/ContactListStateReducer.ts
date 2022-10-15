@@ -19,7 +19,8 @@ export class ContactListStateReducer implements Reducer {
             case "addContact":
                 return {
                     ...initialState,
-                    contacts: [...initialState.contacts, command.getPayload()]
+                    contacts: [...initialState.contacts, command.getPayload()],
+                    onSuccessSave: true
                 };
 
             case "removeContact":
@@ -31,19 +32,26 @@ export class ContactListStateReducer implements Reducer {
             case "updateContact":
                 return {
                     ...initialState,
-                    contacts: this.updateContact(initialState.contacts, command.getPayload())
+                    contacts: this.updateContact(initialState.contacts, command.getPayload()),
+                    onSuccessSave: true
                 };
                 
-            case "onError": 
+            case "onException": 
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
                 }
                 
-            case "exceptionThrowed": 
+            case "exceptionHandled": 
                 return {
                     ...initialState,
                     onException: command.getPayload()
+                }
+
+            case "contactSaved":
+                return {
+                    ...initialState,
+                    onSuccessSave: false
                 }
 
             default: throw new CommandNotFoundException();

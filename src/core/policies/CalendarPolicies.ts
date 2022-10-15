@@ -6,7 +6,7 @@ import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarE
 import { SetEventListCommand } from "../commands/calendar/SetEventListCommand";
 import { UpdateCalendarEventCommand } from "../commands/calendar/UpdateCalendarEventCommand";
 import { CalendarEvent } from "../entities/CalendarEvent";
-import { ErrorEvent } from "../events/shared/ErrorEvent";
+import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { CalendarRepository } from "../ports/driven/CalendarRepository";
 
 
@@ -31,8 +31,8 @@ export class CalendarPolicies {
                 return new AddCalendarEventCommand(eventEntity);
             }
             return invalidRegistration;
-        } catch (error) {
-            return new ErrorEvent("end of the event must be after his start");
+        } catch (error: any) {
+            return new ExceptionEvent(error.message);
         }
     }
 
@@ -48,9 +48,9 @@ export class CalendarPolicies {
     }
 
     private async isInvalidRegistration(calendarEvent: CalendarEvent, dateRef?: Date): Promise<Action | null > {
-        if(this.isInPast(calendarEvent.getStart(), dateRef)) return new ErrorEvent("event start must be in the futur");
+        if(this.isInPast(calendarEvent.getStart(), dateRef)) return new ExceptionEvent("event start must be in the futur");
         const allEvents = await this.repository.getCalendarEvents();
-        if(this.haveEventAtSameTime(calendarEvent, allEvents)) return new ErrorEvent("cannot have two event at the same time");
+        if(this.haveEventAtSameTime(calendarEvent, allEvents)) return new ExceptionEvent("cannot have two event at the same time");
         return null;
     }
 

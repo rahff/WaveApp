@@ -31,7 +31,7 @@ describe('UserSelectorService', () => {
     service.getUser().subscribe((user: IUser | null)=> {
       expect(user).toEqual(stateContainer.getState().user?.asDto() as IUser || null);
     });
-    service.getIsAuth().subscribe((isAuth: boolean)=> {
+    service.getIsAuth().subscribe((isAuth: boolean | undefined)=> {
       expect(isAuth).toEqual(stateContainer.getState().isAuth);
     });
     service.getException().subscribe((exception: {message: string} | null)=> {
@@ -45,7 +45,7 @@ describe('UserSelectorService', () => {
       expect(user).toEqual(userRef.asDto())
     });
     stateContainer.dispatch(new SetIsAuthCommand(true));
-    service.getIsAuth().subscribe((isAuth: boolean)=>{
+    service.getIsAuth().subscribe((isAuth: boolean | undefined)=>{
       expect(isAuth).toBeTrue();
     })
   })

@@ -1,8 +1,11 @@
 <div class="row">
     <div class="col">
       <div class="card shadow">
-        <div class="card-header border-0">
-          <h3 class="mb-0">Card tables</h3>
+        <div class="card-header d-flex border-0 justify-content-between">
+          <h3 class="mb-0">Your Todo list</h3>
+          <button [routerLink]="['/dashboard', 'add-todo']" class="btn btn-primary">
+            Add Todo
+          </button>
         </div>
         <div class="table-responsive" *ngIf="todoList$ | async; let todoList">
           <table class="table align-items-center table-flush">
@@ -17,11 +20,14 @@
               <tr *ngFor="let todo of todoList">
                 <th  scope="row">
                   <div class="media align-items-center">
-                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                      <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
-                    </a>
                     <div class="media-body">
-                      <span class="mb-0 text-sm">{{todo.status}}</span>
+                      <div class="form-check form-switch">
+                        <input (change)="doneTodo(todo)" 
+                        class="form-check-input" type="checkbox" 
+                        [checked]="todo.status"
+                        [disabled]="todo.status">
+                        <label class="form-check-label">{{todo.status ? "Done": "On-going"}}</label>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -30,8 +36,8 @@
                 </td>
                 <td class="text-right">
                   <div placement="bottom-right">
-                    <a class="btn btn-sm text-light">
-                      <i style="font-size: 25px;" class="bi bi-envelope-plus"></i>
+                    <a (click)="deleteTodo(todo.id)" class="btn btn-sm text-light">
+                      <i style="font-size: 25px;" class="bi bi-trash3"></i>
                     </a>
                   </div>
                 </td>
@@ -43,20 +49,20 @@
           <nav aria-label="...">
             <ul class="pagination justify-content-end mb-0">
               <li class="page-item disabled">
-                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                <a class="page-link"  tabindex="-1">
                   <i class="ni ni-bold-left"></i>
                   <span class="sr-only">Previous</span>
                 </a>
               </li>
               <li class="page-item active">
-                <a class="page-link" href="javascript:void(0)">1</a>
+                <a class="page-link">1</a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
+                <a class="page-link">2 <span class="sr-only">(current)</span></a>
               </li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+              <li class="page-item"><a class="page-link" >3</a></li>
               <li class="page-item">
-                <a class="page-link" href="javascript:void(0)">
+                <a class="page-link" >
                   <i class="ni ni-bold-right"></i>
                   <span class="sr-only">Next</span>
                 </a>

@@ -12,7 +12,8 @@ export class TodoListStateReducer {
             case "addItem":
                 return {
                     ...initialState,
-                    items: [...initialState.items, command.getPayload()]
+                    items: [...initialState.items, command.getPayload()],
+                    onSuccessSave: true
                 };
 
             case "setItems":
@@ -39,20 +40,25 @@ export class TodoListStateReducer {
                     items: this.updateItem(initialState.items, command.getPayload())
                 };
 
-            case "onError": 
+            case "onException": 
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
                 }
                 
-            case "exceptionThrowed": 
+            case "exceptionHandled": 
                 return {
                     ...initialState,
                     onException: command.getPayload()
                 }
-                
+
+            case "todoItemSaved":
+                return {
+                    ...initialState,
+                    onSuccessSave: false
+                }
+
             default: throw new CommandNotFoundException();
-            
         }
     }
 

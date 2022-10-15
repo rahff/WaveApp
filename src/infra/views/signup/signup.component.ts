@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SaveUserCommand } from 'src/infra/commands/user/SaveUserCommand';
-import { ExceptionThrowedEvent } from 'src/infra/events/ExceptionThrowedEvent';
+import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
+import { IUser } from 'src/infra/models/IUser';
 import { UserFacade } from 'src/infra/services/user/UserFacade';
 import { AlertService } from '../services/alert.service';
 import { SubscriberComponent } from '../SubscriberComponent';
@@ -48,26 +49,31 @@ export class SignupComponent extends SubscriberComponent implements OnInit {
   }
 
   private addIsAuthListener(): void {
-    this.subscription.add(this.userFacade.getIsAuth().subscribe((isAuth: boolean)=>{
-      if(isAuth) this.router.navigateByUrl('/dashboard');
-    }))
+    this.subscription.add(this.userFacade.getUser()
+    .subscribe({next: this.authHandler.bind(this)}));
+  }
+
+  private authHandler(user: IUser | null): void {
+    if(user && user.isAuth) this.router.navigateByUrl('/dashboard');
   }
 
   private addOnExceptionListener(): void {
-    this.subscription.add(this.userFacade.getException().subscribe((exception: {message: string} | null)=> {
-      if(!exception) return;
-      else this.onExcetionHandler(exception);
-    }));
+    this.subscription.add(this.userFacade.getException()
+    .subscribe({next: this.onExcetionHandler.bind(this)}));
   }
 
-  private onExcetionHandler(exception: {message: string}): void {
-    this.userFacade.dispatch(new ExceptionThrowedEvent());
+  private onExcetionHandler(exception: {message: string} | null): void {
+    if(!exception) return;
+    this.userFacade.dispatch(new ExceptionHandledEvent());
     this.alertService.errorAlert(exception.message).finally();
   }
 
   public onSubmit(): void {
-    const userInfo = this.signupForm.getRawValue();
-    this.userFacade.dispatch(new SaveUserCommand(userInfo));
+    if(this.signupForm.valid) { 
+      console.log(this.signupForm);
+      
+      const userInfo = this.signupForm.getRawValue();
+      this.userFacade.dispatch(new SaveUserCommand(userInfo));
+    }
   }
-
 }

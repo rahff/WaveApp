@@ -5,7 +5,7 @@ import { AddTodoListItemCommand } from "../commands/todoList/AddTodoListItemComm
 import { RemoveTodoListItemCommand } from "../commands/todoList/RemoveTodoListItemCommand";
 import { SetTodoListItemsCommand } from "../commands/todoList/SetTodoListItemsCommand";
 import { UpdateTodoItemCommand } from "../commands/todoList/UpdateTodoItemCommand";
-import { ErrorEvent } from "../events/shared/ErrorEvent";
+import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { TodoListRepository } from "../ports/driven/TodoListRepository";
 
 export class TodoListPolicies {
@@ -19,33 +19,33 @@ export class TodoListPolicies {
             const { description } = _item.asDto();
             const isExistWithSameDescription = await this.repository.isTodoAlreadyExistByDescription(description);
             if(isExistWithSameDescription){
-                return new ErrorEvent("this.todo already exist");
+                return new ExceptionEvent("this.todo already exist");
             }
             const savedItem = await this.repository.saveItem(_item.asDto());
             const todoItemEntity = todoItemMapper(savedItem);
             return new AddTodoListItemCommand(todoItemEntity);
         } catch (error: any) {
-            return new ErrorEvent(error.message);
+            return new ExceptionEvent(error.message);
         }
     }
 
     async applyDeleteItemPolicies(itemId: string): Promise<Action> {
         const isExistingTodo = await this.repository.isTodoAlreadyExistById(itemId);
-        if(!isExistingTodo) return new ErrorEvent("this todo does not exist");
+        if(!isExistingTodo) return new ExceptionEvent("this todo does not exist");
         return new RemoveTodoListItemCommand(itemId);
     }
 
     async applyModifyTodoItemPolicies(updated: ITodoItem): Promise<Action> {
         try {
             const upadtedItem = todoItemMapper(updated);
-            if(!upadtedItem.getId()) return new ErrorEvent("cannot modify without identifier");
+            if(!upadtedItem.getId()) return new ExceptionEvent("cannot modify without identifier");
             const isExistingTodo = await this.repository.isTodoAlreadyExistById(upadtedItem.getId());
-            if(!isExistingTodo) return new ErrorEvent("this todo does not exist");
+            if(!isExistingTodo) return new ExceptionEvent("this todo does not exist");
             const modifiedItem = await this.repository.modifyTodoItem(upadtedItem.asDto());
             const todoItemEntity = todoItemMapper(modifiedItem)
             return new UpdateTodoItemCommand(todoItemEntity);  
         } catch (error: any) {
-            return new ErrorEvent(error.message);
+            return new ExceptionEvent(error.message);
         }
     }
 

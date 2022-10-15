@@ -5,14 +5,16 @@ const userWithInvalidEmail = {
     id: "",
     username: "Guillaume", 
     email: "guiguilamenace£$gmail.com",
-    password: "Mot2$asse"
+    password: "Mot2$asse",
+    isAuth: false
 }
 
 const userWithWeakPassword = {
     id: "",
     username: "Guillaume", 
     email: "guiguilamenace@gmail.com",
-    password: "Motdepasse"
+    password: "Motdepasse",
+    isAuth: false
 }
 
 describe("UserPolicies", ()=>{

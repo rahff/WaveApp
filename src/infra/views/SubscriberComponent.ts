@@ -8,7 +8,7 @@ import { Subscription } from "rxjs";
 export class SubscriberComponent implements OnDestroy{
     
     protected subscription: Subscription = new Subscription();
-
+    
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }

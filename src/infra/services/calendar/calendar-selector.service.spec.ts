@@ -23,5 +23,9 @@ describe('CalendarSelectorService', () => {
     service.getCalendarEvents().subscribe((events: ICalendarEvent[])=>{
       expect(events).toEqual(stateContainer.getState().events.map((item)=> item.asDto()));
     })
+
+    service.getOnSuccessSaveEvent().subscribe((onSuccess: boolean)=>{
+      expect(onSuccess).toEqual(stateContainer.getState().onSuccessSave);
+    })
   })
 });

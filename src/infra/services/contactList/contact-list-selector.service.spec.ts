@@ -22,5 +22,8 @@ describe('ContactListSelectorService', () => {
     service.getContactList().subscribe((list: IContactItem[])=>{
       expect(list).toEqual(stateContainer.getState().contacts.map((item)=> item.asDto()));
     })
+    service.getSuccessSaveEvent().subscribe((successEvent: boolean)=>{
+      expect(successEvent).toEqual(stateContainer.getState().onSuccessSave)
+    })
   })
 });

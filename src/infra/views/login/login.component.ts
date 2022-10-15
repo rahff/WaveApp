@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VerifyPasswordCommand } from 'src/infra/commands/user/VerifyPasswordCommand';
-import { ExceptionThrowedEvent } from 'src/infra/events/ExceptionThrowedEvent';
+import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
 import { UserFacade } from 'src/infra/services/user/UserFacade';
 import { AlertService } from '../services/alert.service';
 import { SubscriberComponent } from '../SubscriberComponent';
@@ -47,7 +47,7 @@ export class LoginComponent extends SubscriberComponent implements OnInit {
   private onExceptionhandler(exception: {message: string} | null): void {
     if(!exception) return;
     this.alertService.errorAlert(exception.message)
-    .then(()=> this.userFacade.dispatch(new ExceptionThrowedEvent()));
+    .then(()=> this.userFacade.dispatch(new ExceptionHandledEvent()));
   }
 
   private addIsAuthListener(): void {
@@ -55,7 +55,7 @@ export class LoginComponent extends SubscriberComponent implements OnInit {
     .subscribe({next: this.onIsAuthHandler.bind(this)}));
   }
 
-  private onIsAuthHandler(isAuth: boolean): void {
+  private onIsAuthHandler(isAuth: boolean | undefined): void {
     if(isAuth) this.router.navigateByUrl('/dashboard');
   }
 

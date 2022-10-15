@@ -12,8 +12,8 @@ export class UserStateReducer {
                 return {
                     ...initialState,
                     signupEvent: false,
+                    user: command.getPayload(),
                     isAuth: false,
-                    user: command.getPayload()
                 };
 
             case "setIsAuth":
@@ -28,16 +28,22 @@ export class UserStateReducer {
                     signupEvent: command.getPayload()
                 };
 
-            case "onError": 
+            case "onException": 
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
                 }
 
-            case "exceptionThrowed": 
+            case "exceptionHandled": 
                 return {
                     ...initialState,
                     onException: command.getPayload()
+                }
+
+            case "userConnexion":
+                return {
+                    ...initialState,
+                    isAuth: command.getPayload()
                 }
 
             default: throw new CommandNotFoundException();

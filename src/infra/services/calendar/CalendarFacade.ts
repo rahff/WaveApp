@@ -19,4 +19,8 @@ export class CalendarFacade extends Facade<CalendarSelectorService> {
     public getCalendarEvent(): Observable<ICalendarEvent[]> {
         return this.dispatcher.stateSelector.getCalendarEvents();
     }
+
+    public getOnSuccessEvent(): Observable<boolean> {
+        return this.dispatcher.stateSelector.getOnSuccessSaveEvent();
+    }
 }

@@ -1,0 +1,88 @@
+
+  <div class="container-fluid mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="card bg-secondary shadow border-0">
+          <div *ngIf="!initialEventValue" class="card-header bg-transparent pb-1">
+            <div class="text-muted text-center mt-2 mb-4">
+              <h3>Add Event</h3>
+            </div>
+            
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <form [formGroup]="eventForm" role="form">
+              <div class="form-group">
+                <label>Event name</label>
+                <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                  </div>
+                  <input formControlName="title" class="form-control" placeholder="Event label" type="text">
+                </div>
+              </div>
+              <div class="d-flex justify-content-space-between">
+                <div class="form-group">
+                    <label>Event will start on</label>
+                    <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                        </div>
+                        <input formControlName="startDate" class="form-control" placeholder="Start date event" type="date">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label>at</label>
+                        <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                        </div>
+                        <input formControlName="startTime" class="form-control" placeholder="h:mm" type="datetime">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-space-between">
+                    <div class="form-group">
+                        <label>Event will ends on</label>
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                            </div>
+                            <input formControlName="endDate" class="form-control" placeholder="End date event" type="date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>at</label>
+                        <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                        </div>
+                        <input formControlName="endTime" class="form-control" placeholder="h:mm" type="datetime">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!initialEventValue; else updateButton" class="d-flex justify-content-space-between">
+                  <div class="text-center">
+                    <button [routerLink]="['/dashboard', 'calendar']" type="button" class="btn btn-primary mt-4">Cancel</button>
+                  </div>
+                  <div class="text-center">
+                    <button (click)="onSubmit()" type="button" class="btn btn-primary mt-4">Save Event</button>
+                  </div>
+                </div>
+              
+              <ng-template #updateButton>
+                <div class="d-flex justify-content-space-between">
+                  <div class="text-center">
+                    <button [routerLink]="['/dashboard', 'calendar']" type="button" class="btn btn-primary mt-4">Cancel</button>
+                  </div>
+                  <div class="text-center">
+                    <button (click)="onSubmit()" type="button" class="btn btn-primary mt-4">Update Event</button>
+                  </div>
+                </div>
+              </ng-template>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

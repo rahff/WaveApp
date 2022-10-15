@@ -23,53 +23,47 @@ describe('TodoListRepositoryAdapter', ()=>{
     })
 
     it('should save an new todo item', async ()=>{
-        const generatedId = generateId();
-        const savedItem = await saveItem(generatedId)
-        expect(savedItem.id).toEqual(generatedId);
+        const savedItem = await saveItem()
+        expect(savedItem.id).toEqual(savedItem.id);
     });
     
     it('should get item list', async ()=>{
-        const generatedId = generateId();  
-        const savedItem = await saveItem(generatedId);
+        const savedItem = await saveItem();
         const itemList = await repository.getTodoList();
         expect(itemList).toContain(savedItem);
     });
 
-    it('should delete an item', async ()=> {
-        const generatedId = generateId();  
-        const savedItem = await saveItem(generatedId);
+    it('should delete an item', async ()=> { 
+        const savedItem = await saveItem();
         const deletedId = await repository.deleteItem(savedItem.id);
         expect(deletedId).toEqual(savedItem.id);
     });
 
     it('should modify an item', async ()=> {
-        const generatedId = generateId();  
-        const savedItem = await saveItem(generatedId);
-        const modifiedItem = await repository.modifyTodoItem({id: generatedId, description: 'tester le test', status: true});
+        const savedItem = await saveItem();
+        const modifiedItem = await repository.modifyTodoItem({id: savedItem.id, description: 'tester le test', status: true});
         expect(modifiedItem.id).toEqual(savedItem.id);
         expect(modifiedItem.status).toBeTrue();
     })
 
     it('should verify existance of item by description', async ()=> {
-        const generatedId = generateId();  
-        const savedItem = await saveItem(generatedId);
+        const savedItem = await saveItem();
         const isExist = await repository.isTodoAlreadyExistByDescription(savedItem.description);
         expect(isExist).toBeTrue();
         const isNotExist = await repository.isTodoAlreadyExistByDescription("notExistingItemDescription");
         expect(isNotExist).toBeFalse();
     });
 
-    it('should verify existance of item by id', async ()=> {
-        const generatedId = generateId();  
-        const savedItem = await saveItem(generatedId);
+    it('should verify existance of item by id', async ()=> {  
+        const savedItem = await saveItem();
         const isExist = await repository.isTodoAlreadyExistById(savedItem.id);
         expect(isExist).toBeTrue();
         const isNotExist = await repository.isTodoAlreadyExistById("notExistingItemId");
         expect(isNotExist).toBeFalse();
     })
 
-    const saveItem = async (generatedId: string): Promise<ITodoItem> => {
-        const todoItem: ITodoItem = { description: "test", id: generatedId, status: false};
+    const saveItem = async (): Promise<ITodoItem> => {
+        const todoItem: ITodoItem = { description: "test", id: "", status: false};
         return await repository.saveItem(todoItem);
     }
 })

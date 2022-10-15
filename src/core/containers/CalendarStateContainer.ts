@@ -7,7 +7,7 @@ import { calendarStateMapper } from "../mappers/states/CalendarStateMapper";
 
 export class CalendarStateContainer extends StateContainer {
 
-    protected override state: CalendarState = { events: [], onException: null };
+    protected override state: CalendarState = { events: [], onException: null, onSuccessSave: false };
     protected override reducer: CalendarStateReducer = new CalendarStateReducer();
     constructor(effect: EffectCreator, selector: StateSelector) {
         super(effect, selector);

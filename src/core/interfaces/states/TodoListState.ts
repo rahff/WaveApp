@@ -3,4 +3,5 @@ import { BaseState } from "./BaseState";
 
 export interface TodoListState extends BaseState {
     items: TodoItem[];
+    onSuccessSave: boolean
 }

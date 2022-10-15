@@ -9,7 +9,7 @@ import { contactListStateMapper } from "../mappers/states/ContactListMapper";
 
 export class ContactListStateContainer extends StateContainer {
 
-    protected override state: ContactListState = { contacts: [], onException: null };
+    protected override state: ContactListState = { contacts: [], onException: null, onSuccessSave: false };
     protected override reducer: ContactListStateReducer = new ContactListStateReducer();
 
     constructor(effect: EffectCreator, selector: StateSelector){

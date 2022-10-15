@@ -1,3 +1,4 @@
+import { ContactSavedEvent } from "src/infra/events/ContactSavedEvent";
 import { ContactListFakeRepository } from "src/infra/mocks/ContactListFakeRepository";
 import { ContactListSelectorService } from "src/infra/services/contactList/contact-list-selector.service";
 import { AddContactItemCommand } from "../commands/contactList/AddContactItemCommand";
@@ -29,6 +30,7 @@ describe('ContactListStateContainer', ()=> {
 
     it('should add a contact item into state list', ()=>{
         stateContainer.dispatch(new AddContactItemCommand(contact3));
+        expect(stateContainer.getState().onSuccessSave).toBeTrue();
         expect(stateContainer.getState().contacts[2]?.getName()).toBe("tester3");
     })
 
@@ -41,5 +43,12 @@ describe('ContactListStateContainer', ()=> {
     it('should update a contact into the list state', ()=>{
         stateContainer.dispatch(new UpdateContactItemCommand(new ContactItem(contact2.getName(), contact2.getFirstname(), "newemail@gmail.com", contact2.getTel(), contact2.getId())));
         expect(stateContainer.getState().contacts[1].getEmail()).toBe("newemail@gmail.com");
+        expect(stateContainer.getState().onSuccessSave).toBeTrue();
+    })
+
+    it('should set onSuccessSave to false', ()=>{
+        stateContainer.dispatch(new AddContactItemCommand(contact3));
+        stateContainer.dispatch(new ContactSavedEvent());
+        expect(stateContainer.getState().onSuccessSave).toBeFalse();
     })
 })

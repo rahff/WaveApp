@@ -3,9 +3,10 @@ import { CalendarEvent } from "../../entities/CalendarEvent";
 import { CalendarState } from "../../interfaces/states/CalendarState";
 
 
-export const calendarStateMapper = (userState: CalendarState): ICalendarState => {
+export const calendarStateMapper = (calendarState: CalendarState): ICalendarState => {
     return {
-      events: userState.events.map((event: CalendarEvent) => event.asDto()),
-      onException: userState.onException
+      events: calendarState.events.map((event: CalendarEvent) => event.asDto()),
+      onException: calendarState.onException,
+      onSuccessSave: calendarState.onSuccessSave
     }
 }

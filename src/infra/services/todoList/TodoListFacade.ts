@@ -21,4 +21,8 @@ export class TodoListFacade extends Facade<TodoListSelectorService> {
     public getTodoList(): Observable<ITodoItem[]> {
         return this.dispatcher.stateSelector.getTodoList();
     }
+
+    public getSuccessSaveEvent(): Observable<boolean> {
+        return this.dispatcher.stateSelector.getSuccessSaveEvent();
+    }
 }

@@ -5,6 +5,7 @@ import { TodoListState } from "../../interfaces/states/TodoListState";
 export const todoListStateMapper = (state: TodoListState): ITodoListState => {
     return {
         items: state.items.map((item: TodoItem) => item.asDto()),
-        onException: state.onException
+        onException: state.onException,
+        onSuccessSave: state.onSuccessSave
     }
 }

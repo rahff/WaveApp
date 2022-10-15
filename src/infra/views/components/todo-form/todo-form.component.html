@@ -1,0 +1,36 @@
+
+  <div class="container-fluid mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-transparent pb-1">
+            <div class="text-muted text-center mt-2 mb-4"><h3>Add Todo</h3></div>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <form [formGroup]="todoForm" role="form">
+              <div class="form-group">
+                <label>Todo Description</label>
+                <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                  </div>
+                  <input formControlName="description" class="form-control" placeholder="What do you want to do ?" type="text">
+                </div>
+              </div>
+              <div class="d-flex justify-content-space-between">
+                <div class="text-center">
+                  <button [routerLink]="['/dashboard', 'todo-list']" type="button" class="btn btn-primary mt-4">Cancel</button>
+                </div>
+                <div class="text-center">
+                  <button (click)="onSubmit()" type="button" class="btn btn-primary mt-4">Save Todo</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

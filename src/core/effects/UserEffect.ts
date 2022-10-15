@@ -1,5 +1,5 @@
 
-import { ErrorEvent } from "../events/shared/ErrorEvent";
+import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { UserPolicies } from "../policies/UserPolicies";
@@ -22,20 +22,20 @@ export class UserEffect implements EffectCreator {
                 try {
                     return await this.validationPolicies.applySaveUserPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "verifyPassword":
                 try {
                     const { email, password } = command.getPayload();
                     return await this.validationPolicies.applyVerifyPasswordPolicies(password, email);
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "getUser":
                 try {
                     return await this.validationPolicies.getUser();  
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             default: throw new CommandNotFoundException();
         }

@@ -1,5 +1,5 @@
 
-import { ErrorEvent } from "../events/shared/ErrorEvent";
+import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { ContactListPolicies } from "../policies/ContactListPolicies";
@@ -22,25 +22,25 @@ export class ContactListEffect implements EffectCreator {
                 try {
                     return this.validationPolicy.applyGetContactListPolicies();
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "saveContact":
                 try {
                     return await this.validationPolicy.applySaveContactPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "deleteContact":
                 try {
                     return await this.validationPolicy.applyDeleteContactPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
             case "modifyContact": 
                 try {
                     return await this.validationPolicy.applyModifyContactPolicies(command.getPayload());
                 } catch (error: any) {
-                    return new ErrorEvent(error.message);
+                    return new ExceptionEvent(error.message);
                 }
                 
             default: throw new CommandNotFoundException();

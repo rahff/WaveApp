@@ -20,4 +20,8 @@ export class ContactListFacade extends Facade<ContactListSelectorService> {
     public getContactList(): Observable<IContactItem[]> {
         return this.dispatcher.stateSelector.getContactList();
     }
+
+    public getSuccessSaveEvent(): Observable<boolean> {
+        return this.dispatcher.stateSelector.getSuccessSaveEvent();
+    }
 }

@@ -8,6 +8,7 @@ import { RemoveTodoListItemCommand } from "../commands/todoList/RemoveTodoListIt
 import { SetTodoListItemsCommand } from "../commands/todoList/SetTodoListItemsCommand";
 import { UpdateTodoItemCommand } from "../commands/todoList/UpdateTodoItemCommand";
 import { TodoListSelectorService } from "src/infra/services/todoList/todo-list-selector.service";
+import { TodoItemSavedEvent } from "src/infra/events/TodoItemSavedEvent";
 
 const item1 = new TodoItem("test1", "123")
 const item2 = new TodoItem("test2", "456")
@@ -38,6 +39,7 @@ describe('TodoListStateContainer', ()=> {
         todoListStateContainer.dispatch(new AddTodoListItemCommand(item3));
         const state = todoListStateContainer.getState();
         expect(state.items).toEqual([item1, item2, item3]);
+        expect(state.onSuccessSave).toBeTrue();
     })
 
     it('should remove an item into the state list of item', ()=> {
@@ -57,6 +59,12 @@ describe('TodoListStateContainer', ()=> {
         todoListStateContainer.dispatch(new UpdateTodoItemCommand(updated));
         const state = todoListStateContainer.getState();
         expect(state.items[1].getDescription()).toBe("new description");
+    })
+
+    it('should reset onSuccesssave in the state', ()=>{
+        todoListStateContainer.dispatch(new AddTodoListItemCommand(item3));
+        todoListStateContainer.dispatch(new TodoItemSavedEvent());
+        expect(todoListStateContainer.getState().onSuccessSave).toBeFalse()
     })
 
 })

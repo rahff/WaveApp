@@ -9,7 +9,7 @@ import { todoListStateMapper } from "../mappers/states/TodoListStateMapper";
 
 export class TodoListStateContainer extends StateContainer {
 
-    protected override state: TodoListState = { items: [], onException: null };
+    protected override state: TodoListState = { items: [], onException: null, onSuccessSave: false };
     protected override reducer: TodoListStateReducer = new TodoListStateReducer();
     
     constructor(effect: EffectCreator, selector: StateSelector){
