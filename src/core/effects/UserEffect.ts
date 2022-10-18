@@ -2,7 +2,7 @@
 import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { EffectCreator } from "../ports/driver/EffectCreator";
-import { UserPolicies } from "../policies/UserPolicies";
+import { UserUseCases } from "../use-cases/UserUseCases";
 import { UserRepository } from "../ports/driven/UserRepository";
 import { Action } from "src/shared/actions/Action";
 
@@ -10,24 +10,24 @@ import { Action } from "src/shared/actions/Action";
 
 export class UserEffect implements EffectCreator {
 
-    private validationPolicies: UserPolicies;
+    private validationPolicies: UserUseCases;
 
     constructor(private repository: UserRepository){
-        this.validationPolicies = new UserPolicies(this.repository);
+        this.validationPolicies = new UserUseCases(this.repository);
     }
 
     async createEffect(command: Action): Promise<Action> {
         switch (command.getName()){
             case "saveUser":
                 try {
-                    return await this.validationPolicies.applySaveUserPolicies(command.getPayload());
+                    return await this.validationPolicies.applySaveUser(command.getPayload());
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }
             case "verifyPassword":
                 try {
                     const { email, password } = command.getPayload();
-                    return await this.validationPolicies.applyVerifyPasswordPolicies(password, email);
+                    return await this.validationPolicies.applyVerifyPassword(password, email);
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }

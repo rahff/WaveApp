@@ -2,11 +2,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserStateContainer } from 'src/core/containers/UserStateContainer';
+import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
 import { UserRepository } from 'src/core/ports/driven/UserRepository';
 import { EffectCreator } from 'src/core/ports/driver/EffectCreator';
 import { UserRepositoryAdapter } from 'src/infra/adapters/UserRepositoryAdapter';
+import { AppModule } from 'src/infra/modules/app.module';
 import { DatabaseModule } from 'src/infra/modules/database.module';
 import { UserModule } from 'src/infra/modules/user.module';
 import { UserSelectorService } from 'src/infra/services/user/user-selector.service';
@@ -25,7 +26,8 @@ describe('SignupComponent', () => {
       imports: [
         ReactiveFormsModule,
         DatabaseModule,
-        UserModule
+        UserModule,
+        AppModule
       ],
       providers: [
         {

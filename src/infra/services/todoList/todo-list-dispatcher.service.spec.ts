@@ -1,6 +1,6 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { SetTodoListItemsCommand } from 'src/core/commands/todoList/SetTodoListItemsCommand';
-import { TodoListStateContainer } from 'src/core/containers/TodoListStateContainer';
+import { TodoListStateContainer } from 'src/core/containers/todoList/TodoListStateContainer';
 import { TodoListEffect } from 'src/core/effects/TodoListEffect';
 import { item1, item2 } from 'src/infra/mocks/fake-data';
 import { DeleteTodoListItemCommand } from '../../commands/todoList/DeleteTodoListItemCommand';

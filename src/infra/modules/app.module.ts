@@ -10,6 +10,7 @@ import { AppComponent } from '../views/app/app.component';
 import { SharedModule } from './shared.module';
 import { LoginComponent } from '../views/login/login.component';
 import { CoreModule } from './core.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 

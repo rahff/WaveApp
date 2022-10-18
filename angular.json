@@ -76,7 +76,8 @@
               "browserTarget": "waveApp:build:production"
             },
             "development": {
-              "browserTarget": "waveApp:build:development"
+              "browserTarget": "waveApp:build:development",
+              "disableHostCheck": true
             }
           },
           "defaultConfiguration": "development"

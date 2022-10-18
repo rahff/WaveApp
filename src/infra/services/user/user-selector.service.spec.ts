@@ -1,6 +1,6 @@
 import { SetIsAuthCommand } from 'src/core/commands/user/SetIsAuthCommand';
 import { SetUserCommand } from 'src/core/commands/user/UserCommand';
-import { UserStateContainer } from 'src/core/containers/UserStateContainer';
+import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
 import { User } from 'src/core/entities/User';
 import { UserFakeRepository } from 'src/infra/mocks/UserFakeRepository';

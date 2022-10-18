@@ -1,6 +1,12 @@
 import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
+import { ICalendarNotification } from "src/infra/models/ICalendarNotification";
+import { CalendarNotification } from "../valueObjects/CalendarNotification";
+
+
 
 export class CalendarEvent {
+
+    private notification: CalendarNotification | null = null;
 
     constructor(private title: string, private start: Date, private end: Date, private id: string){
         this.checkEndValidity();
@@ -44,7 +50,16 @@ export class CalendarEvent {
             title: this.title,
             start: this.start,
             end: this.end,
-            id: this.id
+            id: this.id,
+            notification: this.notification ? this.notification.asDto() : null
         }
+    }
+
+    public setNotification(notification: ICalendarNotification){
+        this.notification = new CalendarNotification(notification.notificationTime, this.getStart());
+    }
+
+    public getNotification(): CalendarNotification | null {
+        return this.notification;
     }
 }

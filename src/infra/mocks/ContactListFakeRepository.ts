@@ -1,6 +1,6 @@
-import { ContactItem } from "src/core/entities/ContactItem";
+
 import { ContactListRepository } from "src/core/ports/driven/ContactListRepository";
-import { contactMapper } from "../../core/mappers/entities/ContactMapper";
+
 import { IContactItem } from "../models/IContactIem";
 import { conatct1, conatct2 } from "./fake-data";
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalendarStateContainer } from 'src/core/containers/CalendarStateContainer';
+import { CalendarStateContainer } from 'src/core/containers/calendar/CalendarStateContainer';
 import { Dispatcher } from '../../../shared/abstract/Dispatcher';
 import { CalendarSelectorService } from './calendar-selector.service';
 

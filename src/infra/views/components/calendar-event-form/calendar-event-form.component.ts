@@ -21,6 +21,7 @@ interface DateTimeString {startDate: string, endDate: string, startTime: string,
 export class CalendarEventFormComponent extends SubscriberComponent implements OnInit {
 
   public eventForm: FormGroup = new FormGroup({});
+  public withNotification: boolean = false;
   public initialEventValue: ICalendarEvent | undefined = undefined;
   private initialDateValues: DateTimeString | undefined = undefined;
   constructor(private fb: FormBuilder,
@@ -90,7 +91,8 @@ export class CalendarEventFormComponent extends SubscriberComponent implements O
       startDate: [this.getDateString(initialValue?.start, initialDateValues?.startDate), [ValidatorsExtension.required, ValidatorsExtension.date]],
       startTime: [this.getTimeString(initialValue?.start, initialDateValues?.startTime), [ValidatorsExtension.required, ValidatorsExtension.dateTime]],
       endDate: [this.getDateString(initialValue?.end, initialDateValues?.endDate), [ValidatorsExtension.required, ValidatorsExtension.date]],
-      endTime: [this.getTimeString(initialValue?.end, initialDateValues?.endTime), [ValidatorsExtension.required, ValidatorsExtension.dateTime]]
+      endTime: [this.getTimeString(initialValue?.end, initialDateValues?.endTime), [ValidatorsExtension.required, ValidatorsExtension.dateTime]],
+      notification: ["0:15", [ValidatorsExtension.dateTime]]
     })
   }
 
@@ -119,13 +121,18 @@ export class CalendarEventFormComponent extends SubscriberComponent implements O
         title: this.eventForm.get('title')?.value,
         start: startEvent,
         end: endEvent,
-        id: this.initialEventValue ? this.initialEventValue.id : ""
+        id: this.initialEventValue ? this.initialEventValue.id : "",
+        notification:{ 
+          notificationTime: this.eventForm.get('notification')?.value || null,
+          notificationDateTime: null
+        }
       }
       if(!this.initialEventValue){
         this.calendarFacade.dispatch(new SaveCalendarEventCommand(event));
       }else {
         this.calendarFacade.dispatch(new ModifyCalendarEventCommand(event));
       }
+
     }
   }
 

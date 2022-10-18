@@ -1,6 +1,6 @@
-import { Command } from "src/shared/actions/Action";
+import { Action, Command } from "src/shared/actions/Action";
 
 
 export interface EffectCreator {
-    createEffect(command: Command): Promise<Command>;
+    createEffect(command: Command): Promise<Action>;
 }

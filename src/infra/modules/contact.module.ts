@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ContactListStateContainer } from 'src/core/containers/ContactListStateContainer';
+import { ContactListStateContainer } from 'src/core/containers/contactList/ContactListStateContainer';
 import { ContactListEffect } from 'src/core/effects/ContactListEffect';
 import { ContactListRepository } from 'src/core/ports/driven/ContactListRepository';
 import { StateSelector } from 'src/shared/abstract/StateSelector';

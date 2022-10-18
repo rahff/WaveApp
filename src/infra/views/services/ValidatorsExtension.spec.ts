@@ -19,6 +19,8 @@ describe('ValidatorsExtension', ()=>{
         expect(formControl.valid).toBeFalse();
         formControl.setValue('1:00');
         expect(formControl.valid).toBeTrue();
+        formControl.setValue('111:00');
+        expect(formControl.valid).toBeFalse();
     })
 
     it('should verify if the value is a date (jj/mm/aaaa)', ()=>{

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { UserStateContainer } from 'src/core/containers/UserStateContainer';
+import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
 import { UserRepository } from 'src/core/ports/driven/UserRepository';
 import { EffectCreator } from 'src/core/ports/driver/EffectCreator';

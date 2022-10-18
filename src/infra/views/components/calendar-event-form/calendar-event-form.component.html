@@ -60,6 +60,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="d-flex flex-column justify-content-space-between">
+                  Schedule notification
+                  <label class="custom-toggle">
+                    <input type="checkbox" (change)="withNotification = !withNotification" [checked]="withNotification">
+                    <span class="custom-toggle-slider rounded-circle">
+                    </span>
+                  </label>
+              </div>
+              <div class="form-group" *ngIf="withNotification">
+                <label>You will notify before :</label>
+                <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="bi bi-bell"></i></span>
+                    </div>
+                    <input formControlName="notification" class="form-control" placeholder="h:mm" type="dateTime">
+                </div>
+                
+            </div>
                 <div *ngIf="!initialEventValue; else updateButton" class="d-flex justify-content-space-between">
                   <div class="text-center">
                     <button [routerLink]="['/dashboard', 'calendar']" type="button" class="btn btn-primary mt-4">Cancel</button>

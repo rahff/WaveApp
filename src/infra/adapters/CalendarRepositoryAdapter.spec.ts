@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { CalendarEvent } from "src/core/entities/CalendarEvent";
 import { DatabaseModule } from "../modules/database.module";
@@ -12,7 +13,8 @@ describe('CalendarRepositoryAdapter', ()=> {
     beforeEach(()=>{
         TestBed.configureTestingModule({
             imports: [
-                DatabaseModule
+                DatabaseModule,
+                HttpClientTestingModule
             ]
         })
         repository = TestBed.inject(CalendarRepositoryAdapter);
@@ -26,6 +28,10 @@ describe('CalendarRepositoryAdapter', ()=> {
         const savedEvent = await repository.saveCalendarEvent(ref.asDto());
         expect(savedEvent.title).toBe("test event");
     });
+
+    it('should save an event and notification', async ()=>{
+
+    })
 
     it('should get All events', async()=> {
         const savedEvent = await repository.saveCalendarEvent(ref.asDto());

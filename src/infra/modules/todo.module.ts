@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TodoListStateContainer } from 'src/core/containers/TodoListStateContainer';
+import { TodoListStateContainer } from 'src/core/containers/todoList/TodoListStateContainer';
 import { TodoListEffect } from 'src/core/effects/TodoListEffect';
 import { TodoListRepository } from 'src/core/ports/driven/TodoListRepository';
 import { StateSelector } from 'src/shared/abstract/StateSelector';

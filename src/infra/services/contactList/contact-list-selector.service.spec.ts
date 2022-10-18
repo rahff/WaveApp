@@ -1,4 +1,4 @@
-import { ContactListStateContainer } from 'src/core/containers/ContactListStateContainer';
+import { ContactListStateContainer } from 'src/core/containers/contactList/ContactListStateContainer';
 import { ContactListEffect } from 'src/core/effects/ContactListEffect';
 import { ContactListFakeRepository } from 'src/infra/mocks/ContactListFakeRepository';
 import { IContactItem } from 'src/infra/models/IContactIem';

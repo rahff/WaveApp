@@ -1,7 +1,8 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { SetEventListCommand } from 'src/core/commands/calendar/SetEventListCommand';
-import { CalendarStateContainer } from 'src/core/containers/CalendarStateContainer';
+import { CalendarStateContainer } from 'src/core/containers/calendar/CalendarStateContainer';
 import { CalendarEffect } from 'src/core/effects/CalendarEffect';
+import { CalendarNotification } from 'src/core/valueObjects/CalendarNotification';
 import { ModifyCalendarEventCommand } from 'src/infra/commands/calendar/ModifyCalendarEventCommand';
 import { fakeCalendarEvent1, fakeCalendarEvent2, fakeCalendarEvent3 } from 'src/infra/mocks/fake-data';
 import { DeleteCalendarEventCommand } from '../../commands/calendar/DeleteCalendarEventCommand';
@@ -37,6 +38,16 @@ describe('CalendarDispatcherService', () => {
     flushMicrotasks();
     expect(stateContainer.getState().events).toEqual([fakeCalendarEvent1, fakeCalendarEvent2]);
   }))
+
+  it('should dispatch saveEvent command', fakeAsync(()=>{
+    fakeCalendarEvent3.setNotification({notificationTime: "1:00", notificationDateTime: null})
+    service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent3.asDto()));
+    flushMicrotasks();
+    expect(stateContainer.getState().events[1]).toEqual(fakeCalendarEvent3);
+    flushMicrotasks();
+    expect(stateContainer.getState().events[1].getNotification()).toEqual(new CalendarNotification("1:00", fakeCalendarEvent3.getStart()));
+  }));
+
 
   it('should dispatch saveEvent command', fakeAsync(()=>{
     service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent3.asDto()));

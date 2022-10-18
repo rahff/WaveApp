@@ -27,15 +27,17 @@ export class TodoComponent implements OnInit {
 
   public deleteTodo(todoId: string): void {
     this.alertService.confirmationAlert().then((_)=>{
-      if(_.isConfirmed) this.todoFacade.dispatch(new DeleteTodoListItemCommand(todoId))
+      if(_.isConfirmed) this.todoFacade.dispatch(new DeleteTodoListItemCommand(todoId)); 
     })
   }
 
   public doneTodo(todo: ITodoItem): void {
     if(todo.status) return;
     this.alertService.confirmationAlert("Make sure that it's done","Yes, it is done").then((_)=>{
-      todo.status = true;
-      if(_.isConfirmed) this.todoFacade.dispatch(new ModifyTodoItemCommand(todo))
+      if(_.isConfirmed) {
+        todo.status = true;
+        this.todoFacade.dispatch(new ModifyTodoItemCommand(todo));
+      }
     })
   }
 

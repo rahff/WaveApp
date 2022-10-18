@@ -1,5 +1,6 @@
+
 import { NgModule } from '@angular/core';
-import { UserStateContainer } from 'src/core/containers/UserStateContainer';
+import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
 import { UserRepository } from 'src/core/ports/driven/UserRepository';
 import { StateSelector } from 'src/shared/abstract/StateSelector';

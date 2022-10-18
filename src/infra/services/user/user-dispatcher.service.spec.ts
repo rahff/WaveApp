@@ -1,5 +1,5 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
-import { UserStateContainer } from 'src/core/containers/UserStateContainer';
+import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
 import { UserEffect } from 'src/core/effects/UserEffect';
 import { GetUserCommand } from 'src/infra/commands/user/GetUserCommand';
 import { user1 } from 'src/infra/mocks/fake-data';

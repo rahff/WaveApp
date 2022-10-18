@@ -1,6 +1,6 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { SetContactListCommand } from 'src/core/commands/contactList/SetContactListCommand';
-import { ContactListStateContainer } from 'src/core/containers/ContactListStateContainer';
+import { ContactListStateContainer } from 'src/core/containers/contactList/ContactListStateContainer';
 import { ContactListEffect } from 'src/core/effects/ContactListEffect';
 import { DeleteContactItemCommand } from 'src/infra/commands/contactList/DeleteContactItemCommand';
 import { GetContactListCommand } from 'src/infra/commands/contactList/GetContactListCommand';

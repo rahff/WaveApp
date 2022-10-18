@@ -1,4 +1,4 @@
-import { TodoListStateContainer } from 'src/core/containers/TodoListStateContainer';
+import { TodoListStateContainer } from 'src/core/containers/todoList/TodoListStateContainer';
 import { TodoListEffect } from 'src/core/effects/TodoListEffect';
 import { TodoListFakeRepository } from 'src/infra/mocks/TodoListFakeRepository';
 import { ITodoItem } from 'src/infra/models/ITodoItem';

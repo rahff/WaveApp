@@ -54,7 +54,9 @@ export class CalendarComponent extends SubscriberComponent implements OnInit {
   public handleDateSelect(arg: DateSelectArg): void {
     const startDate = arg.start;
     const endDate = arg.end;
-    if(startDate < new Date()) return;
+    const today = new Date()
+    today.setHours(0,0,0,0)
+    if(startDate < today) return;
     if(!startDate.getHours()){
       startDate.setHours(12);
     }

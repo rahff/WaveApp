@@ -4,6 +4,7 @@ import { CalendarEventFormComponent } from '../views/components/calendar-event-f
 import { CalendarComponent } from '../views/components/calendar/calendar.component';
 import { ContactFormComponent } from '../views/components/contact-form/contact-form.component';
 import { ContactComponent } from '../views/components/contact/contact.component';
+import { MessagesComponent } from '../views/components/messages/messages.component';
 import { SendMailComponent } from '../views/components/send-mail/send-mail.component';
 import { TodoFormComponent } from '../views/components/todo-form/todo-form.component';
 import { TodoComponent } from '../views/components/todo/todo.component';
@@ -37,6 +38,9 @@ const ROUTES: Routes = [
       },
       {
         path: "send-email", component: SendMailComponent
+      },
+      {
+        path: "messages", component: MessagesComponent
       }
     ]
   },
@@ -56,6 +60,7 @@ export class DashboardRoutingModule {
     CalendarEventFormComponent, 
     ContactFormComponent,
     TodoFormComponent,
-    SendMailComponent
+    SendMailComponent,
+    MessagesComponent
   ]
 }

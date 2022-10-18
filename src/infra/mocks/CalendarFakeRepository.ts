@@ -1,10 +1,15 @@
 import { CalendarRepository } from "src/core/ports/driven/CalendarRepository";
 import { ICalendarEvent } from "../models/ICalendarEvent";
+import { ICalendarNotification } from "../models/ICalendarNotification";
 import { fakeCalendarEvent1, fakeCalendarEvent2, fakeCalendarEvent3 } from "./fake-data";
 
 
 
 export class CalendarFakeRepository implements CalendarRepository {
+
+    saveNotification(notification: ICalendarNotification): void {
+        new Promise((resolve)=> resolve(notification));
+    }
 
     modifyCalendarEvent(update: Partial<ICalendarEvent>): Promise<ICalendarEvent> {
         return new Promise((resolve)=> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ContactListStateContainer } from 'src/core/containers/ContactListStateContainer';
+import { ContactListStateContainer } from 'src/core/containers/contactList/ContactListStateContainer';
 import { Dispatcher } from '../../../shared/abstract/Dispatcher';
 import { ContactListSelectorService } from './contact-list-selector.service';
 

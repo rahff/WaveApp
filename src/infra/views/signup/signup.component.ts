@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SaveUserCommand } from 'src/infra/commands/user/SaveUserCommand';
 import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
 import { IUser } from 'src/infra/models/IUser';
+import { GoogleSignService } from 'src/infra/services/google/google-sign.service';
 import { UserFacade } from 'src/infra/services/user/UserFacade';
 import { AlertService } from '../services/alert.service';
 import { SubscriberComponent } from '../SubscriberComponent';
@@ -25,7 +26,8 @@ export class SignupComponent extends SubscriberComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private userFacade: UserFacade,
               private router: Router,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private googleService: GoogleSignService) {
                 super();
               }
 
@@ -70,10 +72,14 @@ export class SignupComponent extends SubscriberComponent implements OnInit {
 
   public onSubmit(): void {
     if(this.signupForm.valid) { 
-      console.log(this.signupForm);
-      
       const userInfo = this.signupForm.getRawValue();
       this.userFacade.dispatch(new SaveUserCommand(userInfo));
     }
+  }
+
+  public googleSignup(): void {
+    this.googleService.getGoogleCredential().subscribe((userInfo)=>{
+      this.userFacade.dispatch(new SaveUserCommand(userInfo));
+    })
   }
 }

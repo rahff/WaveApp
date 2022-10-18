@@ -1,8 +1,10 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, map, Observable, of } from "rxjs";
 import { CalendarRepository } from "src/core/ports/driven/CalendarRepository";
 import { ICalendarEvent } from "../models/ICalendarEvent";
+import { ICalendarNotification } from "../models/ICalendarNotification";
 import { DatabaseModule } from "../modules/database.module";
 import { generateId } from "../utils/generators";
 
@@ -13,7 +15,8 @@ import { generateId } from "../utils/generators";
 })
 export class CalendarRepositoryAdapter implements CalendarRepository{
 
-    constructor(private service: NgxIndexedDBService){}
+    constructor(private service: NgxIndexedDBService,
+                private http: HttpClient){}
 
     async getCalendarEvents(): Promise<ICalendarEvent[]> {
         return firstValueFrom(this.service.getAll<ICalendarEvent>("calendar")
@@ -23,8 +26,15 @@ export class CalendarRepositoryAdapter implements CalendarRepository{
 
     async saveCalendarEvent(calendarEvent: ICalendarEvent): Promise<ICalendarEvent> {
         calendarEvent.id = generateId();
-        return await firstValueFrom(this.service.add("calendar", calendarEvent)
+        const savedEvent = await firstValueFrom(this.service.add("calendar", calendarEvent)
         .pipe(catchError(()=> {throw new Error("failed to save")})));
+        if(savedEvent.notification) this.saveNotification(savedEvent.notification);
+        return savedEvent
+    }
+
+    public saveNotification(notification: ICalendarNotification): void {
+        firstValueFrom(this.http.post<ICalendarNotification>('', notification)
+        .pipe(catchError(map(()=> ({notificationTime: "1:00"})))));
     }
 
     async deleteCalendarEvent(calendarEventId: string): Promise<string> {

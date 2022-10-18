@@ -1,11 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-import { CalendarStateContainer } from 'src/core/containers/CalendarStateContainer';
+import { CalendarStateContainer } from 'src/core/containers/calendar/CalendarStateContainer';
 import { CalendarEffect } from 'src/core/effects/CalendarEffect';
-import { CalendarEvent } from 'src/core/entities/CalendarEvent';
 import { CalendarFakeRepository } from 'src/infra/mocks/CalendarFakeRepository';
 import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
-
 import { CalendarSelectorService } from './calendar-selector.service';
+
+
 
 describe('CalendarSelectorService', () => {
   let service: CalendarSelectorService;

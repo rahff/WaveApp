@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
-import { ContactListState } from 'src/core/interfaces/states/ ContactListState';
 import { IContactItem } from 'src/infra/models/IContactIem';
 import { IContactListState } from 'src/shared/abstract/IContactListState';
 import { StateSelector } from '../../../shared/abstract/StateSelector';

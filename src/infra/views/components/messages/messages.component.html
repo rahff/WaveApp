@@ -1,0 +1,92 @@
+
+<div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header d-flex border-0 justify-content-between">
+          <h3 class="mb-0">Your Messages</h3>
+          <button [routerLink]="['/dashboard', 'send-email']" class="btn btn-primary">
+            <i class="bi bi-pen"></i> new message
+          </button>
+        </div>
+        <div class="table-responsive" *ngIf="messageList$ | async; let messageList">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr *ngIf="messageList.length; else noItem">
+                <th scope="col"><i class="bi bi-person"></i>From</th>
+                <th scope="col"><i class="bi bi-at"></i>Message</th>
+                <th scope="col"><i class="bi bi-paperclip"></i>Attachment</th>
+                <th scope="col"></th>
+              </tr>
+
+              <ng-template #noItem>
+                <th class="pt-4" scope="col"></th>
+              </ng-template>
+            </thead>
+            <tbody *ngIf="messageList.length; else emptyList">
+              <tr *ngFor="let message of messageList">
+                <th  scope="row">
+                  <div class="media align-items-center">
+                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                      <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
+                    </a>
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{message.from.username}}</span>
+                    </div>
+                  </div>
+                </th>
+                <td>
+                    <i class="bi bi-email"></i> {{message.content}}
+                </td>
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <i class="bi bi-mobile"></i> {{message.attachment}}
+                  </span>
+                </td>
+        
+                <td class="text-right">
+                  <div placement="bottom-right">
+                    <a [routerLink]="['/dashboard/send-email']" 
+                    [queryParams]="{'to': message.from.email}" 
+                    class="btn btn-sm text-light">
+                    <i style="font-size: 25px;" class="bi bi-reply"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <ng-template #emptyList>
+                <h2 class="text-center pt-3">You don't have any messages ...</h2>
+            </ng-template>
+
+
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                  <i class="ni ni-bold-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                  <i class="ni ni-bold-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
