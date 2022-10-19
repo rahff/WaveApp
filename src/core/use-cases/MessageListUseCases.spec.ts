@@ -10,7 +10,7 @@ describe('MessageListUseCases', ()=>{
     })
 
     it('should execute getNewMessage use case', async ()=>{
-        const result = await useCases.applyGetNewMessage();
+        const result = await useCases.applyGetNewMessage("");
         expect(result).toBeInstanceOf(Action);
     })
 })

@@ -1,10 +1,11 @@
 <div class="row">
     <div class="col">
-      <div class="card shadow">
+      <div class="card shadow" [formGroup]="messageForm">
         <div class="card-header d-flex border-0 justify-content-between">
             <h3 class="mb-0">Compose your message</h3>
-            <button class="btn btn-primary">
+            <button (click)="onSubmit()" class="btn btn-primary">
               Send email
+              <i class="bi bi-send"></i>
             </button>
           </div>
           <div class="card-body px-lg-4 py-lg-4">
@@ -13,15 +14,10 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bi bi-send"></i></span>
                   </div>
-                  <input class="form-control" placeholder="To" type="text">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group input-group-alternative mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="bi bi-person"></i></span>
-                  </div>
-                  <input class="form-control" placeholder="From" type="text">
+                  <select *ngIf="contactList$ | async; let contacts" formControlName="to" class="form-control">
+                    <option selected [value]="contactReceiver">{{contactReceiver?.email}}</option>
+                    <option *ngFor="let contact of contacts" [value]="contact">{{contact.email}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -29,14 +25,14 @@
                   <div>
                     <span class="input-group-text"><i class="bi bi-pen"></i></span>
                   </div>
-                  <textarea class="form-control" placeholder="Your message" cols="100" rows="10"></textarea>
+                  <textarea formControlName="message" class="form-control" placeholder="Your message" cols="100" rows="10"></textarea>
                 </div>
               </div>
             
           </div>
         <div class="card-footer py-2">
             <i style="font-size: 35px;" class="bi bi-paperclip cursor"></i>
-            <input type="file">
+            <input formControlName="attachment" type="file">
         </div>
       </div>
     </div>

@@ -7,8 +7,8 @@ import { ContactListRepositoryAdapter } from "./ContactListRepositoryAdapter";
 
 const generatedEmail = generateEmail();
 const generatedTel = generateTel();
-const itemRef: IContactItem = {name: "Jamy", firstname: "Fred", email: generatedEmail, id: "", tel: generatedTel };
-const itemRef2: IContactItem = {name: "test", firstname: "tester", id: generateId(), email: generateEmail(), tel: generateTel()};
+const itemRef: IContactItem = {name: "Jamy", email: generatedEmail, id: "", tel: generatedTel };
+const itemRef2: IContactItem = {name: "test", id: generateId(), email: generateEmail(), tel: generateTel()};
 
 describe("ContactListRepositoryAdapter", ()=> {
 
@@ -48,7 +48,7 @@ describe("ContactListRepositoryAdapter", ()=> {
     });
 
     it('should modify an item', async ()=>{
-        const ref = new ContactItem("tester", "beta", generateEmail(), generateTel(), "itemToModifyId")
+        const ref = new ContactItem("tester", generateEmail(), generateTel(), "itemToModifyId")
         const savedContact = await repository.saveContact(ref.asDto());
         const upadtedItem = await repository.modifyContact({...ref.asDto(), id: savedContact.id, name: "modified"});
         expect(upadtedItem.name).toBe("modified");

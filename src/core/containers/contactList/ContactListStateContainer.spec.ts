@@ -10,9 +10,9 @@ import { ContactListSelectorService } from "src/infra/services/contactList/conta
 import { ContactListStateContainer } from "./ContactListStateContainer";
 
 
-const contact1 = new ContactItem("tester", "test", "testertest@gmail.com", "0569898766", "123");
-const contact2 = new ContactItem("tester2", "test2", "testertest2@gmail.com", "0569398725", "456");
-const contact3 = new ContactItem("tester3", "test3", "testertest3@gmail.com", "0569728714", "789");
+const contact1 = new ContactItem("tester", "testertest@gmail.com", "0569898766", "123");
+const contact2 = new ContactItem("tester2", "testertest2@gmail.com", "0569398725", "456");
+const contact3 = new ContactItem("tester3", "testertest3@gmail.com", "0569728714", "789");
 
 describe('ContactListStateContainer', ()=> {
 
@@ -42,7 +42,7 @@ describe('ContactListStateContainer', ()=> {
     })
 
     it('should update a contact into the list state', ()=>{
-        stateContainer.dispatch(new UpdateContactItemCommand(new ContactItem(contact2.getName(), contact2.getFirstname(), "newemail@gmail.com", contact2.getTel(), contact2.getId())));
+        stateContainer.dispatch(new UpdateContactItemCommand(new ContactItem(contact2.getName(), "newemail@gmail.com", contact2.getTel(), contact2.getId())));
         expect(stateContainer.getState().contacts[1].getEmail()).toBe("newemail@gmail.com");
         expect(stateContainer.getState().onSuccessSave).toBeTrue();
     })

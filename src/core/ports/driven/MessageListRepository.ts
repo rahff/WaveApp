@@ -1,5 +1,7 @@
 import { IMessage } from "src/infra/models/IMessage";
 
 export interface MessageListRepository {
-    getNewMessage(): Promise<IMessage[]>
+    getNewMessages(emailAccount: string): Promise<IMessage[]>;
+    getMessageList(): Promise<IMessage[]>;
+    saveNewMessages(messages: IMessage[]): Promise<IMessage[]>;
 }

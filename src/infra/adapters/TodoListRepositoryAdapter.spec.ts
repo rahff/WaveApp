@@ -2,7 +2,6 @@ import { TestBed } from "@angular/core/testing";
 import { TodoItem } from "src/core/entities/TodoItem";
 import { ITodoItem } from "../models/ITodoItem";
 import { DatabaseModule } from "../modules/database.module";
-import { generateId } from "../utils/generators";
 import { TodoListRepositoryAdapter } from "./TodoListRepositoryAdapter";
 
 

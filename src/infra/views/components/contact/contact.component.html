@@ -25,7 +25,7 @@
                       <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
                     </a>
                     <div class="media-body">
-                      <span class="mb-0 text-sm">{{contact.name}} {{contact.firstname}}</span>
+                      <span class="mb-0 text-sm">{{contact.name}}</span>
                     </div>
                   </div>
                 </th>
@@ -45,7 +45,9 @@
                     class="btn btn-sm text-light">
                       <i style="font-size: 25px;" class="bi bi-pen"></i>
                     </a>
-                    <a [routerLink]="['/dashboard', 'send-email']" class="btn btn-sm text-light">
+                    <a [routerLink]="['/dashboard', 'send-email']" 
+                       [queryParams]="{'to': contact.email}"
+                       class="btn btn-sm text-light">
                       <i style="font-size: 25px;" class="bi bi-envelope-plus"></i>
                     </a>
                   </div>

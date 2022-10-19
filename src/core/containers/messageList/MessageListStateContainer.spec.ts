@@ -1,6 +1,7 @@
+import { ContactItem } from "src/core/entities/ContactItem";
 import { MessageListFakeRepository } from "src/infra/mocks/MessageListFakeRepository";
 import { MessageListSelectorService } from "src/infra/services/messageList/message-list-selector.service";
-import { AddMessageCommand } from "../../commands/messageList/AddMessageCommand";
+
 import { AddMessageListCommand } from "../../commands/messageList/AddMessageListCommand";
 import { RemoveMessageCommand } from "../../commands/messageList/RemoveMessageCommand";
 import { SetMessageListCommand } from "../../commands/messageList/SetMessageListCommand";
@@ -11,9 +12,10 @@ import { MessageListStateContainer } from "./MessageListStateContainer";
 
 
 const initialState: MessageListState = {messages: [], onException: null};
-const message1: _Message = new _Message("testtester@gmail.com", "hello", "123id" ,null);
-const message2: _Message = new _Message("testtester2@gmail.com", "hello2", "456id", null);
-const message3: _Message = new _Message('bernard@gmail.com', "salut", "789id", null);
+const contact = new ContactItem("test", "testester@gmail.com", "0450423036", "147852369");
+const message1: _Message = new _Message(contact, "hello", "123id" ,null);
+const message2: _Message = new _Message(contact, "hello2", "456id", null);
+const message3: _Message = new _Message(contact, "salut", "789id", null);
 const messageList: _Message[] = [message1, message2];
 
 
@@ -45,11 +47,6 @@ describe('MessageListStateContainer', ()=>{
         stateContainer.dispatch(new RemoveMessageCommand(message1.getId()));
         expect(stateContainer.getState().messages).toEqual([message2]);
     })
-
-    it('should add a message in the list', ()=> {
-        stateContainer.dispatch(new AddMessageCommand(message3));
-        expect(stateContainer.getState().messages).toEqual([...messageList, message3]);
-    });
 
     it("should add several massage in the list", ()=> {
         stateContainer.dispatch(new AddMessageListCommand([message3, message1]));

@@ -31,6 +31,13 @@ export class MessageListReducer implements Reducer {
                     ...initialState,
                     messages: [...initialState.messages, ...command.getPayload()]
                 }
+
+            case "onException": 
+                return {
+                    ...initialState,
+                    onException: {message: command.getPayload()}
+                }
+
             default: throw new CommandNotFoundException();
         
         };

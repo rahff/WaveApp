@@ -4,7 +4,7 @@ import { IContactItem } from "src/infra/models/IContactIem";
 
 export class ContactItem {
 
-    constructor(private name: string, private firstname: string, private email: string, private tel: string | null, private id: string){
+    constructor(private name: string, private email: string, private tel: string | null, private id: string){
         this.checkEmailValidity(this.email);
         if(this.tel) this.checkTelvalidity(this.tel);
     }
@@ -28,10 +28,6 @@ export class ContactItem {
         return this.name;
     }
 
-    public getFirstname(): string {
-        return this.firstname;
-    }
-
     public getEmail(): string {
         return this.email;
     }
@@ -43,7 +39,6 @@ export class ContactItem {
     public asDto(): IContactItem {
         return {
             name: this.name,
-            firstname: this.firstname,
             email: this.email,
             tel: this.tel,
             id: this.id

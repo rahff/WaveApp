@@ -24,4 +24,8 @@ export class ContactListFacade extends Facade<ContactListSelectorService> {
     public getSuccessSaveEvent(): Observable<boolean> {
         return this.dispatcher.stateSelector.getSuccessSaveEvent();
     }
+
+    public getContactItem(email: string | null): Observable<IContactItem> {
+        return this.dispatcher.stateSelector.getContactItem(email);
+    }
 }

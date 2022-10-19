@@ -30,7 +30,8 @@ describe('CalendarRepositoryAdapter', ()=> {
     });
 
     it('should save an event and notification', async ()=>{
-
+        //**************TODO*******************//
+        expect("hello").toBeTruthy();
     })
 
     it('should get All events', async()=> {

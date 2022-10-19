@@ -12,15 +12,20 @@ export class MessageListEffect implements EffectCreator {
     private messageListUseCases: MessageListUseCases;
 
     constructor(private repository: MessageListRepository) {
-        this.messageListUseCases = new MessageListUseCases(repository);
+        this.messageListUseCases = new MessageListUseCases(this.repository);
     }
 
     async createEffect(command: Command): Promise<Action> {
+        
         switch (command.getName()) {
             case "getNewMessages":
-                return this.messageListUseCases.applyGetNewMessage();
-        
+                return await this.messageListUseCases.applyGetNewMessage(command.getPayload());
+
+            case "getMessageList":
+                return await this.messageListUseCases.applyGetMessageList();
+
             default: throw new CommandNotFoundException();
+
         }
     }
 

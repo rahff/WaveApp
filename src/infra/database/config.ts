@@ -32,6 +32,13 @@ export const dbConfig: DBConfig = {
             storeSchema: [
                 {name: "description", keypath: "description", options: {unique: false}}
             ]
+        },
+        {
+            store: "message",
+            storeConfig: {keyPath: "id", autoIncrement: true},
+            storeSchema: [
+                {name: "from", keypath: "from.email", options: {unique: false}}
+            ]
         }
     ]
 }

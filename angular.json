@@ -29,8 +29,7 @@
             ],
             "styles": [
               "src/assets/scss/styles.scss",
-              "src/styles.scss",
-              "node_modules/flatpickr/dist/flatpickr.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "serviceWorker": true,
@@ -76,8 +75,7 @@
               "browserTarget": "waveApp:build:production"
             },
             "development": {
-              "browserTarget": "waveApp:build:development",
-              "disableHostCheck": true
+              "browserTarget": "waveApp:build:development"
             }
           },
           "defaultConfiguration": "development"

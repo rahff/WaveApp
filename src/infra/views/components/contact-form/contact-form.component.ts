@@ -68,8 +68,7 @@ export class ContactFormComponent extends SubscriberComponent implements OnInit 
   
   private initForm(initialValue?: IContactItem): void {
     this.contactForm = this.fb.group({
-      name: [initialValue?.name || '', [ValidatorsExtension.required, ValidatorsExtension.minLength(2), ValidatorsExtension.maxLength(28)]],
-      firstname: [initialValue?.firstname || '', [ValidatorsExtension.maxLength(28)]],
+      name: [initialValue?.name || '', [ValidatorsExtension.required, ValidatorsExtension.minLength(2), ValidatorsExtension.maxLength(48)]],
       email: [initialValue?.email || '', [ValidatorsExtension.email, ValidatorsExtension.required]],
       tel: [initialValue?.tel || '', [ValidatorsExtension.maxLength(12)]]
     })
@@ -79,7 +78,6 @@ export class ContactFormComponent extends SubscriberComponent implements OnInit 
     if(this.contactForm.valid){
       const contactItem: IContactItem = {
         name: this.contactForm.get('name')?.value,
-        firstname: this.contactForm.get('firstname')?.value,
         email: this.contactForm.get('email')?.value,
         tel: this.contactForm.get('tel')?.value ? this.contactForm.get('tel')?.value : null,
         id: this.initialValue ? this.initialValue.id : ""
