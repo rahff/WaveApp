@@ -14,9 +14,9 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bi bi-send"></i></span>
                   </div>
-                  <select *ngIf="contactList$ | async; let contacts" formControlName="to" class="form-control">
-                    <option selected [value]="contactReceiver">{{contactReceiver?.email}}</option>
-                    <option *ngFor="let contact of contacts" [value]="contact">{{contact.email}}</option>
+                  <select (ngModelChange)="setReceiver($event)" *ngIf="contactList$ | async; let contacts" formControlName="to" class="form-control">
+                    <option selected [value]="contactReceiver?.email">{{contactReceiver?.email}}</option>
+                    <option *ngFor="let contact of contacts" [value]="contact.email">{{contact.email}}</option>
                   </select>
                 </div>
               </div>

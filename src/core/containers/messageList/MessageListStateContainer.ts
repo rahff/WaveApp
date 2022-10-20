@@ -10,7 +10,7 @@ import { StateContainer } from "../stateContainer/StateContainer";
 
 export class MessageListStateContainer extends StateContainer {
     
-    protected override state: MessageListState = {messages: [], onException: null};
+    protected override state: MessageListState = {inbox: [], outbox: [], onException: null, messageSended: false};
     protected override reducer: MessageListReducer = new MessageListReducer();
     constructor(effectCreator: EffectCreator, selector: StateSelector){
         super(effectCreator, selector)

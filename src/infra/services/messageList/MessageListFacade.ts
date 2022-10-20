@@ -21,4 +21,8 @@ export class MessageListFacade extends Facade<MessageListSelectorService> {
         return this.dispatcher.stateSelector.getMessageList();
     }
 
+    public getMessageSendedEvent(): Observable<boolean> {
+        return this.dispatcher.stateSelector.getSendedMessageEvent();
+    }
+
 }

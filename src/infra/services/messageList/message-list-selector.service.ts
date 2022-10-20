@@ -9,13 +9,19 @@ import { StateSelector } from 'src/shared/abstract/StateSelector';
 })
 export class MessageListSelectorService extends StateSelector{
 
-  protected override state$ = new BehaviorSubject<IMessageListState>({onException: null, messages: []});
+  protected override state$ = new BehaviorSubject<IMessageListState>({onException: null, inbox: [], outbox: [], messageSended: false});
   constructor() {
     super()
   }
 
   public getMessageList(): Observable<IMessage[]> {
     return this.state$.asObservable()
-    .pipe(map((state: IMessageListState)=> state.messages));
+    .pipe(map((state: IMessageListState)=> {console.log("ererr",state.inbox);
+     return state.inbox}));
+  }
+
+  public getSendedMessageEvent(): Observable<boolean> {
+    return this.state$.asObservable()
+    .pipe(map((state: IMessageListState)=> state.messageSended))
   }
 }

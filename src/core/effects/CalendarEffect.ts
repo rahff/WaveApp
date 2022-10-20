@@ -42,12 +42,6 @@ export class CalendarEffect implements EffectCreator {
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }
-            case "saveNotification": 
-                try {
-                    return await this.calendarUseCases.applySaveNotification(command.getPayload());
-                } catch (error: any) {
-                    return new ExceptionEvent(error.message);
-                }
                 
             default: throw new CommandNotFoundException();
         }

@@ -25,7 +25,10 @@ describe('MessageListSelectorService', () => {
       expect(exception).toEqual(stateContainer.getState().onException)
     })
     selector.getMessageList().subscribe((list: IMessage[])=> {
-      expect(list).toEqual(stateContainer.getState().messages.map((v)=> v.asDto()))
+      expect(list).toEqual(stateContainer.getState().inbox.map((v)=> v.asDto()))
+    })
+    selector.getSendedMessageEvent().subscribe((event: boolean)=> {
+      expect(event).toEqual(stateContainer.getState().messageSended);
     })
   })
 });

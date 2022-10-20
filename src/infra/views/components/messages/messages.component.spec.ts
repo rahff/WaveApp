@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardModule } from 'src/infra/modules/dashboard.module';
 import { MessagesComponent } from './messages.component';
@@ -8,7 +9,7 @@ import { MessagesComponent } from './messages.component';
 describe('MessagesComponent', () => {
   let component: MessagesComponent;
   let fixture: ComponentFixture<MessagesComponent>;
-
+  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DashboardModule, RouterTestingModule],

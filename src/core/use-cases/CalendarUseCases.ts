@@ -31,23 +31,9 @@ export class CalendarUseCases {
             if(!invalidRegistration){
                 const savedEvent = await this.repository.saveCalendarEvent(calendarEvent.asDto());
                 const eventEntity = calendarMapper(savedEvent);
-                const eventNotification = eventEntity.getNotification();
-                if(eventNotification){
-                    const transactionObject: NotificationTransaction = {event: eventEntity, notification: eventNotification}
-                    return new SaveNotificationCommand(transactionObject);
-                }
                 return new AddCalendarEventCommand(eventEntity);
             }
             return invalidRegistration;
-        } catch (error: any) {
-            return new ExceptionEvent(error.message);
-        }
-    }
-
-    async applySaveNotification(transaction: NotificationTransaction): Promise<Action> {
-        try {
-            this.repository.saveNotification(transaction.notification.asDto());
-            return new AddCalendarEventCommand(transaction.event);
         } catch (error: any) {
             return new ExceptionEvent(error.message);
         }

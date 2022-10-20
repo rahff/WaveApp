@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, map, Observable, of } from "rxjs";
 import { CalendarRepository } from "src/core/ports/driven/CalendarRepository";
+import { environment } from "src/environments/environment";
 import { ICalendarEvent } from "../models/ICalendarEvent";
 import { ICalendarNotification } from "../models/ICalendarNotification";
 import { DatabaseModule } from "../modules/database.module";
@@ -15,6 +16,8 @@ import { generateId } from "../utils/generators";
 })
 export class CalendarRepositoryAdapter implements CalendarRepository{
 
+    private baseApiUrl = environment.baseApiUrl;
+    
     constructor(private service: NgxIndexedDBService,
                 private http: HttpClient){}
 
@@ -32,9 +35,9 @@ export class CalendarRepositoryAdapter implements CalendarRepository{
         return savedEvent
     }
 
-    public saveNotification(notification: ICalendarNotification): void {
-        firstValueFrom(this.http.post<ICalendarNotification>('', notification)
-        .pipe(catchError(map(()=> ({notificationTime: "1:00"})))));
+    private saveNotification(notification: ICalendarNotification): void {
+        firstValueFrom(this.http.post<ICalendarNotification>(`${this.baseApiUrl}/notifications`, notification)
+        .pipe(catchError(() =>{throw new Error("failed on server")})));
     }
 
     async deleteCalendarEvent(calendarEventId: string): Promise<string> {

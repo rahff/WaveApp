@@ -13,29 +13,37 @@ export class MessageListReducer implements Reducer {
             case "setMessages":
                 return {
                     ...initialState,
-                    messages: command.getPayload()
+                    inbox: command.getPayload()
                 }
             case "removeMessage":
                 return {
                     ...initialState,
-                    messages: this.removeMessage(initialState.messages, command.getPayload())
+                    inbox: this.removeMessage(initialState.inbox, command.getPayload())
                 }
-            case "addMessage":
-                return {
-                    ...initialState,
-                    messages: [...initialState.messages, command.getPayload()]
-                }
-
+    
             case "addMessageList":
                 return {
                     ...initialState,
-                    messages: [...initialState.messages, ...command.getPayload()]
+                    inbox: [...initialState.inbox, ...command.getPayload()]
                 }
 
             case "onException": 
                 return {
                     ...initialState,
                     onException: {message: command.getPayload()}
+                }
+
+            case "addOutBoxMessage": 
+                return {
+                    ...initialState,
+                    outbox: [...initialState.outbox, command.getPayload()],
+                    messageSended: true
+                }
+
+            case "messageSended": 
+                return {
+                    ...initialState,
+                    messageSended: false
                 }
 
             default: throw new CommandNotFoundException();

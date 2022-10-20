@@ -1,6 +1,7 @@
 import { IMessage } from "src/infra/models/IMessage";
 import { Action } from "src/shared/actions/Action";
 import { AddMessageListCommand } from "../commands/messageList/AddMessageListCommand";
+import { AddOutBoxMessageCommand } from "../commands/messageList/AddOutBoxMessageCommand";
 import { SetMessageListCommand } from "../commands/messageList/SetMessageListCommand";
 import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { messageMapper } from "../mappers/entities/MessageMapper";
@@ -27,7 +28,18 @@ export class MessageListUseCases {
         try {
             const messageList = await this.repository.getMessageList();
             const messageEntityList = messageList.map((message: IMessage)=> messageMapper(message));
+            console.log("messages : ", messageEntityList);
+            
             return new SetMessageListCommand(messageEntityList);
+        } catch (error: any) {
+            return new ExceptionEvent(error.message);
+        }
+    }
+
+    public async applySaveOutboxMessage(message: IMessage): Promise<Action> {
+        try {
+            const savedMessage = await this.repository.saveOutboxMessage(message);
+            return new AddOutBoxMessageCommand(messageMapper(savedMessage));
         } catch (error: any) {
             return new ExceptionEvent(error.message);
         }

@@ -1,6 +1,6 @@
 import { IMessage } from "src/infra/models/IMessage";
 import { ContactItem } from "./ContactItem";
-import { User } from "./User";
+
 
 export class _Message {
 

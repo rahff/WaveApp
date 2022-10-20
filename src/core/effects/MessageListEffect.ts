@@ -24,6 +24,9 @@ export class MessageListEffect implements EffectCreator {
             case "getMessageList":
                 return await this.messageListUseCases.applyGetMessageList();
 
+            case "saveOutboxMessage":
+                return await this.messageListUseCases.applySaveOutboxMessage(command.getPayload());
+
             default: throw new CommandNotFoundException();
 
         }

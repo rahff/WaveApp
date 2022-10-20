@@ -6,6 +6,10 @@ import { newMessageList, savedMessages } from "./fake-data";
 
 export class MessageListFakeRepository implements MessageListRepository {
 
+    async saveOutboxMessage(message: IMessage): Promise<IMessage> {
+        return message;
+    }
+
     async saveNewMessages(messages: IMessage[]): Promise<IMessage[]> {
         return messages;
     }

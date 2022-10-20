@@ -28,4 +28,15 @@ export class AlertService {
       confirmButtonText: confirmButtonText || 'Yes, delete it!'
     })
   }
+
+  public successAlert(message: string): Promise<SweetAlertResult> {
+    return Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: message,
+      showConfirmButton: false,
+      timer: 1500
+    })
+    
+  }
 }

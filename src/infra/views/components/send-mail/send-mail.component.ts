@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { MessageSendedEvent } from 'src/core/events/messages/MessageSendedEvent';
 import { GetContactListCommand } from 'src/infra/commands/contactList/GetContactListCommand';
+import { SaveOutBoxMessageCommand } from 'src/infra/commands/messageList/SaveOutBoxMessageCommand';
 import { IContactItem } from 'src/infra/models/IContactIem';
+import { IMessage } from 'src/infra/models/IMessage';
 import { ContactListFacade } from 'src/infra/services/contactList/ContactListFacade';
+import { MessageListFacade } from 'src/infra/services/messageList/MessageListFacade';
+import { AlertService } from '../../services/alert.service';
 import { ValidatorsExtension } from '../../services/ValidatorsExtension';
 import { SubscriberComponent } from '../../SubscriberComponent';
 
@@ -22,13 +27,29 @@ export class SendMailComponent extends SubscriberComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
-              private contactListFacade: ContactListFacade) { super() }
+              private contactListFacade: ContactListFacade,
+              private messageListFacade: MessageListFacade,
+              private router: Router,
+              private alertService: AlertService) { super() }
 
   ngOnInit(): void {
     this.contactListFacade.dispatch(new GetContactListCommand());
     this.initForm();
     this.getContactReceiver();
     this.contactList$ = this.contactListFacade.getContactList();
+    this.addMessageSendedEventListener();
+  }
+
+  private addMessageSendedEventListener(): void {
+    this.subscription.add(this.messageListFacade.getMessageSendedEvent()
+    .subscribe({next: this.messageSendedHandler.bind(this)}));
+  }
+
+  private messageSendedHandler(event: boolean): void {
+    if(!event) return
+      this.messageListFacade.dispatch(new MessageSendedEvent());
+      this.alertService.successAlert("Sended")
+      .then(()=> this.router.navigateByUrl('/dashboard/messages'));
   }
 
   private getContactReceiver(): void {
@@ -51,9 +72,20 @@ export class SendMailComponent extends SubscriberComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    if(this.messageForm.valid){
-      
+    if(this.messageForm.valid && this.contactReceiver){
+      const outboxMessage: IMessage = {
+        attachment: null,
+        content: this.messageForm.get('message')?.value,
+        from: this.contactReceiver,
+        id: ""
+      };
+      this.messageListFacade.dispatch(new SaveOutBoxMessageCommand(outboxMessage));
     }
+  }
+
+  public setReceiver(value: string): void {
+    this.toReply = value;
+    this.getContactReceiver();
   }
 
 }

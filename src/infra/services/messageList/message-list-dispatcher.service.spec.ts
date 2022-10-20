@@ -6,7 +6,8 @@ import { _Message } from 'src/core/entities/_Message';
 import { messageMapper } from 'src/core/mappers/entities/MessageMapper';
 import { GetMessageListCommand } from 'src/infra/commands/messageList/GetMessageListCommand';
 import { GetNewMessagesCommand } from 'src/infra/commands/messageList/GetNewMessagesCommand';
-import { newMessageList, savedMessages } from 'src/infra/mocks/fake-data';
+import { SaveOutBoxMessageCommand } from 'src/infra/commands/messageList/SaveOutBoxMessageCommand';
+import { fakeMessage4, newMessageList, savedMessages } from 'src/infra/mocks/fake-data';
 import { MessageListFakeRepository } from 'src/infra/mocks/MessageListFakeRepository';
 import { IMessage } from 'src/infra/models/IMessage';
 import { MessageListDispatcherService } from './message-list-dispatcher.service';
@@ -34,11 +35,16 @@ describe('MessageListDispatcherService', () => {
   it('should dispatch getNewMessagesCommand', fakeAsync(()=>{
     service.dispatch(new GetMessageListCommand());
     flushMicrotasks();
-    expect(stateContainer.getState().messages).toEqual([...mapList(savedMessages)])
+    expect(stateContainer.getState().inbox).toEqual([...mapList(savedMessages)])
     service.dispatch(new GetNewMessagesCommand("myEmail@gmail.com"));
     flushMicrotasks();
-    expect(stateContainer.getState().messages).toEqual([...mapList(savedMessages), ...mapList(newMessageList)]);
-    
+    expect(stateContainer.getState().inbox).toEqual([...mapList(savedMessages), ...mapList(newMessageList)]);
+  }));
+
+  it('should dispatch saveOutboxMessage command', fakeAsync(()=>{
+    service.dispatch(new SaveOutBoxMessageCommand(fakeMessage4));
+    flushMicrotasks();
+    expect(stateContainer.getState().outbox).toEqual([messageMapper(fakeMessage4)]);
   }))
 
   const mapList = (list: IMessage[]): _Message[] => {

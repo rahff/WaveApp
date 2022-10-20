@@ -1,5 +1,5 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { fakeAsync, TestBed } from "@angular/core/testing";
 import { CalendarEvent } from "src/core/entities/CalendarEvent";
 import { DatabaseModule } from "../modules/database.module";
 import { CalendarRepositoryAdapter } from "./CalendarRepositoryAdapter";
@@ -9,7 +9,7 @@ const ref = new CalendarEvent("test event", new Date(2022, 8, 5, 5, 0), new Date
 describe('CalendarRepositoryAdapter', ()=> {
 
     let repository: CalendarRepositoryAdapter;
-
+    let http: HttpTestingController
     beforeEach(()=>{
         TestBed.configureTestingModule({
             imports: [
@@ -18,6 +18,7 @@ describe('CalendarRepositoryAdapter', ()=> {
             ]
         })
         repository = TestBed.inject(CalendarRepositoryAdapter);
+        http = TestBed.inject(HttpTestingController);
     })
 
     it('should be created', ()=> {
@@ -29,10 +30,14 @@ describe('CalendarRepositoryAdapter', ()=> {
         expect(savedEvent.title).toBe("test event");
     });
 
-    it('should save an event and notification', async ()=>{
-        //**************TODO*******************//
-        expect("hello").toBeTruthy();
-    })
+    it('should send post request to save notification endpoint', fakeAsync(async()=>{
+        ref.setNotification({notificationTime: "1:00", notificationDateTime: new Date()})
+        const savedEvent = await repository.saveCalendarEvent(ref.asDto());
+        const req = http.expectOne("http://localhost:8080/api/notifications");
+        expect(req.request.method).toBe("POST")
+        expect(req.request.body).toEqual(ref.asDto().notification)
+        req.flush(ref.asDto())
+    }))
 
     it('should get All events', async()=> {
         const savedEvent = await repository.saveCalendarEvent(ref.asDto());
