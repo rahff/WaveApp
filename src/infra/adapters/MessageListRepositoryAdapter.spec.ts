@@ -1,5 +1,7 @@
+import { HttpClient } from "@angular/common/http";
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 import { fakeAsync, flushMicrotasks, TestBed } from "@angular/core/testing";
+import { of } from "rxjs";
 import { fakeMessage, newMessageList } from "../mocks/fake-data";
 import { DatabaseModule } from "../modules/database.module";
 import { MessageListRepositoryAdapter } from "./MessageListRepositoryAdapter";
@@ -7,13 +9,17 @@ import { MessageListRepositoryAdapter } from "./MessageListRepositoryAdapter";
 
 describe('MessageListRepositoryAdapter', ()=> {
     let repository: MessageListRepositoryAdapter;
-    let http: HttpTestingController;
-
+    let httpServiceSpy: any;
     beforeEach(()=>{
+        httpServiceSpy = jasmine.createSpyObj('HttpClient', ["post", "get"])
         TestBed.configureTestingModule({
-            imports: [DatabaseModule, HttpClientTestingModule]
+            imports: [DatabaseModule, HttpClientTestingModule],
+            providers: [
+                {
+                    provide: HttpClient, useValue: httpServiceSpy
+                }
+            ]
         })
-        http = TestBed.inject(HttpTestingController);
         repository = TestBed.inject(MessageListRepositoryAdapter);
     })
 
@@ -21,26 +27,25 @@ describe('MessageListRepositoryAdapter', ()=> {
         expect(repository).toBeTruthy();
     })
 
-    it('should return an empty array test', async ()=>{
-        const result = await repository.getNewMessages();
-        expect(result).toEqual([]);
-    })
-
     it('should save new inbox messages', async()=> {
         const savedMessage = await repository.saveNewMessages(newMessageList);
         expect(savedMessage).toBe(newMessageList);
     });
 
-    it('should get inbox list', async ()=> {
+    it('should send get request to new message endpoint', async ()=>{
+        httpServiceSpy.get.and.returnValue(of(newMessageList));
+        const result = await repository.getNewMessages("myemailaccount@gmail.com");
+        expect(httpServiceSpy.get).toHaveBeenCalledWith(`http://localhost:8080/api/inbox-message?account=myemailaccount@gmail.com`);
+    })
+
+    it('should get local message list', async ()=> {
         const result = await repository.getMessageList();
         expect(result.length).toBeGreaterThan(0);
     })
 
     it('should save outbox message', async()=> {
-        const savedMessage = await repository.saveOutboxMessage({...fakeMessage, id: ""})
-        const req = http.expectOne("http://localhost:8080/api/outbox-messages");
-        expect(req.request.method).toBe('POST');
-        expect(req.request.body).toEqual({...fakeMessage, id: savedMessage.id})
-        req.flush({...fakeMessage, id: savedMessage})
+        httpServiceSpy.post.and.returnValue(of({...fakeMessage, id: "1233"}))
+        const savedMessage = await repository.saveOutboxMessage({...fakeMessage, id: "1233"});
+        expect(httpServiceSpy.post).toHaveBeenCalledWith(`http://localhost:8080/api/outbox-messages`, {...fakeMessage, id: savedMessage.id})
     })
 })

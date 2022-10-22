@@ -28,8 +28,6 @@ export class MessageListUseCases {
         try {
             const messageList = await this.repository.getMessageList();
             const messageEntityList = messageList.map((message: IMessage)=> messageMapper(message));
-            console.log("messages : ", messageEntityList);
-            
             return new SetMessageListCommand(messageEntityList);
         } catch (error: any) {
             return new ExceptionEvent(error.message);

@@ -24,10 +24,10 @@ export class UserEffect implements EffectCreator {
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }
-            case "verifyPassword":
+            case "login":
                 try {
                     const { email, password } = command.getPayload();
-                    return await this.validationPolicies.applyVerifyPassword(password, email);
+                    return await this.validationPolicies.applyLogin(password, email);
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }

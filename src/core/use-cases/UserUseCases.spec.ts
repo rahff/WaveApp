@@ -6,7 +6,8 @@ const userWithInvalidEmail = {
     username: "Guillaume", 
     email: "guiguilamenace£$gmail.com",
     password: "Mot2$asse",
-    isAuth: false
+    isAuth: false,
+    token: null
 }
 
 const userWithWeakPassword = {
@@ -14,7 +15,8 @@ const userWithWeakPassword = {
     username: "Guillaume", 
     email: "guiguilamenace@gmail.com",
     password: "Motdepasse",
-    isAuth: false
+    isAuth: false,
+    token: null
 }
 
 describe("UserUseCases", ()=>{

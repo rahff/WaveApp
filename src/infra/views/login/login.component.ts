@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { VerifyPasswordCommand } from 'src/infra/commands/user/VerifyPasswordCommand';
+import { LoginCommand } from 'src/infra/commands/user/LoginCommand';
 import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
 import { UserFacade } from 'src/infra/services/user/UserFacade';
 import { AlertService } from '../services/alert.service';
@@ -62,7 +62,7 @@ export class LoginComponent extends SubscriberComponent implements OnInit {
   public onSubmit(): void {
     if(this.loginForm.valid){
       const credentials = this.loginForm.getRawValue();
-      this.userFacade.dispatch(new VerifyPasswordCommand(credentials));
+      this.userFacade.dispatch(new LoginCommand(credentials));
     }
   }
 }

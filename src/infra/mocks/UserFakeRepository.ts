@@ -12,8 +12,14 @@ export class UserFakeRepository implements UserRepository {
         return new Promise((resolve)=> resolve(user1.asDto()));
     }
 
-    getUser(email: string): Promise<IUser> {
-        return new Promise((resolve)=> resolve(user1.asDto()));
+    loginUser(email: string, password: string): Promise<IUser> {
+        return new Promise((resolve, reject)=> {
+            if(password === "Mot2$asse" && email === user1.asDto().email){
+                resolve(user1.asDto())
+            }else{
+                reject(new Error('invalid credentials'))
+            }
+        });
     }
 
     saveUser(user: IUser): Promise<IUser> {

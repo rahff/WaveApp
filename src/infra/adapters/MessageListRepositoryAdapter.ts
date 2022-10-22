@@ -43,8 +43,8 @@ export class MessageListRepositoryAdapter implements MessageListRepository {
         .pipe(catchError(()=> {throw  new Error('failed get all')})));
     }
 
-    async getNewMessages(): Promise<IMessage[]> {
-        return [];
+    async getNewMessages(emailAccount: string): Promise<IMessage[]> {
+        return await firstValueFrom(this.http.get<IMessage[]>(`${this.baseApiUrl}/inbox-message?account=${emailAccount}`)
+        .pipe(catchError(()=> {throw new Error("failed to fetch inbox messages")})));
     }
-
 }

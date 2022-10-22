@@ -2,6 +2,7 @@ import { IUser } from "src/infra/models/IUser";
 
 export class User {
 
+    private token: string | null = null;
     private isAuth: boolean = false;
     constructor(private username: string, private email: string, private password: string, private id: string){
         this.checkDatavalidity();
@@ -51,7 +52,8 @@ export class User {
             email: this.email, 
             password: this.password,
             id: this.id,
-            isAuth: this.isAuth
+            isAuth: this.isAuth,
+            token: this.token
         }
     }
 
@@ -59,7 +61,8 @@ export class User {
        return this.isAuth;
     }
 
-    public setIsAuth(isAuth: boolean): void {
+    public setIsAuth(isAuth: boolean, token: string | null): void {
+        this.token = token;
         this.isAuth = isAuth;
     }
 }

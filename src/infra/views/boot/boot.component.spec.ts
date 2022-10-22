@@ -5,6 +5,7 @@ import { UserEffect } from 'src/core/effects/UserEffect';
 import { UserRepository } from 'src/core/ports/driven/UserRepository';
 import { EffectCreator } from 'src/core/ports/driver/EffectCreator';
 import { UserRepositoryAdapter } from 'src/infra/adapters/UserRepositoryAdapter';
+import { AppModule } from 'src/infra/modules/app.module';
 import { DatabaseModule } from 'src/infra/modules/database.module';
 import { UserModule } from 'src/infra/modules/user.module';
 import { UserSelectorService } from 'src/infra/services/user/user-selector.service';
@@ -19,7 +20,8 @@ describe('BootComponent', () => {
       imports: [
         RouterTestingModule,
         UserModule,
-        DatabaseModule
+        DatabaseModule,
+        AppModule
       ],
       providers: [
         {

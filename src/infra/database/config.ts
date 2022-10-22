@@ -5,13 +5,6 @@ export const dbConfig: DBConfig = {
     version: 1,
     objectStoresMeta: [
         {
-            store: "user",
-            storeConfig: {keyPath: "id", autoIncrement: false},
-            storeSchema: [
-                {name: "email", keypath: "email", options: {unique: false}},
-            ]
-        },
-        {
             store: "contact",
             storeConfig: {keyPath: "id", autoIncrement: false},
             storeSchema: [

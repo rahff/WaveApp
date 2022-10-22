@@ -11,6 +11,6 @@ export class GoogleSignService {
   constructor(private http: HttpClient) { }
 
   public getGoogleCredential(): Observable<IUser> {
-    return of({id: "2545454541", username: "Rahff", email: "raphaelandrey99@gmail.com", password: "Mot2$asse", isAuth: true})
+    return of({id: "2545454541", username: "Rahff", email: "raphaelandrey99@gmail.com", password: "Mot2$asse", isAuth: true, token: "googleToken"})
   }
 }

@@ -4,7 +4,7 @@ import { UserEffect } from 'src/core/effects/UserEffect';
 import { GetUserCommand } from 'src/infra/commands/user/GetUserCommand';
 import { user1 } from 'src/infra/mocks/fake-data';
 import { SaveUserCommand } from '../../commands/user/SaveUserCommand';
-import { VerifyPasswordCommand } from '../../commands/user/VerifyPasswordCommand';
+import { LoginCommand } from '../../commands/user/LoginCommand';
 import { UserFakeRepository } from '../../mocks/UserFakeRepository';
 import { UserDispatcherService } from './user-dispatcher.service';
 import { UserSelectorService } from './user-selector.service';
@@ -32,8 +32,8 @@ describe('UserDispatcherService', () => {
   }))
 
   it('should dispatch saveUser command', fakeAsync(()=>{
+    user1.setIsAuth(true, "tokenJwt");
     service.dispatch(new SaveUserCommand(user1.asDto()));
-    user1.setIsAuth(true);
     flushMicrotasks();
     expect(stateContainer.getState().user).toEqual(user1);
     expect(stateContainer.getState().onException).toBeNull();
@@ -49,16 +49,16 @@ describe('UserDispatcherService', () => {
     expect(stateContainer.getState().onException).toEqual({message: "invalid email..."});
   }))
 
-  it('should dispatch verifyPassword command', fakeAsync(()=>{
-    service.dispatch(new VerifyPasswordCommand({password: "Mot2$asse", email: ""}));
+  it('should dispatch loginUser command', fakeAsync(()=>{
+    service.dispatch(new LoginCommand({password: "Mot2$asse", email: user1.asDto().email}));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeTrue();
   }));
 
   it('should dispatch WrongPassword event', fakeAsync(()=>{
-    service.dispatch(new VerifyPasswordCommand({password: "Mot2$a$$e", email: ""}));
+    service.dispatch(new LoginCommand({password: "Mot2$a$$e", email: ""}));
     flushMicrotasks();
     expect(stateContainer.getState().isAuth).toBeFalse();
-    expect(stateContainer.getState().onException?.message).toBe('invalid credentials');
+    expect(stateContainer.getState().onException?.message).toBe('invalid credential');
   }))
 });

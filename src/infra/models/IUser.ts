@@ -3,5 +3,6 @@ export interface IUser {
     username: string;
     email: string;
     password: string;
-    isAuth: boolean
+    isAuth: boolean;
+    token: string | null
 }

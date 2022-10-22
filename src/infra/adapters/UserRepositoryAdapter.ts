@@ -1,10 +1,12 @@
 import { UserRepository } from "src/core/ports/driven/UserRepository";
-import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { catchError, firstValueFrom, lastValueFrom, map } from "rxjs";
+import { catchError, firstValueFrom, lastValueFrom, map, tap } from "rxjs";
 import { Injectable } from "@angular/core";
 import { generateId } from "../utils/generators";
 import { DatabaseModule } from "../modules/database.module";
 import { IUser } from "../models/IUser";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
+import { user1 } from "../mocks/fake-data";
 
 
 
@@ -13,25 +15,28 @@ import { IUser } from "../models/IUser";
 })
 export class UserRepositoryAdapter implements UserRepository {
 
-    constructor(private service: NgxIndexedDBService){}
+    private baseUrl = environment.baseApiUrl;
+    constructor(private service: HttpClient){}
     
     async getDefaultUser(): Promise<IUser | null> {
-        return firstValueFrom(this.service.getAll<IUser>("user")
-        .pipe(map((list: IUser[])=> list[0]), 
-        catchError(()=> {throw new Error("something goes wrong")})), 
-        {defaultValue: null});
+        const defaultUser = localStorage.getItem('defaultUser');
+        if(defaultUser) return JSON.parse(defaultUser);
+        return null;
     }
 
     async saveUser(user: IUser): Promise<IUser> {
-        user.id = generateId();
-        return await firstValueFrom(this.service.add("user", user)
-        .pipe(catchError(()=> {throw new Error("failed to save")})));
+        return await firstValueFrom(this.service.post<IUser>(`${this.baseUrl}/signup`, user)
+        .pipe(tap(this.setLocalUser),
+         catchError((error: any)=> {throw new Error(error.message)})));
     }
 
-    async getUser(email: string): Promise<IUser> {      
-       return await firstValueFrom(this.service.getByIndex<IUser>("user", "email", email)
-       .pipe(catchError((err)=> {throw new Error("something goes wrong")})));
+    async loginUser(email: string, password: string): Promise<IUser> {
+        return await firstValueFrom(this.service.post<IUser>(`${this.baseUrl}/login`, {email, password})
+        .pipe(tap(this.setLocalUser),
+         catchError((error: any)=>{throw new Error(error.message)})));
     }
 
-   
+    private setLocalUser(user: IUser): void {
+        localStorage.setItem('defaultUser', JSON.stringify(user))
+    }
 }
