@@ -1,4 +1,5 @@
-import { ContactListFakeRepository } from "src/infra/mocks/ContactListFakeRepository";
+
+import { ContactListFakeRepository } from "../../infra/mocks/ContactListFakeRepository";
 import { ContactListUseCases } from "./ContactListUseCases"
 
 

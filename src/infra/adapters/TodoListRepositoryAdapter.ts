@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, map, Observable, of } from "rxjs";
-import { TodoListRepository } from "src/core/ports/driven/TodoListRepository";
+import { TodoListRepository } from "../../core/ports/driven/TodoListRepository";
 import { ITodoItem } from "../models/ITodoItem";
 import { DatabaseModule } from "../modules/database.module";
 import { generateId } from "../utils/generators";

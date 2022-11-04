@@ -1,4 +1,5 @@
-import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
+
+import { ICalendarEvent } from "../../infra/models/ICalendarEvent";
 import { IBaseState } from "./IBaseState";
 
 

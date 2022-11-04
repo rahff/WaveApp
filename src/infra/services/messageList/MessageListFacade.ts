@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { IMessage } from "src/infra/models/IMessage";
-import { MessageListModule } from "src/infra/modules/message-list.module";
-import { Facade } from "src/shared/abstract/Facade";
+import { Facade } from "../../../shared/abstract/Facade";
+import { IMessage } from "../../models/IMessage";
+import { MessageListModule } from "../../modules/message-list.module";
+
 import { MessageListDispatcherService } from "./message-list-dispatcher.service";
 import { MessageListSelectorService } from "./message-list-selector.service";
 

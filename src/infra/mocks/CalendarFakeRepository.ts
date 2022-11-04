@@ -1,4 +1,5 @@
-import { CalendarRepository } from "src/core/ports/driven/CalendarRepository";
+
+import { CalendarRepository } from "../../core/ports/driven/CalendarRepository";
 import { ICalendarEvent } from "../models/ICalendarEvent";
 import { ICalendarNotification } from "../models/ICalendarNotification";
 import { fakeCalendarEvent1, fakeCalendarEvent2, fakeCalendarEvent3 } from "./fake-data";

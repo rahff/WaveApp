@@ -1,9 +1,9 @@
 
 import { NgModule } from '@angular/core';
-import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
-import { UserEffect } from 'src/core/effects/UserEffect';
-import { UserRepository } from 'src/core/ports/driven/UserRepository';
-import { StateSelector } from 'src/shared/abstract/StateSelector';
+import { UserStateContainer } from '../../core/containers/user/UserStateContainer';
+import { UserEffect } from '../../core/effects/UserEffect';
+import { UserRepository } from '../../core/ports/driven/UserRepository';
+import { StateSelector } from '../../shared/abstract/StateSelector';
 import { UserRepositoryAdapter } from '../adapters/UserRepositoryAdapter';
 import { UserSelectorService } from '../services/user/user-selector.service';
 

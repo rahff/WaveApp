@@ -1,5 +1,6 @@
-import { IMessage } from "src/infra/models/IMessage";
-import { Action } from "src/shared/actions/Action";
+
+import { IMessage } from "../../infra/models/IMessage";
+import { Action } from "../../shared/actions/Action";
 import { AddMessageListCommand } from "../commands/messageList/AddMessageListCommand";
 import { AddOutBoxMessageCommand } from "../commands/messageList/AddOutBoxMessageCommand";
 import { SetMessageListCommand } from "../commands/messageList/SetMessageListCommand";

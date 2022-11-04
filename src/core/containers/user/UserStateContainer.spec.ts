@@ -1,12 +1,12 @@
 
-import { SetIsAuthCommand } from "src/core/commands/user/SetIsAuthCommand";
-import { SetUserCommand } from "src/core/commands/user/UserCommand";
-import { UserEffect } from "src/core/effects/UserEffect";
-import { User } from "src/core/entities/User";
-import { SignupEvent } from "src/core/events/user/SignupEvent";
-import { EffectCreator } from "src/core/ports/driver/EffectCreator";
-import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
-import { UserSelectorService } from "src/infra/services/user/user-selector.service";
+import { UserFakeRepository } from "../../../infra/mocks/UserFakeRepository";
+import { UserSelectorService } from "../../../infra/services/user/user-selector.service";
+import { SetIsAuthCommand } from "../../commands/user/SetIsAuthCommand";
+import { SetUserCommand } from "../../commands/user/UserCommand";
+import { UserEffect } from "../../effects/UserEffect";
+import { User } from "../../entities/User";
+import { SignupEvent } from "../../events/user/SignupEvent";
+import { EffectCreator } from "../../ports/driver/EffectCreator";
 import { UserStateContainer } from "./UserStateContainer";
 
 const user1: User = new User("francis", "francis@gmail.com", "Mot2$asse", "8488");

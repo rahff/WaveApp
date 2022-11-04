@@ -1,4 +1,5 @@
-import { Action } from "src/shared/actions/Action";
+
+import { Action } from "../../shared/actions/Action";
 import { BaseState } from "./states/BaseState";
 
 

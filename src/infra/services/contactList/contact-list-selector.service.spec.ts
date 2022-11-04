@@ -1,9 +1,10 @@
-import { SetContactListCommand } from 'src/core/commands/contactList/SetContactListCommand';
-import { ContactListStateContainer } from 'src/core/containers/contactList/ContactListStateContainer';
-import { ContactListEffect } from 'src/core/effects/ContactListEffect';
-import { ContactListFakeRepository } from 'src/infra/mocks/ContactListFakeRepository';
-import { conatct1, conatct2 } from 'src/infra/mocks/fake-data';
-import { IContactItem } from 'src/infra/models/IContactIem';
+
+import { SetContactListCommand } from '../../../core/commands/contactList/SetContactListCommand';
+import { ContactListStateContainer } from '../../../core/containers/contactList/ContactListStateContainer';
+import { ContactListEffect } from '../../../core/effects/ContactListEffect';
+import { ContactListFakeRepository } from '../../mocks/ContactListFakeRepository';
+import { conatct1, conatct2 } from '../../mocks/fake-data';
+import { IContactItem } from '../../models/IContactIem';
 import { ContactListSelectorService } from './contact-list-selector.service';
 
 

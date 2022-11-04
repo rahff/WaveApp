@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
-import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
-import { ICalendarState } from 'src/shared/abstract/ICalendarState';
+import { ICalendarState } from '../../../shared/abstract/ICalendarState';
 import { StateSelector } from '../../../shared/abstract/StateSelector';
+import { ICalendarEvent } from '../../models/ICalendarEvent';
 
 
 

@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DashboardModule } from 'src/infra/modules/dashboard.module';
+import { DashboardModule } from '../../../modules/dashboard.module';
+
 
 import { SendMailComponent } from './send-mail.component';
 

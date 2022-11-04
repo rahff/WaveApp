@@ -1,10 +1,11 @@
-import { IMessage } from "src/infra/models/IMessage";
+
+import { IMessage } from "../../infra/models/IMessage";
 import { ContactItem } from "./ContactItem";
 
 
 export class _Message {
 
-    constructor(private from: ContactItem, 
+    constructor(private to: ContactItem, 
                 private content: string, 
                 private id: string, 
                 private attachment?: any){}
@@ -15,7 +16,7 @@ export class _Message {
 
     public asDto(): IMessage {
         return {
-            from: this.from.asDto(),
+            to: this.to.asDto(),
             content: this.content,
             id: this.id,
             attachment: this.attachment

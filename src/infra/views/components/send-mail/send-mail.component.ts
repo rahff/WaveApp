@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { MessageSendedEvent } from 'src/core/events/messages/MessageSendedEvent';
-import { GetContactListCommand } from 'src/infra/commands/contactList/GetContactListCommand';
-import { SaveOutBoxMessageCommand } from 'src/infra/commands/messageList/SaveOutBoxMessageCommand';
-import { IContactItem } from 'src/infra/models/IContactIem';
-import { IMessage } from 'src/infra/models/IMessage';
-import { ContactListFacade } from 'src/infra/services/contactList/ContactListFacade';
-import { MessageListFacade } from 'src/infra/services/messageList/MessageListFacade';
+import { MessageSendedEvent } from '../../../../core/events/messages/MessageSendedEvent';
+import { GetContactListCommand } from '../../../commands/contactList/GetContactListCommand';
+import { SaveOutBoxMessageCommand } from '../../../commands/messageList/SaveOutBoxMessageCommand';
+import { IContactItem } from '../../../models/IContactIem';
+import { IMessage } from '../../../models/IMessage';
+import { ContactListFacade } from '../../../services/contactList/ContactListFacade';
+import { MessageListFacade } from '../../../services/messageList/MessageListFacade';
 import { AlertService } from '../../services/alert.service';
 import { ValidatorsExtension } from '../../services/ValidatorsExtension';
 import { SubscriberComponent } from '../../SubscriberComponent';
@@ -76,7 +76,7 @@ export class SendMailComponent extends SubscriberComponent implements OnInit {
       const outboxMessage: IMessage = {
         attachment: null,
         content: this.messageForm.get('message')?.value,
-        from: this.contactReceiver,
+        to: this.contactReceiver,
         id: ""
       };
       this.messageListFacade.dispatch(new SaveOutBoxMessageCommand(outboxMessage));

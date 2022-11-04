@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DashboardModule } from 'src/infra/modules/dashboard.module';
+import { DashboardModule } from '../../../modules/dashboard.module';
+
 
 import { ContactFormComponent } from './contact-form.component';
 

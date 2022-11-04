@@ -1,4 +1,4 @@
-import { _Event } from "src/shared/actions/Action";
+import { _Event } from "../../shared/actions/Action";
 
 export class ContactSavedEvent extends _Event {
     constructor(){

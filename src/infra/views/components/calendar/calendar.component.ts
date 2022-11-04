@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarOptions, DateSelectArg, EventClickArg } from '@fullcalendar/angular';
-import { GetCalendarEventsCommand } from 'src/infra/commands/calendar/GetCalendarEventsCommand';
-import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
-import { CalendarFacade } from 'src/infra/services/calendar/CalendarFacade';
+import { GetCalendarEventsCommand } from '../../../commands/calendar/GetCalendarEventsCommand';
+import { ICalendarEvent } from '../../../models/ICalendarEvent';
+import { CalendarFacade } from '../../../services/calendar/CalendarFacade';
+
 import { SubscriberComponent } from '../../SubscriberComponent';
 
 @Component({

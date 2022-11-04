@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SaveTodoListItemCommand } from 'src/infra/commands/todoList/SaveTodoListItem';
-import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
-import { TodoItemSavedEvent } from 'src/infra/events/TodoItemSavedEvent';
-import { ITodoItem } from 'src/infra/models/ITodoItem';
-import { TodoListFacade } from 'src/infra/services/todoList/TodoListFacade';
+import { SaveTodoListItemCommand } from '../../../commands/todoList/SaveTodoListItem';
+import { ExceptionHandledEvent } from '../../../events/ExceptionHandledEvent';
+import { TodoItemSavedEvent } from '../../../events/TodoItemSavedEvent';
+import { ITodoItem } from '../../../models/ITodoItem';
+import { TodoListFacade } from '../../../services/todoList/TodoListFacade';
 import { AlertService } from '../../services/alert.service';
 import { ValidatorsExtension } from '../../services/ValidatorsExtension';
 import { SubscriberComponent } from '../../SubscriberComponent';

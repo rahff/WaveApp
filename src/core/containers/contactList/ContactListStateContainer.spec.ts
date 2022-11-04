@@ -1,12 +1,13 @@
-import { AddContactItemCommand } from "src/core/commands/contactList/AddContactItemCommand";
-import { RemoveContactItemCommand } from "src/core/commands/contactList/RemoveContactItemCommand";
-import { SetContactListCommand } from "src/core/commands/contactList/SetContactListCommand";
-import { UpdateContactItemCommand } from "src/core/commands/contactList/UpdateContactItemCommand";
-import { ContactListEffect } from "src/core/effects/ContactListEffect";
-import { ContactItem } from "src/core/entities/ContactItem";
-import { ContactSavedEvent } from "src/infra/events/ContactSavedEvent";
-import { ContactListFakeRepository } from "src/infra/mocks/ContactListFakeRepository";
-import { ContactListSelectorService } from "src/infra/services/contactList/contact-list-selector.service";
+
+import { ContactSavedEvent } from "../../../infra/events/ContactSavedEvent";
+import { ContactListFakeRepository } from "../../../infra/mocks/ContactListFakeRepository";
+import { ContactListSelectorService } from "../../../infra/services/contactList/contact-list-selector.service";
+import { AddContactItemCommand } from "../../commands/contactList/AddContactItemCommand";
+import { RemoveContactItemCommand } from "../../commands/contactList/RemoveContactItemCommand";
+import { SetContactListCommand } from "../../commands/contactList/SetContactListCommand";
+import { UpdateContactItemCommand } from "../../commands/contactList/UpdateContactItemCommand";
+import { ContactListEffect } from "../../effects/ContactListEffect";
+import { ContactItem } from "../../entities/ContactItem";
 import { ContactListStateContainer } from "./ContactListStateContainer";
 
 

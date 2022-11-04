@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, lastValueFrom, map, Observable, of } from "rxjs";
-import { ContactListRepository } from "src/core/ports/driven/ContactListRepository";
+import { ContactListRepository } from "../../core/ports/driven/ContactListRepository";
 import { IContactItem } from "../models/IContactIem";
 import { DatabaseModule } from "../modules/database.module";
 import { generateId } from "../utils/generators";

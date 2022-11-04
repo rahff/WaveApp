@@ -1,4 +1,5 @@
-import { ICalendarState } from "src/shared/abstract/ICalendarState";
+
+import { ICalendarState } from "../../../shared/abstract/ICalendarState";
 import { CalendarEvent } from "../../entities/CalendarEvent";
 import { CalendarState } from "../../interfaces/states/CalendarState";
 

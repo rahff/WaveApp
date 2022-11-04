@@ -1,5 +1,5 @@
-import { ContactItem } from "src/core/entities/ContactItem";
-import { IContactItem } from "src/infra/models/IContactIem";
+import { IContactItem } from "../../../infra/models/IContactIem";
+
 
 
 

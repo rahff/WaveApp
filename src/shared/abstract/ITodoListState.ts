@@ -1,4 +1,5 @@
-import { ITodoItem } from "src/infra/models/ITodoItem";
+
+import { ITodoItem } from "../../infra/models/ITodoItem";
 import { IBaseState } from "./IBaseState";
 
 

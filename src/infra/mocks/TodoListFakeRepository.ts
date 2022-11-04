@@ -1,5 +1,5 @@
-import { TodoItem } from "src/core/entities/TodoItem";
-import { TodoListRepository } from "src/core/ports/driven/TodoListRepository";
+
+import { TodoListRepository } from "../../core/ports/driven/TodoListRepository";
 import { ITodoItem } from "../models/ITodoItem";
 import { item1, item2 } from "./fake-data";
 

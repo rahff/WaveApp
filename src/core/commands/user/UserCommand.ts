@@ -1,5 +1,6 @@
-import { User } from "src/core/entities/User";
-import { Command } from "src/shared/actions/Action";
+import { Command } from "../../../shared/actions/Action";
+import { User } from "../../entities/User";
+
 
 
 

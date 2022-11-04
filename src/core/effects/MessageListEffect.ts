@@ -1,9 +1,9 @@
 
-import { Action, Command } from "src/shared/actions/Action";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { MessageListUseCases } from "../use-cases/MessageListUseCases";
 import { MessageListRepository } from "../ports/driven/MessageListRepository";
 import { EffectCreator } from "../ports/driver/EffectCreator";
+import { Action } from "../../shared/actions/Action";
 
 
 
@@ -15,7 +15,7 @@ export class MessageListEffect implements EffectCreator {
         this.messageListUseCases = new MessageListUseCases(this.repository);
     }
 
-    async createEffect(command: Command): Promise<Action> {
+    async createEffect(command: Action): Promise<Action> {
         
         switch (command.getName()) {
             case "getNewMessages":

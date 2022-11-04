@@ -1,7 +1,8 @@
-import { _Message } from "src/core/entities/_Message";
-import { IMessage } from "src/infra/models/IMessage";
+
+import { IMessage } from "../../../infra/models/IMessage";
+import { _Message } from "../../entities/_Message";
 import { contactMapper } from "./ContactMapper";
 
 export const messageMapper = (pojo: IMessage): _Message => {
-    return new _Message(contactMapper(pojo.from), pojo.content, pojo.id, pojo.attachment);
+    return new _Message(contactMapper(pojo.to), pojo.content, pojo.id, pojo.attachment);
 }

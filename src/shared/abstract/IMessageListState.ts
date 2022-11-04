@@ -1,4 +1,5 @@
-import { IMessage } from "src/infra/models/IMessage";
+
+import { IMessage } from "../../infra/models/IMessage";
 import { IBaseState } from "./IBaseState";
 
 export interface IMessageListState extends IBaseState {

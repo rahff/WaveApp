@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GetContactListCommand } from 'src/infra/commands/contactList/GetContactListCommand';
-import { IContactItem } from 'src/infra/models/IContactIem';
-import { ContactListFacade } from 'src/infra/services/contactList/ContactListFacade';
+import { GetContactListCommand } from '../../../commands/contactList/GetContactListCommand';
+import { IContactItem } from '../../../models/IContactIem';
+import { ContactListFacade } from '../../../services/contactList/ContactListFacade';
+
 import { SubscriberComponent } from '../../SubscriberComponent';
 
 @Component({

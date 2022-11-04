@@ -1,9 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { DashboardModule } from 'src/infra/modules/dashboard.module';
 import { HeaderComponent } from '../components/header/header.component';
-import { NavBarComponent } from '../components/nav-bar/nav-bar.component';
+
 
 import { DashboardComponent } from './dashboard.component';
 

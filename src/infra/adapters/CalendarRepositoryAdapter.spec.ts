@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 import { fakeAsync, TestBed } from "@angular/core/testing";
-import { CalendarEvent } from "src/core/entities/CalendarEvent";
+import { CalendarEvent } from "../../core/entities/CalendarEvent";
 import { DatabaseModule } from "../modules/database.module";
 import { CalendarRepositoryAdapter } from "./CalendarRepositoryAdapter";
 
@@ -31,7 +31,7 @@ describe('CalendarRepositoryAdapter', ()=> {
     });
 
     it('should send post request to save notification endpoint', fakeAsync(async()=>{
-        ref.setNotification({notificationTime: "1:00", notificationDateTime: new Date()})
+        ref.setNotification({notificationTime: "1:00", notificationDateTime: new Date(), eventStart: new Date(), eventTitle: "title"})
         const savedEvent = await repository.saveCalendarEvent(ref.asDto());
         const req = http.expectOne("http://localhost:8080/api/notifications");
         expect(req.request.method).toBe("POST")

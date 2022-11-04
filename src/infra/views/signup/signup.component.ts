@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SaveUserCommand } from 'src/infra/commands/user/SaveUserCommand';
-import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
-import { IUser } from 'src/infra/models/IUser';
-import { GoogleSignService } from 'src/infra/services/google/google-sign.service';
-import { UserFacade } from 'src/infra/services/user/UserFacade';
+import { SaveUserCommand } from '../../commands/user/SaveUserCommand';
+import { ExceptionHandledEvent } from '../../events/ExceptionHandledEvent';
+import { IUser } from '../../models/IUser';
+import { GoogleSignService } from '../../services/google/google-sign.service';
+import { UserFacade } from '../../services/user/UserFacade';
+
 import { AlertService } from '../services/alert.service';
 import { SubscriberComponent } from '../SubscriberComponent';
 
@@ -26,8 +27,7 @@ export class SignupComponent extends SubscriberComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private userFacade: UserFacade,
               private router: Router,
-              private alertService: AlertService,
-              private googleService: GoogleSignService) {
+              private alertService: AlertService) {
                 super();
               }
 
@@ -67,7 +67,7 @@ export class SignupComponent extends SubscriberComponent implements OnInit {
   private onExcetionHandler(exception: {message: string} | null): void {
     if(!exception) return;
     this.userFacade.dispatch(new ExceptionHandledEvent());
-    this.alertService.errorAlert(exception.message).finally();
+    this.alertService.errorAlert(exception.message);
   }
 
   public onSubmit(): void {
@@ -78,8 +78,6 @@ export class SignupComponent extends SubscriberComponent implements OnInit {
   }
 
   public googleSignup(): void {
-    this.googleService.getGoogleCredential().subscribe((userInfo)=>{
-      this.userFacade.dispatch(new SaveUserCommand(userInfo));
-    })
+    this.router.navigateByUrl('/dashboard');
   }
 }

@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { item1, item2 } from 'src/infra/mocks/fake-data';
-import { ITodoItem } from 'src/infra/models/ITodoItem';
-import { DashboardModule } from 'src/infra/modules/dashboard.module';
-import { TodoListFacade } from 'src/infra/services/todoList/TodoListFacade';
+import { item1, item2 } from '../../../mocks/fake-data';
+import { ITodoItem } from '../../../models/ITodoItem';
+import { DashboardModule } from '../../../modules/dashboard.module';
+import { TodoListFacade } from '../../../services/todoList/TodoListFacade';
+
 
 import { TodoComponent } from './todo.component';
 

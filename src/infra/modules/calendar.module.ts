@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CalendarEffect } from 'src/core/effects/CalendarEffect';
-import { CalendarRepository } from 'src/core/ports/driven/CalendarRepository';
+import { CalendarStateContainer } from '../../core/containers/calendar/CalendarStateContainer';
+import { CalendarEffect } from '../../core/effects/CalendarEffect';
+import { CalendarRepository } from '../../core/ports/driven/CalendarRepository';
+import { StateSelector } from '../../shared/abstract/StateSelector';
 import { CalendarRepositoryAdapter } from '../adapters/CalendarRepositoryAdapter';
-import { StateSelector } from 'src/shared/abstract/StateSelector';
 import { CalendarSelectorService } from '../services/calendar/calendar-selector.service';
-import { CalendarStateContainer } from 'src/core/containers/calendar/CalendarStateContainer';
+
 
 
 

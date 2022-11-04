@@ -1,12 +1,12 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
-import { SetTodoListItemsCommand } from 'src/core/commands/todoList/SetTodoListItemsCommand';
-import { TodoListStateContainer } from 'src/core/containers/todoList/TodoListStateContainer';
-import { TodoListEffect } from 'src/core/effects/TodoListEffect';
-import { item1, item2 } from 'src/infra/mocks/fake-data';
+import { SetTodoListItemsCommand } from '../../../core/commands/todoList/SetTodoListItemsCommand';
+import { TodoListStateContainer } from '../../../core/containers/todoList/TodoListStateContainer';
+import { TodoListEffect } from '../../../core/effects/TodoListEffect';
 import { DeleteTodoListItemCommand } from '../../commands/todoList/DeleteTodoListItemCommand';
 import { GetTodoListItemsCommand } from '../../commands/todoList/GetTodoListItemsCommand';
 import { ModifyTodoItemCommand } from '../../commands/todoList/ModifyTodoItemCommand';
 import { SaveTodoListItemCommand } from '../../commands/todoList/SaveTodoListItem';
+import { item1, item2 } from '../../mocks/fake-data';
 import { TodoListFakeRepository } from '../../mocks/TodoListFakeRepository';
 import { TodoListDispatcherService } from './todo-list-dispatcher.service';
 import { TodoListSelectorService } from './todo-list-selector.service';

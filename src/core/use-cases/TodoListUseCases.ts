@@ -1,11 +1,12 @@
-import { todoItemMapper } from "src/core/mappers/entities/TodoItemMapper";
-import { ITodoItem } from "src/infra/models/ITodoItem";
-import { Action } from "src/shared/actions/Action";
+
+import { ITodoItem } from "../../infra/models/ITodoItem";
+import { Action } from "../../shared/actions/Action";
 import { AddTodoListItemCommand } from "../commands/todoList/AddTodoListItemCommand";
 import { RemoveTodoListItemCommand } from "../commands/todoList/RemoveTodoListItemCommand";
 import { SetTodoListItemsCommand } from "../commands/todoList/SetTodoListItemsCommand";
 import { UpdateTodoItemCommand } from "../commands/todoList/UpdateTodoItemCommand";
 import { ExceptionEvent } from "../events/shared/ExceptionEvent";
+import { todoItemMapper } from "../mappers/entities/TodoItemMapper";
 import { TodoListRepository } from "../ports/driven/TodoListRepository";
 
 export class TodoListUseCases {

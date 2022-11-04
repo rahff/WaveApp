@@ -1,6 +1,6 @@
-import { User } from "src/core/entities/User";
-import { UserRepository } from "src/core/ports/driven/UserRepository";
-import { userMapper } from "../../core/mappers/entities/UserMapper";
+
+
+import { UserRepository } from "../../core/ports/driven/UserRepository";
 import { IUser } from "../models/IUser";
 import { user1 } from "./fake-data";
 

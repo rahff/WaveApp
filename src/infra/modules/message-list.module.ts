@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { MessageListStateContainer } from 'src/core/containers/messageList/MessageListStateContainer';
-import { MessageListEffect } from 'src/core/effects/MessageListEffect';
-import { MessageListRepository } from 'src/core/ports/driven/MessageListRepository';
-import { EffectCreator } from 'src/core/ports/driver/EffectCreator';
-import { StateSelector } from 'src/shared/abstract/StateSelector';
+import { MessageListStateContainer } from '../../core/containers/messageList/MessageListStateContainer';
+import { MessageListEffect } from '../../core/effects/MessageListEffect';
+import { MessageListRepository } from '../../core/ports/driven/MessageListRepository';
+import { EffectCreator } from '../../core/ports/driver/EffectCreator';
+import { StateSelector } from '../../shared/abstract/StateSelector';
 import { MessageListRepositoryAdapter } from '../adapters/MessageListRepositoryAdapter';
 import { MessageListSelectorService } from '../services/messageList/message-list-selector.service';
 

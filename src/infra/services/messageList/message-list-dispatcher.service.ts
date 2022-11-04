@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MessageListStateContainer } from 'src/core/containers/messageList/MessageListStateContainer';
-import { Dispatcher } from 'src/shared/abstract/Dispatcher';
+import { MessageListStateContainer } from '../../../core/containers/messageList/MessageListStateContainer';
+import { Dispatcher } from '../../../shared/abstract/Dispatcher';
 import { MessageListSelectorService } from './message-list-selector.service';
 
 

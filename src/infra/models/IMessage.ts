@@ -1,7 +1,7 @@
 import { IContactItem } from "./IContactIem";
 
 export interface IMessage {
-    from: IContactItem;
+    to: IContactItem;
     content: string;
     attachment: any;
     id: string;

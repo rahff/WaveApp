@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModifyCalendarEventCommand } from 'src/infra/commands/calendar/ModifyCalendarEventCommand';
-import { SaveCalendarEventCommand } from 'src/infra/commands/calendar/SaveCalendarEventCommand';
-import { CalendarEventSaved } from 'src/infra/events/CalendarEventSaved';
-import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
-import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
-import { CalendarFacade } from 'src/infra/services/calendar/CalendarFacade';
+import { ModifyCalendarEventCommand } from '../../../commands/calendar/ModifyCalendarEventCommand';
+import { SaveCalendarEventCommand } from '../../../commands/calendar/SaveCalendarEventCommand';
+import { CalendarEventSaved } from '../../../events/CalendarEventSaved';
+import { ExceptionHandledEvent } from '../../../events/ExceptionHandledEvent';
+import { ICalendarEvent } from '../../../models/ICalendarEvent';
+import { CalendarFacade } from '../../../services/calendar/CalendarFacade';
+
 import { AlertService } from '../../services/alert.service';
 import { ValidatorsExtension } from '../../services/ValidatorsExtension';
 import { SubscriberComponent } from '../../SubscriberComponent';
@@ -122,10 +123,12 @@ export class CalendarEventFormComponent extends SubscriberComponent implements O
         start: startEvent,
         end: endEvent,
         id: this.initialEventValue ? this.initialEventValue.id : "",
-        notification:{ 
+        notification: this.withNotification ? { 
           notificationTime: this.eventForm.get('notification')?.value || null,
-          notificationDateTime: null
-        }
+          notificationDateTime: null,
+          eventStart: startEvent,
+          eventTitle: this.eventForm.get('title')?.value
+        } : null
       }
       if(!this.initialEventValue){
         this.calendarFacade.dispatch(new SaveCalendarEventCommand(event));

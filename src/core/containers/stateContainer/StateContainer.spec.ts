@@ -1,8 +1,9 @@
 import { BehaviorSubject } from "rxjs";
-import { UserEffect } from "src/core/effects/UserEffect";
-import { BaseState } from "src/core/interfaces/states/BaseState";
-import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
-import { StateSelector } from "src/shared/abstract/StateSelector";
+import { UserFakeRepository } from "../../../infra/mocks/UserFakeRepository";
+import { StateSelector } from "../../../shared/abstract/StateSelector";
+import { UserEffect } from "../../effects/UserEffect";
+import { BaseState } from "../../interfaces/states/BaseState";
+
 import { UserStateContainer } from "../user/UserStateContainer";
 
 

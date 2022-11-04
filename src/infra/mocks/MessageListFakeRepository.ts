@@ -1,4 +1,5 @@
-import { MessageListRepository } from "src/core/ports/driven/MessageListRepository";
+
+import { MessageListRepository } from "../../core/ports/driven/MessageListRepository";
 import { IMessage } from "../models/IMessage";
 import { newMessageList, savedMessages } from "./fake-data";
 

@@ -1,5 +1,7 @@
-import { CalendarEvent } from "src/core/entities/CalendarEvent";
 import { ICalendarEvent } from "../../../infra/models/ICalendarEvent";
+import { CalendarEvent } from "../../entities/CalendarEvent";
+
+
 
 export const calendarMapper = (pojo: ICalendarEvent): CalendarEvent => {
     if(pojo.notification) {

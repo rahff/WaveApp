@@ -1,5 +1,4 @@
-import { TodoItem } from "src/core/entities/TodoItem";
-import { ITodoItem } from "src/infra/models/ITodoItem";
+import { ITodoItem } from "../../../infra/models/ITodoItem";
 
 export interface TodoListRepository {
     saveItem(item: ITodoItem): Promise<ITodoItem>

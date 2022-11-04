@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
-import { ITodoItem } from 'src/infra/models/ITodoItem';
-import { ITodoListState } from 'src/shared/abstract/ITodoListState';
+import { ITodoListState } from '../../../shared/abstract/ITodoListState';
+
 import { StateSelector } from '../../../shared/abstract/StateSelector';
+import { ITodoItem } from '../../models/ITodoItem';
 
 
 

@@ -4,7 +4,8 @@ import { CommandNotFoundException } from "../exceptions/CommandNotFoundException
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { UserUseCases } from "../use-cases/UserUseCases";
 import { UserRepository } from "../ports/driven/UserRepository";
-import { Action } from "src/shared/actions/Action";
+import { Action } from "../../shared/actions/Action";
+
 
 
 

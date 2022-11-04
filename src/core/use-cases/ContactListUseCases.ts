@@ -1,11 +1,12 @@
-import { contactMapper } from "src/core/mappers/entities/ContactMapper";
-import { IContactItem } from "src/infra/models/IContactIem";
-import { Action } from "src/shared/actions/Action";
+
+import { IContactItem } from "../../infra/models/IContactIem";
+import { Action } from "../../shared/actions/Action";
 import { AddContactItemCommand } from "../commands/contactList/AddContactItemCommand";
 import { RemoveContactItemCommand } from "../commands/contactList/RemoveContactItemCommand";
 import { SetContactListCommand } from "../commands/contactList/SetContactListCommand";
 import { UpdateContactItemCommand } from "../commands/contactList/UpdateContactItemCommand";
 import { ExceptionEvent } from "../events/shared/ExceptionEvent";
+import { contactMapper } from "../mappers/entities/ContactMapper";
 import { ContactListRepository } from "../ports/driven/ContactListRepository";
 
 

@@ -1,4 +1,4 @@
-import { Command } from "src/shared/actions/Action";
+import { Command } from "../../../shared/actions/Action";
 
 
 export class RemoveContactItemCommand extends Command {

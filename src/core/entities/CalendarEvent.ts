@@ -1,5 +1,6 @@
-import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
-import { ICalendarNotification } from "src/infra/models/ICalendarNotification";
+
+import { ICalendarEvent } from "../../infra/models/ICalendarEvent";
+import { ICalendarNotification } from "../../infra/models/ICalendarNotification";
 import { CalendarNotification } from "../valueObjects/CalendarNotification";
 
 
@@ -56,7 +57,7 @@ export class CalendarEvent {
     }
 
     public setNotification(notification: ICalendarNotification){
-        this.notification = new CalendarNotification(notification.notificationTime, this.getStart());
+        this.notification = new CalendarNotification(notification.notificationTime, this.getStart(), this.title);
     }
 
     public getNotification(): CalendarNotification | null {

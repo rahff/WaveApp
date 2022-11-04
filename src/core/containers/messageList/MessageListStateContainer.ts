@@ -1,5 +1,4 @@
-import { StateSelector } from "src/shared/abstract/StateSelector";
-import { Reducer } from "../../interfaces/Reducer";
+import { StateSelector } from "../../../shared/abstract/StateSelector";
 import { MessageListState } from "../../interfaces/states/MessageListState";
 import { messageListStateMapper } from "../../mappers/states/MessageListStateMapper";
 import { EffectCreator } from "../../ports/driver/EffectCreator";

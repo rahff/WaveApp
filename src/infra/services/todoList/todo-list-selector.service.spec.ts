@@ -1,7 +1,8 @@
-import { TodoListStateContainer } from 'src/core/containers/todoList/TodoListStateContainer';
-import { TodoListEffect } from 'src/core/effects/TodoListEffect';
-import { TodoListFakeRepository } from 'src/infra/mocks/TodoListFakeRepository';
-import { ITodoItem } from 'src/infra/models/ITodoItem';
+
+import { TodoListStateContainer } from '../../../core/containers/todoList/TodoListStateContainer';
+import { TodoListEffect } from '../../../core/effects/TodoListEffect';
+import { TodoListFakeRepository } from '../../mocks/TodoListFakeRepository';
+import { ITodoItem } from '../../models/ITodoItem';
 import { TodoListSelectorService } from './todo-list-selector.service';
 
 

@@ -1,13 +1,13 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
-import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
-import { UserEffect } from 'src/core/effects/UserEffect';
-import { GetUserCommand } from 'src/infra/commands/user/GetUserCommand';
-import { user1 } from 'src/infra/mocks/fake-data';
 import { SaveUserCommand } from '../../commands/user/SaveUserCommand';
 import { LoginCommand } from '../../commands/user/LoginCommand';
 import { UserFakeRepository } from '../../mocks/UserFakeRepository';
 import { UserDispatcherService } from './user-dispatcher.service';
 import { UserSelectorService } from './user-selector.service';
+import { UserStateContainer } from '../../../core/containers/user/UserStateContainer';
+import { UserEffect } from '../../../core/effects/UserEffect';
+import { GetUserCommand } from '../../commands/user/GetUserCommand';
+import { user1 } from '../../mocks/fake-data';
 
 
 

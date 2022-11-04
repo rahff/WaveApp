@@ -1,11 +1,12 @@
-import { AddCalendarEventCommand } from "src/core/commands/calendar/AddCalendarEventCommand";
-import { RemoveCalendarEventCommand } from "src/core/commands/calendar/RemoveCalendarEventCommand";
-import { SetEventListCommand } from "src/core/commands/calendar/SetEventListCommand";
-import { UpdateCalendarEventCommand } from "src/core/commands/calendar/UpdateCalendarEventCommand";
-import { CalendarEffect } from "src/core/effects/CalendarEffect";
-import { CalendarEvent } from "src/core/entities/CalendarEvent";
-import { CalendarFakeRepository } from "src/infra/mocks/CalendarFakeRepository";
-import { CalendarSelectorService } from "src/infra/services/calendar/calendar-selector.service";
+
+import { CalendarFakeRepository } from "../../../infra/mocks/CalendarFakeRepository";
+import { CalendarSelectorService } from "../../../infra/services/calendar/calendar-selector.service";
+import { AddCalendarEventCommand } from "../../commands/calendar/AddCalendarEventCommand";
+import { RemoveCalendarEventCommand } from "../../commands/calendar/RemoveCalendarEventCommand";
+import { SetEventListCommand } from "../../commands/calendar/SetEventListCommand";
+import { UpdateCalendarEventCommand } from "../../commands/calendar/UpdateCalendarEventCommand";
+import { CalendarEffect } from "../../effects/CalendarEffect";
+import { CalendarEvent } from "../../entities/CalendarEvent";
 import { CalendarStateContainer } from "./CalendarStateContainer";
 
 

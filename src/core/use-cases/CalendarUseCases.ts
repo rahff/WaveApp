@@ -1,15 +1,14 @@
-import { firstValueFrom } from "rxjs";
-import { calendarMapper } from "src/core/mappers/entities/CalendarMapper";
-import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
-import { ICalendarNotification } from "src/infra/models/ICalendarNotification";
-import { Action } from "src/shared/actions/Action";
+
+import { ICalendarEvent } from "../../infra/models/ICalendarEvent";
+import { Action } from "../../shared/actions/Action";
 import { AddCalendarEventCommand } from "../commands/calendar/AddCalendarEventCommand";
 import { RemoveCalendarEventCommand } from "../commands/calendar/RemoveCalendarEventCommand";
-import { NotificationTransaction, SaveNotificationCommand } from "../commands/calendar/SaveNotificationCommand";
+
 import { SetEventListCommand } from "../commands/calendar/SetEventListCommand";
 import { UpdateCalendarEventCommand } from "../commands/calendar/UpdateCalendarEventCommand";
 import { CalendarEvent } from "../entities/CalendarEvent";
 import { ExceptionEvent } from "../events/shared/ExceptionEvent";
+import { calendarMapper } from "../mappers/entities/CalendarMapper";
 import { CalendarRepository } from "../ports/driven/CalendarRepository";
 
 

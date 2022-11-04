@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { UserModule } from "src/infra/modules/user.module";
-import { Facade } from "src/shared/abstract/Facade";
+import { Facade } from "../../../shared/abstract/Facade";
+import { UserModule } from "../../modules/user.module";
+
 import { UserDispatcherService } from "./user-dispatcher.service";
 import { UserSelectorService } from "./user-selector.service";
 

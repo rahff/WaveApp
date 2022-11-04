@@ -1,4 +1,5 @@
-import { StateContainer } from "src/core/containers/stateContainer/StateContainer";
+
+import { StateContainer } from "../../core/containers/stateContainer/StateContainer";
 import { Command } from "../actions/Action";
 import { StateSelector } from "./StateSelector";
 

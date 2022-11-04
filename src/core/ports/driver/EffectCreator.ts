@@ -1,4 +1,5 @@
-import { Action, Command } from "src/shared/actions/Action";
+import { Action, Command } from "../../../shared/actions/Action";
+
 
 
 export interface EffectCreator {

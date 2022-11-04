@@ -1,9 +1,9 @@
 import { EffectCreator } from "../../ports/driver/EffectCreator";
 import { TodoListState } from "../../interfaces/states/TodoListState";
 import { StateContainer } from "../stateContainer/StateContainer";
-import { TodoListStateReducer } from "../../reducers/TodoListStateReducer";
-import { StateSelector } from "src/shared/abstract/StateSelector";
+import { TodoListStateReducer } from "../../reducers/TodoListStateReducer";;
 import { todoListStateMapper } from "../../mappers/states/TodoListStateMapper";
+import { StateSelector } from "../../../shared/abstract/StateSelector";
 
 
 

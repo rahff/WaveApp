@@ -1,8 +1,9 @@
-import { Action } from "src/shared/actions/Action";
+
+import { Action } from "../../shared/actions/Action";
 import { ContactItem } from "../entities/ContactItem";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { Reducer } from "../interfaces/Reducer";
-import { ContactListState } from "../interfaces/states/ ContactListState";
+import { ContactListState } from "../interfaces/states/ContactListState";
 
 
 

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "waveApp": {
+    "wave-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -24,16 +24,13 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
               "src/assets/scss/styles.scss",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -72,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "waveApp:build:production"
+              "browserTarget": "wave-app:build:production"
             },
             "development": {
-              "browserTarget": "waveApp:build:development"
+              "browserTarget": "wave-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,20 +80,19 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "waveApp:build"
+            "browserTarget": "wave-app:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": "src/polyfills-test.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss"
@@ -107,5 +103,5 @@
       }
     }
   },
-  "defaultProject": "waveApp"
+  "defaultProject": "wave-app"
 }

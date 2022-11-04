@@ -1,4 +1,5 @@
-import { _Event } from "src/shared/actions/Action";
+import { _Event } from "../../../shared/actions/Action";
+
 
 
 export class SignupEvent extends _Event {

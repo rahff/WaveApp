@@ -1,8 +1,9 @@
 
-import { MessageListStateContainer } from 'src/core/containers/messageList/MessageListStateContainer';
-import { MessageListEffect } from 'src/core/effects/MessageListEffect';
-import { MessageListFakeRepository } from 'src/infra/mocks/MessageListFakeRepository';
-import { IMessage } from 'src/infra/models/IMessage';
+
+import { MessageListStateContainer } from '../../../core/containers/messageList/MessageListStateContainer';
+import { MessageListEffect } from '../../../core/effects/MessageListEffect';
+import { MessageListFakeRepository } from '../../mocks/MessageListFakeRepository';
+import { IMessage } from '../../models/IMessage';
 import { MessageListSelectorService } from './message-list-selector.service';
 
 

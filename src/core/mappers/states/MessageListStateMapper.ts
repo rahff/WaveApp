@@ -1,6 +1,7 @@
-import { _Message } from "src/core/entities/_Message";
-import { MessageListState } from "src/core/interfaces/states/MessageListState";
-import { IMessageListState } from "src/shared/abstract/IMessageListState";
+import { IMessageListState } from "../../../shared/abstract/IMessageListState"
+import { _Message } from "../../entities/_Message"
+import { MessageListState } from "../../interfaces/states/MessageListState"
+
 
 
 export const messageListStateMapper = (state: MessageListState): IMessageListState => {

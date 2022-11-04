@@ -1,7 +1,8 @@
-import { IContactListState } from "src/shared/abstract/IContactListState";
+
+import { IContactListState } from "../../../shared/abstract/IContactListState";
 import { ContactItem } from "../../entities/ContactItem";
-import { ContactListState } from "../../interfaces/states/ ContactListState";
-;
+import { ContactListState } from "../../interfaces/states/ContactListState";
+
 
 export const contactListStateMapper = (state: ContactListState): IContactListState => {
     return {

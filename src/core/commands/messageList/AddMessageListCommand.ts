@@ -1,5 +1,6 @@
-import { _Message } from "src/core/entities/_Message";
-import { Command } from "src/shared/actions/Action";
+import { Command } from "../../../shared/actions/Action";
+import { _Message } from "../../entities/_Message";
+
 
 export class AddMessageListCommand extends Command {
     constructor(payload: _Message[]){

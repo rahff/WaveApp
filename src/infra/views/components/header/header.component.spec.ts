@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppModule } from 'src/infra/modules/app.module';
+import { AppModule } from '../../../modules/app.module';
+
 
 import { HeaderComponent } from './header.component';
 

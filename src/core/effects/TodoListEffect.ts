@@ -4,7 +4,8 @@ import { CommandNotFoundException } from "../exceptions/CommandNotFoundException
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { TodoListUseCases } from "../use-cases/TodoListUseCases";
 import { TodoListRepository } from "../ports/driven/TodoListRepository";
-import { Action } from "src/shared/actions/Action";
+import { Action } from "../../shared/actions/Action";
+
 
 
 

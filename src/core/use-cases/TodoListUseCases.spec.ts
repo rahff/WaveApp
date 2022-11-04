@@ -1,4 +1,5 @@
-import { TodoListFakeRepository } from "src/infra/mocks/TodoListFakeRepository";
+
+import { TodoListFakeRepository } from "../../infra/mocks/TodoListFakeRepository";
 import { TodoListUseCases } from "./TodoListUseCases"
 
 

@@ -1,4 +1,4 @@
-import { ITodoItem } from "src/infra/models/ITodoItem";
+import { ITodoItem } from "../../infra/models/ITodoItem";
 
 export class TodoItem {
 

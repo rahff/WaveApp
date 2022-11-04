@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { IUser } from 'src/infra/models/IUser';
-import { IUserState } from 'src/shared/abstract/IUserState';
+import { IUserState } from '../../../shared/abstract/IUserState';
+
 import { StateSelector } from '../../../shared/abstract/StateSelector';
+import { IUser } from '../../models/IUser';
 
 
 

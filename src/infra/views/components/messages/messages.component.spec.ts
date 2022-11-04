@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DashboardModule } from 'src/infra/modules/dashboard.module';
+import { DashboardModule } from '../../../modules/dashboard.module';
 import { MessagesComponent } from './messages.component';
 
 

@@ -1,5 +1,6 @@
-import { CalendarEvent } from "src/core/entities/CalendarEvent";
-import { Command } from "src/shared/actions/Action";
+import { Command } from "../../../shared/actions/Action";
+import { CalendarEvent } from "../../entities/CalendarEvent";
+
 
 
 

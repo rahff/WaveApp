@@ -1,5 +1,5 @@
-import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
-import { Command } from "src/shared/actions/Action";
+import { Command } from "../../../shared/actions/Action";
+import { ICalendarEvent } from "../../models/ICalendarEvent";
 
 
 

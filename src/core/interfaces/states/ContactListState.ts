@@ -1,4 +1,5 @@
-import { ContactItem } from "src/core/entities/ContactItem";
+
+import { ContactItem } from "../../entities/ContactItem";
 import { BaseState } from "./BaseState";
 
 export interface ContactListState extends BaseState{

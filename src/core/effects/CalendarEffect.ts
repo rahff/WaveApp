@@ -4,7 +4,7 @@ import { CommandNotFoundException } from "../exceptions/CommandNotFoundException
 import { EffectCreator } from "../ports/driver/EffectCreator";
 import { CalendarUseCases } from "../use-cases/CalendarUseCases";
 import { CalendarRepository } from "../ports/driven/CalendarRepository";
-import { Action } from "src/shared/actions/Action";
+import { Action } from "../../shared/actions/Action";
 
 
 

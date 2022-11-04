@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginCommand } from 'src/infra/commands/user/LoginCommand';
-import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
-import { UserFacade } from 'src/infra/services/user/UserFacade';
+import { LoginCommand } from '../../commands/user/LoginCommand';
+import { ExceptionHandledEvent } from '../../events/ExceptionHandledEvent';
+import { UserFacade } from '../../services/user/UserFacade';
 import { AlertService } from '../services/alert.service';
 import { SubscriberComponent } from '../SubscriberComponent';
 

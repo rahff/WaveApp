@@ -1,4 +1,5 @@
-import { IUser } from "src/infra/models/IUser";
+
+import { IUser } from "../../infra/models/IUser";
 import { IBaseState } from "./IBaseState";
 
 

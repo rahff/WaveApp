@@ -1,6 +1,7 @@
 
-import { ContactListRepository } from "src/core/ports/driven/ContactListRepository";
 
+
+import { ContactListRepository } from "../../core/ports/driven/ContactListRepository";
 import { IContactItem } from "../models/IContactIem";
 import { conatct1, conatct2 } from "./fake-data";
 

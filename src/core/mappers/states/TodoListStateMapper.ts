@@ -1,4 +1,5 @@
-import { ITodoListState } from "src/shared/abstract/ITodoListState";
+
+import { ITodoListState } from "../../../shared/abstract/ITodoListState";
 import { TodoItem } from "../../entities/TodoItem";
 import { TodoListState } from "../../interfaces/states/TodoListState";
 

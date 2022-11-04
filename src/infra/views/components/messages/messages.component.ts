@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscriber } from 'rxjs';
-import { GetMessageListCommand } from 'src/infra/commands/messageList/GetMessageListCommand';
-import { GetNewMessagesCommand } from 'src/infra/commands/messageList/GetNewMessagesCommand';
-import { MessageListFacade } from 'src/infra/services/messageList/MessageListFacade';
+import { GetMessageListCommand } from '../../../commands/messageList/GetMessageListCommand';
+import { GetNewMessagesCommand } from '../../../commands/messageList/GetNewMessagesCommand';
+import { MessageListFacade } from '../../../services/messageList/MessageListFacade';
 import { AlertService } from '../../services/alert.service';
 import { SubscriberComponent } from '../../SubscriberComponent';
 

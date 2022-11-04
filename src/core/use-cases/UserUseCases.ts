@@ -1,10 +1,12 @@
-import { userMapper } from "src/core/mappers/entities/UserMapper";
-import { IUser } from "src/infra/models/IUser";
-import { Action } from "src/shared/actions/Action";
+
+
+import { IUser } from "../../infra/models/IUser";
+import { Action } from "../../shared/actions/Action";
 import { SetIsAuthCommand } from "../commands/user/SetIsAuthCommand";
 import { SetUserCommand } from "../commands/user/UserCommand";
 import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { SignupEvent } from "../events/user/SignupEvent";
+import { userMapper } from "../mappers/entities/UserMapper";
 import { UserRepository } from "../ports/driven/UserRepository";
 
 

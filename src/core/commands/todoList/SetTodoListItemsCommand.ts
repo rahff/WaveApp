@@ -1,6 +1,5 @@
-import { TodoItem } from "src/core/entities/TodoItem";
-import { Command } from "src/shared/actions/Action";
-
+import { Command } from "../../../shared/actions/Action";
+import { TodoItem } from "../../entities/TodoItem";
 
 
 

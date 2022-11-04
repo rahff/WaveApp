@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-
-import { ITodoItem } from "src/infra/models/ITodoItem";
-import { TodoModule } from "src/infra/modules/todo.module";
-import { Facade } from "src/shared/abstract/Facade";
+import { Facade } from "../../../shared/abstract/Facade";
+import { ITodoItem } from "../../models/ITodoItem";
+import { TodoModule } from "../../modules/todo.module";
 import { TodoListDispatcherService } from "./todo-list-dispatcher.service";
 import { TodoListSelectorService } from "./todo-list-selector.service";
 

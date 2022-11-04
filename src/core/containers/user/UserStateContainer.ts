@@ -1,8 +1,9 @@
-import { UserState } from "src/core/interfaces/states/UserState";
-import { userStateMapper } from "src/core/mappers/states/UserStateMapper";
-import { EffectCreator } from "src/core/ports/driver/EffectCreator";
-import { UserStateReducer } from "src/core/reducers/UserStateReducer";
-import { StateSelector } from "src/shared/abstract/StateSelector";
+
+import { StateSelector } from "../../../shared/abstract/StateSelector";
+import { UserState } from "../../interfaces/states/UserState";
+import { userStateMapper } from "../../mappers/states/UserStateMapper";
+import { EffectCreator } from "../../ports/driver/EffectCreator";
+import { UserStateReducer } from "../../reducers/UserStateReducer";
 import { StateContainer } from "../stateContainer/StateContainer";
 
 

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { IMessage } from 'src/infra/models/IMessage';
-import { IMessageListState } from 'src/shared/abstract/IMessageListState';
-import { StateSelector } from 'src/shared/abstract/StateSelector';
+import { IMessageListState } from '../../../shared/abstract/IMessageListState';
+import { StateSelector } from '../../../shared/abstract/StateSelector';
+import { IMessage } from '../../models/IMessage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,12 @@ export class MessageListSelectorService extends StateSelector{
 
   public getMessageList(): Observable<IMessage[]> {
     return this.state$.asObservable()
-    .pipe(map((state: IMessageListState)=> {console.log("ererr",state.inbox);
+    .pipe(map((state: IMessageListState)=> {console.log("1",state);
      return state.inbox}));
   }
 
   public getSendedMessageEvent(): Observable<boolean> {
     return this.state$.asObservable()
-    .pipe(map((state: IMessageListState)=> state.messageSended))
+    .pipe(map((state: IMessageListState)=>{ console.log("2",state); return state.messageSended}))
   }
 }

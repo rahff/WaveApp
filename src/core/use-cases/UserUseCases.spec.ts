@@ -1,4 +1,5 @@
-import { UserFakeRepository } from "src/infra/mocks/UserFakeRepository";
+
+import { UserFakeRepository } from "../../infra/mocks/UserFakeRepository";
 import { UserUseCases } from "./UserUseCases";
 
 const userWithInvalidEmail = {

@@ -1,14 +1,14 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
-import { SetEventListCommand } from 'src/core/commands/calendar/SetEventListCommand';
-import { CalendarStateContainer } from 'src/core/containers/calendar/CalendarStateContainer';
-import { CalendarEffect } from 'src/core/effects/CalendarEffect';
-import { CalendarNotification } from 'src/core/valueObjects/CalendarNotification';
-import { ModifyCalendarEventCommand } from 'src/infra/commands/calendar/ModifyCalendarEventCommand';
-import { fakeCalendarEvent1, fakeCalendarEvent2, fakeCalendarEvent3 } from 'src/infra/mocks/fake-data';
+import { SetEventListCommand } from '../../../core/commands/calendar/SetEventListCommand';
+import { CalendarStateContainer } from '../../../core/containers/calendar/CalendarStateContainer';
+import { CalendarEffect } from '../../../core/effects/CalendarEffect';
+import { CalendarNotification } from '../../../core/valueObjects/CalendarNotification';
 import { DeleteCalendarEventCommand } from '../../commands/calendar/DeleteCalendarEventCommand';
 import { GetCalendarEventsCommand } from '../../commands/calendar/GetCalendarEventsCommand';
+import { ModifyCalendarEventCommand } from '../../commands/calendar/ModifyCalendarEventCommand';
 import { SaveCalendarEventCommand } from '../../commands/calendar/SaveCalendarEventCommand';
 import { CalendarFakeRepository } from '../../mocks/CalendarFakeRepository';
+import { fakeCalendarEvent1, fakeCalendarEvent2, fakeCalendarEvent3 } from '../../mocks/fake-data';
 import { CalendarDispatcherService } from './calendar-dispatcher.service';
 import { CalendarSelectorService } from './calendar-selector.service';
 
@@ -40,12 +40,12 @@ describe('CalendarDispatcherService', () => {
   }))
 
   it('should dispatch saveEvent command', fakeAsync(()=>{
-    fakeCalendarEvent3.setNotification({notificationTime: "1:00", notificationDateTime: null})
+    fakeCalendarEvent3.setNotification({notificationTime: "1:00", notificationDateTime: null, eventStart: fakeCalendarEvent3.asDto().start, eventTitle: fakeCalendarEvent3.asDto().title})
     service.dispatch(new SaveCalendarEventCommand(fakeCalendarEvent3.asDto()));
     flushMicrotasks();
     expect(stateContainer.getState().events[1]).toEqual(fakeCalendarEvent3);
     flushMicrotasks();
-    expect(stateContainer.getState().events[1].getNotification()).toEqual(new CalendarNotification("1:00", fakeCalendarEvent3.getStart()));
+    expect(stateContainer.getState().events[1].getNotification()).toEqual(new CalendarNotification("1:00", fakeCalendarEvent3.getStart(), fakeCalendarEvent3.asDto().title));
   }));
 
 

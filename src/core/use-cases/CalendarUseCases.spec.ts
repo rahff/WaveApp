@@ -1,4 +1,5 @@
-import { CalendarFakeRepository } from "src/infra/mocks/CalendarFakeRepository";
+
+import { CalendarFakeRepository } from "../../infra/mocks/CalendarFakeRepository";
 import { AddCalendarEventCommand } from "../commands/calendar/AddCalendarEventCommand";
 import { CalendarEvent } from "../entities/CalendarEvent";
 import { CalendarUseCases } from "./CalendarUseCases"

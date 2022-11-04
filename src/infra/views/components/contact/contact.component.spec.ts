@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { conatct1, conatct2 } from 'src/infra/mocks/fake-data';
-import { IContactItem } from 'src/infra/models/IContactIem';
-import { DashboardModule } from 'src/infra/modules/dashboard.module';
-import { ContactListFacade } from 'src/infra/services/contactList/ContactListFacade';
+import { conatct1, conatct2 } from '../../../mocks/fake-data';
+import { IContactItem } from '../../../models/IContactIem';
+import { DashboardModule } from '../../../modules/dashboard.module';
+import { ContactListFacade } from '../../../services/contactList/ContactListFacade';
+
 
 import { ContactComponent } from './contact.component';
 

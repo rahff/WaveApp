@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModifyContactItemCommand } from 'src/infra/commands/contactList/ModifyContactItemCommand';
-import { SaveContactItemCommand } from 'src/infra/commands/contactList/SaveContactItemCommand';
-import { ContactSavedEvent } from 'src/infra/events/ContactSavedEvent';
-import { ExceptionHandledEvent } from 'src/infra/events/ExceptionHandledEvent';
-import { IContactItem } from 'src/infra/models/IContactIem';
-import { ContactListFacade } from 'src/infra/services/contactList/ContactListFacade';
+import { ModifyContactItemCommand } from '../../../commands/contactList/ModifyContactItemCommand';
+import { SaveContactItemCommand } from '../../../commands/contactList/SaveContactItemCommand';
+import { ContactSavedEvent } from '../../../events/ContactSavedEvent';
+import { ExceptionHandledEvent } from '../../../events/ExceptionHandledEvent';
+import { IContactItem } from '../../../models/IContactIem';
+import { ContactListFacade } from '../../../services/contactList/ContactListFacade';
+
 import { AlertService } from '../../services/alert.service';
 import { ValidatorsExtension } from '../../services/ValidatorsExtension';
 import { SubscriberComponent } from '../../SubscriberComponent';

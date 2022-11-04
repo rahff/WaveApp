@@ -1,7 +1,8 @@
-import { CalendarEvent } from "src/core/entities/CalendarEvent";
-import { ContactItem } from "src/core/entities/ContactItem";
-import { TodoItem } from "src/core/entities/TodoItem";
-import { User } from "src/core/entities/User";
+
+import { CalendarEvent } from "../../core/entities/CalendarEvent";
+import { ContactItem } from "../../core/entities/ContactItem";
+import { TodoItem } from "../../core/entities/TodoItem";
+import { User } from "../../core/entities/User";
 import { IMessage } from "../models/IMessage";
 import { generateId } from "../utils/generators";
 
@@ -18,9 +19,9 @@ export const item2 = new TodoItem("test2", "456")
 export const user1 = new User("Guillaume", "guiguilamenace@gmail.com", "Mot2$asse", "123");
 export const conatct1 = new ContactItem("Marks", "titilebaron@gmail.com", "0450424342", "123");
 export const conatct2 = new ContactItem("Jacob", "nanoudu94@gmail.com", "0450428332", "456");
-export const fakeMessage: IMessage = {id: generateId(), from: conatct2.asDto(), content: "Hello world", attachment: null}
-export const fakeMessage2: IMessage = {id: generateId(), from: conatct1.asDto(), content: "Salutation", attachment: null}
-export const fakeMessage3: IMessage = {id: generateId(), from: conatct1.asDto(), content: "un ancien message", attachment: null}
-export const fakeMessage4: IMessage = {id: generateId(), from: conatct1.asDto(), content: "bonne année!", attachment: null}
+export const fakeMessage: IMessage = {id: generateId(), to: conatct2.asDto(), content: "Hello world", attachment: null}
+export const fakeMessage2: IMessage = {id: generateId(), to: conatct1.asDto(), content: "Salutation", attachment: null}
+export const fakeMessage3: IMessage = {id: generateId(), to: conatct1.asDto(), content: "un ancien message", attachment: null}
+export const fakeMessage4: IMessage = {id: generateId(), to: conatct1.asDto(), content: "bonne année!", attachment: null}
 export const newMessageList: IMessage[] = [fakeMessage, fakeMessage2];
 export const savedMessages: IMessage[] = [fakeMessage3, fakeMessage4];

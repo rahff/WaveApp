@@ -1,8 +1,9 @@
-import { CalendarState } from "src/core/interfaces/states/CalendarState";
-import { calendarStateMapper } from "src/core/mappers/states/CalendarStateMapper";
-import { EffectCreator } from "src/core/ports/driver/EffectCreator";
-import { CalendarStateReducer } from "src/core/reducers/CalendarStateReducer";
-import { StateSelector } from "src/shared/abstract/StateSelector";
+
+import { StateSelector } from "../../../shared/abstract/StateSelector";
+import { CalendarState } from "../../interfaces/states/CalendarState";
+import { calendarStateMapper } from "../../mappers/states/CalendarStateMapper";
+import { EffectCreator } from "../../ports/driver/EffectCreator";
+import { CalendarStateReducer } from "../../reducers/CalendarStateReducer";
 import { StateContainer } from "../stateContainer/StateContainer";
 
 
@@ -12,7 +13,6 @@ export class CalendarStateContainer extends StateContainer {
     protected override reducer: CalendarStateReducer = new CalendarStateReducer();
     constructor(effect: EffectCreator, selector: StateSelector) {
         super(effect, selector);
-        this.notify()
     }
 
     public override getState(): CalendarState {

@@ -2,9 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom } from "rxjs";
-import { MessageListRepository } from "src/core/ports/driven/MessageListRepository";
-import { environment } from "src/environments/environment";
+import { MessageListRepository } from "../../core/ports/driven/MessageListRepository";
+import { environment } from "../../environments/environment";
 import { IMessage } from "../models/IMessage";
+
 import { DatabaseModule } from "../modules/database.module";
 import { generateId } from "../utils/generators";
 

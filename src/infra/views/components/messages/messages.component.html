@@ -30,7 +30,7 @@
                       <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
                     </a>
                     <div class="media-body">
-                      <span class="mb-0 text-sm">{{message.from.username}}</span>
+                      <span class="mb-0 text-sm">{{message.to.username}}</span>
                     </div>
                   </div>
                 </th>
@@ -46,7 +46,7 @@
                 <td class="text-right">
                   <div placement="bottom-right">
                     <a [routerLink]="['/dashboard/send-email']" 
-                    [queryParams]="{'to': message.from.email}" 
+                    [queryParams]="{'to': message.to.email}" 
                     class="btn btn-sm text-light">
                     <i style="font-size: 25px;" class="bi bi-reply"></i>
                     </a>

@@ -1,10 +1,11 @@
-import { SetIsAuthCommand } from 'src/core/commands/user/SetIsAuthCommand';
-import { SetUserCommand } from 'src/core/commands/user/UserCommand';
-import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
-import { UserEffect } from 'src/core/effects/UserEffect';
-import { User } from 'src/core/entities/User';
-import { UserFakeRepository } from 'src/infra/mocks/UserFakeRepository';
-import { IUser } from 'src/infra/models/IUser';
+
+import { SetIsAuthCommand } from '../../../core/commands/user/SetIsAuthCommand';
+import { SetUserCommand } from '../../../core/commands/user/UserCommand';
+import { UserStateContainer } from '../../../core/containers/user/UserStateContainer';
+import { UserEffect } from '../../../core/effects/UserEffect';
+import { User } from '../../../core/entities/User';
+import { UserFakeRepository } from '../../mocks/UserFakeRepository';
+import { IUser } from '../../models/IUser';
 import { UserSelectorService } from './user-selector.service';
 
 

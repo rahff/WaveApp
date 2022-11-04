@@ -1,5 +1,5 @@
-import { TestBed } from "@angular/core/testing";
-import { ContactItem } from "src/core/entities/ContactItem";
+import { TestBed } from "@angular/core/testing";import { ContactItem } from "../../core/entities/ContactItem";
+;
 import { IContactItem } from "../models/IContactIem";
 import { DatabaseModule } from "../modules/database.module";
 import { generateEmail, generateId, generateTel } from "../utils/generators";

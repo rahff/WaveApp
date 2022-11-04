@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppModule } from 'src/infra/modules/app.module';
-import { SharedModule } from 'src/infra/modules/shared.module';
+import { AppModule } from '../../modules/app.module';
+import { SharedModule } from '../../modules/shared.module';
+
 
 import { LoginComponent } from './login.component';
 

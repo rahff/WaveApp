@@ -1,15 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { UserStateContainer } from 'src/core/containers/user/UserStateContainer';
-import { UserEffect } from 'src/core/effects/UserEffect';
-import { UserRepository } from 'src/core/ports/driven/UserRepository';
-import { EffectCreator } from 'src/core/ports/driver/EffectCreator';
-import { UserRepositoryAdapter } from 'src/infra/adapters/UserRepositoryAdapter';
-import { AppModule } from 'src/infra/modules/app.module';
-import { DatabaseModule } from 'src/infra/modules/database.module';
-import { UserModule } from 'src/infra/modules/user.module';
-import { UserSelectorService } from 'src/infra/services/user/user-selector.service';
-import { StateSelector } from 'src/shared/abstract/StateSelector';
+import { UserStateContainer } from '../../../core/containers/user/UserStateContainer';
+import { UserEffect } from '../../../core/effects/UserEffect';
+import { UserRepository } from '../../../core/ports/driven/UserRepository';
+import { EffectCreator } from '../../../core/ports/driver/EffectCreator';
+import { StateSelector } from '../../../shared/abstract/StateSelector';
+import { UserRepositoryAdapter } from '../../adapters/UserRepositoryAdapter';
+import { AppModule } from '../../modules/app.module';
+import { DatabaseModule } from '../../modules/database.module';
+import { UserModule } from '../../modules/user.module';
+import { UserSelectorService } from '../../services/user/user-selector.service';
+
 import { BootComponent } from './boot.component';
 
 

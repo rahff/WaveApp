@@ -1,14 +1,13 @@
-import { AddOutBoxMessageCommand } from "src/core/commands/messageList/AddOutBoxMessageCommand";
-import { ContactItem } from "src/core/entities/ContactItem";
-import { MessageSendedEvent } from "src/core/events/messages/MessageSendedEvent";
-import { MessageListFakeRepository } from "src/infra/mocks/MessageListFakeRepository";
-import { MessageListSelectorService } from "src/infra/services/messageList/message-list-selector.service";
-
+import { MessageListFakeRepository } from "../../../infra/mocks/MessageListFakeRepository";
+import { MessageListSelectorService } from "../../../infra/services/messageList/message-list-selector.service";
 import { AddMessageListCommand } from "../../commands/messageList/AddMessageListCommand";
+import { AddOutBoxMessageCommand } from "../../commands/messageList/AddOutBoxMessageCommand";
 import { RemoveMessageCommand } from "../../commands/messageList/RemoveMessageCommand";
 import { SetMessageListCommand } from "../../commands/messageList/SetMessageListCommand";
 import { MessageListEffect } from "../../effects/MessageListEffect";
+import { ContactItem } from "../../entities/ContactItem";
 import { _Message } from "../../entities/_Message";
+import { MessageSendedEvent } from "../../events/messages/MessageSendedEvent";
 import { MessageListState } from "../../interfaces/states/MessageListState";
 import { MessageListStateContainer } from "./MessageListStateContainer";
 

@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
-import { CalendarModule } from "src/infra/modules/calendar.module";
-import { CalendarDispatcherService } from "src/infra/services/calendar/calendar-dispatcher.service";
-import { CalendarSelectorService } from "src/infra/services/calendar/calendar-selector.service";
-import { Facade } from "src/shared/abstract/Facade";
+import { Facade } from "../../../shared/abstract/Facade";
+import { ICalendarEvent } from "../../models/ICalendarEvent";
+import { CalendarModule } from "../../modules/calendar.module";
+import { CalendarDispatcherService } from "./calendar-dispatcher.service";
+import { CalendarSelectorService } from "./calendar-selector.service";
 
 
 @Injectable({

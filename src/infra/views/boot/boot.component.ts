@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { GetUserCommand } from 'src/infra/commands/user/GetUserCommand';
-import { UserDispatcherService } from 'src/infra/services/user/user-dispatcher.service';
-import { UserSelectorService } from 'src/infra/services/user/user-selector.service';
-import { UserFacade } from 'src/infra/services/user/UserFacade';
+import { GetUserCommand } from '../../commands/user/GetUserCommand';
+import { UserFacade } from '../../services/user/UserFacade';
+
 import { SubscriberComponent } from '../SubscriberComponent';
 
 @Component({

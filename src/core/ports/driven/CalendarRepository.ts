@@ -1,5 +1,5 @@
+import { ICalendarEvent } from "../../../infra/models/ICalendarEvent";
 
-import { ICalendarEvent } from "src/infra/models/ICalendarEvent";
 
 
 export interface CalendarRepository {

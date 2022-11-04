@@ -1,7 +1,8 @@
-import { CalendarStateContainer } from 'src/core/containers/calendar/CalendarStateContainer';
-import { CalendarEffect } from 'src/core/effects/CalendarEffect';
-import { CalendarFakeRepository } from 'src/infra/mocks/CalendarFakeRepository';
-import { ICalendarEvent } from 'src/infra/models/ICalendarEvent';
+
+import { CalendarStateContainer } from '../../../core/containers/calendar/CalendarStateContainer';
+import { CalendarEffect } from '../../../core/effects/CalendarEffect';
+import { CalendarFakeRepository } from '../../mocks/CalendarFakeRepository';
+import { ICalendarEvent } from '../../models/ICalendarEvent';
 import { CalendarSelectorService } from './calendar-selector.service';
 
 

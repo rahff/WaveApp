@@ -1,5 +1,6 @@
-import { User } from "src/core/entities/User";
+
 import { IUser } from "../../../infra/models/IUser";
+import { User } from "../../entities/User";
 
 
 

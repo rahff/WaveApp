@@ -1,5 +1,5 @@
-import { ContactItem } from "src/core/entities/ContactItem";
-import { Command } from "src/shared/actions/Action";
+import { Command } from "../../../shared/actions/Action";
+import { ContactItem } from "../../entities/ContactItem";
 
 
 export class AddContactItemCommand extends Command {

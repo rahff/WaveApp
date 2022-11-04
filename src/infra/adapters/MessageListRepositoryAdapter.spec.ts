@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { fakeAsync, flushMicrotasks, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
 import { of } from "rxjs";
 import { fakeMessage, newMessageList } from "../mocks/fake-data";
 import { DatabaseModule } from "../modules/database.module";
@@ -39,8 +39,8 @@ describe('MessageListRepositoryAdapter', ()=> {
     })
 
     it('should get local message list', async ()=> {
-        const result = await repository.getMessageList();
-        expect(result.length).toBeGreaterThan(0);
+        const getMessage = async () => await repository.getMessageList();
+        expect(getMessage).not.toThrowError();
     })
 
     it('should save outbox message', async()=> {

@@ -1,4 +1,5 @@
-import { ICalendarNotification } from "src/infra/models/ICalendarNotification";
+
+import { ICalendarNotification } from "../../infra/models/ICalendarNotification";
 import { TimeString } from "./TimeString";
 
 
@@ -7,7 +8,7 @@ export class CalendarNotification {
     private notificationDateTime: Date | null = null;
     private timeString: TimeString;
 
-    constructor(notificationString: string, private startDateTimeRef: Date){
+    constructor(notificationString: string, private startDateTimeRef: Date, private eventTitle: string){
         this.timeString = new TimeString(notificationString);
         this.setNotificationDateTime();
     }
@@ -28,7 +29,9 @@ export class CalendarNotification {
     public asDto(): ICalendarNotification {
         return {
             notificationTime: this.timeString.getValue(),
-            notificationDateTime: this.notificationDateTime
+            notificationDateTime: this.notificationDateTime,
+            eventStart: this.startDateTimeRef,
+            eventTitle: this.eventTitle
         }
     }
 

@@ -1,4 +1,5 @@
-import { IContactItem } from "src/infra/models/IContactIem";
+
+import { IContactItem } from "../../infra/models/IContactIem";
 import { IBaseState } from "./IBaseState";
 
 

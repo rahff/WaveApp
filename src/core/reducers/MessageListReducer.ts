@@ -1,4 +1,5 @@
-import { Action } from "src/shared/actions/Action";
+
+import { Action } from "../../shared/actions/Action";
 import { _Message } from "../entities/_Message";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { Reducer } from "../interfaces/Reducer";

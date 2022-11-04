@@ -1,13 +1,13 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
-import { SetContactListCommand } from 'src/core/commands/contactList/SetContactListCommand';
-import { ContactListStateContainer } from 'src/core/containers/contactList/ContactListStateContainer';
-import { ContactListEffect } from 'src/core/effects/ContactListEffect';
-import { DeleteContactItemCommand } from 'src/infra/commands/contactList/DeleteContactItemCommand';
-import { GetContactListCommand } from 'src/infra/commands/contactList/GetContactListCommand';
-import { ModifyContactItemCommand } from 'src/infra/commands/contactList/ModifyContactItemCommand';
-import { SaveContactItemCommand } from 'src/infra/commands/contactList/SaveContactItemCommand';
-import { ContactListFakeRepository } from 'src/infra/mocks/ContactListFakeRepository';
-import { conatct1, conatct2 } from 'src/infra/mocks/fake-data';
+import { SetContactListCommand } from '../../../core/commands/contactList/SetContactListCommand';
+import { ContactListStateContainer } from '../../../core/containers/contactList/ContactListStateContainer';
+import { ContactListEffect } from '../../../core/effects/ContactListEffect';
+import { DeleteContactItemCommand } from '../../commands/contactList/DeleteContactItemCommand';
+import { GetContactListCommand } from '../../commands/contactList/GetContactListCommand';
+import { ModifyContactItemCommand } from '../../commands/contactList/ModifyContactItemCommand';
+import { SaveContactItemCommand } from '../../commands/contactList/SaveContactItemCommand';
+import { ContactListFakeRepository } from '../../mocks/ContactListFakeRepository';
+import { conatct1, conatct2 } from '../../mocks/fake-data';
 import { ContactListDispatcherService } from './contact-list-dispatcher.service';
 import { ContactListSelectorService } from './contact-list-selector.service';
 

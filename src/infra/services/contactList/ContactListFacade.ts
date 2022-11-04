@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { IContactItem } from "src/infra/models/IContactIem";
-import { ContactModule } from "src/infra/modules/contact.module";
-import { Facade } from "src/shared/abstract/Facade";
+import { Facade } from "../../../shared/abstract/Facade";
+import { IContactItem } from "../../models/IContactIem";
+import { ContactModule } from "../../modules/contact.module";
 import { ContactListDispatcherService } from "./contact-list-dispatcher.service";
 import { ContactListSelectorService } from "./contact-list-selector.service";
 

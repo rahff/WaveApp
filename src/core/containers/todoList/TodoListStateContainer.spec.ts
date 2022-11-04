@@ -1,14 +1,15 @@
 import { TodoItem } from "../../entities/TodoItem";
 import { TodoListStateContainer } from "./TodoListStateContainer";
 import { TodoListEffect } from "../../effects/TodoListEffect";
-import { TodoListFakeRepository } from "src/infra/mocks/TodoListFakeRepository";
+import { TodoListSelectorService } from "../../../infra/services/todoList/todo-list-selector.service";
+import { TodoItemSavedEvent } from "../../../infra/events/TodoItemSavedEvent";
+import { TodoListFakeRepository } from "../../../infra/mocks/TodoListFakeRepository";
 import { AddTodoListItemCommand } from "../../commands/todoList/AddTodoListItemCommand";
 import { DoneTodoListItemCommand } from "../../commands/todoList/DoneTodoListItemCommand";
 import { RemoveTodoListItemCommand } from "../../commands/todoList/RemoveTodoListItemCommand";
 import { SetTodoListItemsCommand } from "../../commands/todoList/SetTodoListItemsCommand";
 import { UpdateTodoItemCommand } from "../../commands/todoList/UpdateTodoItemCommand";
-import { TodoListSelectorService } from "src/infra/services/todoList/todo-list-selector.service";
-import { TodoItemSavedEvent } from "src/infra/events/TodoItemSavedEvent";
+
 
 const item1 = new TodoItem("test1", "123")
 const item2 = new TodoItem("test2", "456")

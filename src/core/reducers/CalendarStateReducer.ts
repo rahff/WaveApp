@@ -1,4 +1,5 @@
-import { Action } from "src/shared/actions/Action";
+
+import { Action } from "../../shared/actions/Action";
 import { CalendarEvent } from "../entities/CalendarEvent";
 import { CommandNotFoundException } from "../exceptions/CommandNotFoundException";
 import { Reducer } from "../interfaces/Reducer";

@@ -1,4 +1,6 @@
-import { Command } from "src/shared/actions/Action";
+import { Command } from "../../../shared/actions/Action";
+
+
 
 export class GetNewMessagesCommand extends Command {
     constructor(payload: string){
