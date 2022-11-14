@@ -1,6 +1,7 @@
 
 
 import { UserRepository } from "../../core/ports/driven/UserRepository";
+import { Command } from "../../shared/actions/Action";
 import { IUser } from "../models/IUser";
 import { user1 } from "./fake-data";
 
@@ -8,18 +9,13 @@ import { user1 } from "./fake-data";
 
 export class UserFakeRepository implements UserRepository {
 
-    getDefaultUser(): Promise<IUser | null> {
-        return new Promise((resolve)=> resolve(user1.asDto()));
+    async saveUserPhoto(command: Command): Promise<boolean> {
+        if(command.getPayload().filename !== "user.png") return false;
+        return true;
     }
 
-    loginUser(email: string, password: string): Promise<IUser> {
-        return new Promise((resolve, reject)=> {
-            if(password === "Mot2$asse" && email === user1.asDto().email){
-                resolve(user1.asDto())
-            }else{
-                reject(new Error('invalid credentials'))
-            }
-        });
+    getDefaultUser(): Promise<IUser | null> {
+        return new Promise((resolve)=> resolve(user1.asDto()));
     }
 
     saveUser(user: IUser): Promise<IUser> {

@@ -10,7 +10,9 @@ describe('SendMailComponent', () => {
   let component: SendMailComponent;
   let fixture: ComponentFixture<SendMailComponent>;
   let routerSpy: any;
+  let fileSystemBridgeSpy: any;
   beforeEach(async () => {
+    fileSystemBridgeSpy = jasmine.createSpyObj('FileSystemBridge', ["dispatch"]);
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl'])
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, DashboardModule],
@@ -20,6 +22,9 @@ describe('SendMailComponent', () => {
         },
         {
           provide: Router, useValue: routerSpy
+        },
+        {
+          provide: "FileSystemBridge", useValue: fileSystemBridgeSpy
         }
       ],
       declarations: [ SendMailComponent ]

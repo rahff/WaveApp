@@ -1,8 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { NgxIndexedDBService } from "ngx-indexed-db";
 import { catchError, firstValueFrom, lastValueFrom, map, Observable, of } from "rxjs";
+import { Base64File } from "../../../shared/Base64File";
+import { FileSystemBridge } from "../../../shared/ElectronApi";
 import { ContactListRepository } from "../../core/ports/driven/ContactListRepository";
 import { IContactItem } from "../models/IContactIem";
+import { IUser } from "../models/IUser";
 import { DatabaseModule } from "../modules/database.module";
 import { generateId } from "../utils/generators";
 
@@ -13,7 +16,12 @@ import { generateId } from "../utils/generators";
 })
 export class ContactListRepositoryAdapter implements ContactListRepository {
 
-    constructor(private service: NgxIndexedDBService){}
+    constructor(private service: NgxIndexedDBService,
+                @Inject('FileSystemBridge') private fileSystemBridge: FileSystemBridge){}
+
+    async saveContactInfoFile(file: Base64File): Promise<IContactItem> { 
+        return await this.fileSystemBridge.dispatch("saveContactInfo", file);
+    }
 
     async getContactList(): Promise<IContactItem[]> {
         return firstValueFrom(this.service.getAll<IContactItem>("contact")
@@ -21,7 +29,6 @@ export class ContactListRepositoryAdapter implements ContactListRepository {
     }
 
     async saveContact(contact: IContactItem): Promise<IContactItem> {
-        contact.id = generateId();
         return await firstValueFrom(this.service.add("contact", contact)
         .pipe(catchError(()=> {throw new Error("failed to save")})));
     }
@@ -42,11 +49,7 @@ export class ContactListRepositoryAdapter implements ContactListRepository {
         .pipe(catchError(()=> {throw new Error("failed to update")})));
     }
 
-    async isExistingContactByValues(email: string, tel: string): Promise<boolean> {
-        if(tel) {
-            const isExistByTel = await firstValueFrom(this.service.getByIndex('contact', 'tel', tel));
-            if(isExistByTel) return true;
-        }
+    async isExistingContactByValues(email: string): Promise<boolean> {
         const isExistByEmail = await firstValueFrom(this.service.getByIndex('contact', 'email', email));
         if(isExistByEmail) return true;
         return false;

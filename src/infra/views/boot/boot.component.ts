@@ -23,7 +23,7 @@ export class BootComponent extends SubscriberComponent implements OnInit {
     .subscribe((value: boolean | null)=> {
       if(value === null) return;
       else if(value === true) this.routeTo("/signup");
-      else if(value === false) this.routeTo("/login");
+      else if(value === false) this.routeTo("/dashboard");
     }))
   }
 

@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, IpcMainInvokeEvent, screen} from 'electron';
+import {app, BrowserWindow, ipcMain, screen} from 'electron';
 import * as path from 'path';
 import { fileManager } from './fileSystem/FileManager';
 
@@ -24,7 +24,7 @@ function createWindow(): BrowserWindow {
   });
 
   if (serve) {
-    require('electron-reloader')(module);
+    // require('electron-reloader')(module);
     mainWindow.loadURL('http://localhost:4200');
   } else {
     const pathIndex = '../dist/index.html';
@@ -41,7 +41,11 @@ function createWindow(): BrowserWindow {
 
 try {
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
-  app.on('ready', () => setTimeout(createWindow, 400));
+  app.on('ready', () => {
+    ipcInit();
+    setTimeout(createWindow, 400);
+  });
+
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
       app.quit();
@@ -61,6 +65,8 @@ try {
   // throw e;
 }
 
-ipcMain.handle('file:save', (_: IpcMainInvokeEvent, file: {filename: string, content: string})=>{
-  fileManager.saveFile(file);
-})
+function ipcInit(): void {
+  ipcMain.handle('saveUserPhoto', fileManager.saveUserPhoto.bind(fileManager));
+  ipcMain.handle('registerUserFile', fileManager.createUserInfos.bind(fileManager));
+  ipcMain.handle('saveContactInfo', fileManager.saveContactInfo.bind(fileManager));
+}

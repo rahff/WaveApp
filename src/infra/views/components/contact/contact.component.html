@@ -13,7 +13,6 @@
               <tr>
                 <th scope="col"><i class="bi bi-person"></i>Name</th>
                 <th scope="col"><i class="bi bi-at"></i>Email</th>
-                <th scope="col"><i class="bi bi-phone"></i>Tel</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -22,29 +21,19 @@
                 <th  scope="row">
                   <div class="media align-items-center">
                     <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                      <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
+                      <img alt="Image placeholder" [src]="'../assets/contacts/'+contact.username+'.png'">
                     </a>
                     <div class="media-body">
-                      <span class="mb-0 text-sm">{{contact.name}}</span>
+                      <span class="mb-0 text-sm">{{contact.username}}</span>
                     </div>
                   </div>
                 </th>
                 <td>
                     <i class="bi bi-email"></i> {{contact.email}}
                 </td>
-                <td>
-                  <span class="badge badge-dot mr-4">
-                    <i class="bi bi-mobile"></i> {{contact.tel}}
-                  </span>
-                </td>
-        
+            
                 <td class="text-right">
                   <div placement="bottom-right">
-                    <a [routerLink]="['/dashboard/contact-form']" 
-                    [queryParams]="{'contactId': contact.id}" 
-                    class="btn btn-sm text-light">
-                      <i style="font-size: 25px;" class="bi bi-pen"></i>
-                    </a>
                     <a [routerLink]="['/dashboard', 'send-email']" 
                        [queryParams]="{'to': contact.email}"
                        class="btn btn-sm text-light">

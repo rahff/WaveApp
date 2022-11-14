@@ -6,8 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupComponent } from '../views/signup/signup.component';
 import { AppComponent } from '../views/app/app.component';
 import { SharedModule } from './shared.module';
-import { LoginComponent } from '../views/login/login.component';
 import { CoreModule } from './core.module';
+import { ElectronModule } from './electron.module';
+import { ElectronApi } from '../../../shared/ElectronApi';
 
 
 
@@ -15,7 +16,6 @@ import { CoreModule } from './core.module';
   declarations: [
     BootComponent,
     SignupComponent,
-    LoginComponent,
     AppComponent
   ],
   imports: [
@@ -23,7 +23,8 @@ import { CoreModule } from './core.module';
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ElectronModule
   ],
   bootstrap: [AppComponent]
 })

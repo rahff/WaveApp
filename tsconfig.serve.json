@@ -19,7 +19,8 @@
     ]
   },
   "include": [
-    "app/**/*.ts"
+    "app/**/*.ts",
+    "src/assets"
   ],
   "exclude": [
     "node_modules",

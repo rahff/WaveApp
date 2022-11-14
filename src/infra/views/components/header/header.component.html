@@ -1,18 +1,21 @@
-<nav id="navbar-main"
+<nav id="navbar-main justify-content-space-between"
     class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--not-top" style="position: relative;">
-    <div class="container"><a class="navbar-brand mr-lg-5"
-            href="#/home"><img src="./assets/img/brand/argon-white.png"></a><button
+    <div class="container"><a class="navbar-brand mr-lg-5">
+        <img src="./assets/img/brand/argon-white.png"></a><button
             type="button" aria-controls="navbar_global" class="navbar-toggler"
             aria-expanded="false"><span class="navbar-toggler-icon"></span></button>
         <div id="navbar_global" class="navbar-collapse collapse">
             <div class="navbar-collapse-header">
                 <div class="row">
-                    <div class="col-6 collapse-brand"><a
-                            href="#/home"><img src="./assets/img/brand/blue.png"></a></div>
-                    <div class="col-6 collapse-close"><button
-                            type="button" aria-controls="navbar_global" class="navbar-toggler"
-                            aria-expanded="false"><span></span><span
-                               ></span></button></div>
+                    <div class="col-6 collapse-brand">
+                        <a><img src="./assets/img/brand/blue.png"></a>
+                    </div>
+                    <div class="col-6 collapse-close">
+                        <button type="button" aria-controls="navbar_global" class="navbar-toggler">
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
@@ -22,8 +25,7 @@
                             class="nav-link-inner--text">Components</span></a>
                     <div class="dropdown-menu-xl dropdown-menu">
                         <div class="dropdown-menu-inner"><a
-                                routerlinkactive="active" class="media d-flex align-items-center"
-                                href="#/documentation/tutorial">
+                                routerlinkactive="active" class="media d-flex align-items-center">
                                 <div
                                     class="icon icon-shape bg-gradient-primary rounded-circle text-white"><i
                                         class="ni ni-spaceship"></i></div>
@@ -33,7 +35,7 @@
                                         how to use Argon compiling Scss, change brand colors and more.</p>
                                 </div>
                             </a><a routerlinkactive="active"
-                                class="media d-flex align-items-center" href="#/documentation/colors">
+                                class="media d-flex align-items-center">
                                 <div
                                     class="icon icon-shape bg-gradient-success rounded-circle text-white"><i
                                         class="ni ni-palette"></i></div>
@@ -43,7 +45,7 @@
                                         more about colors, typography, icons and the grid system we used for Argon.</p>
                                 </div>
                             </a><a routerlinkactive="active"
-                                class="media d-flex align-items-center" href="#/documentation/alerts">
+                                class="media d-flex align-items-center">
                                 <div
                                     class="icon icon-shape bg-gradient-warning rounded-circle text-white"><i
                                         class="ni ni-ui-04"></i></div>
@@ -59,19 +61,30 @@
                         role="button" class="nav-link no-caret"><i
                             class="ni ni-collection d-lg-none"></i><span
                             class="nav-link-inner--text">Examples</span></a>
-                    <div class="dropdown-menu"><a class="dropdown-item"
-                            href="#/landing">Landing</a><a class="dropdown-item"
-                            href="#/user-profile">Profile</a><a class="dropdown-item"
-                            href="#/login">Login</a><a class="dropdown-item"
-                            href="#/register">Register</a></div>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item">Landing</a>
+                        <a class="dropdown-item">Profile</a>
+                        <a class="dropdown-item">Login</a>
+                        <a class="dropdown-item">Register</a>
+                    </div>
                 </li>
             </ul>
-            <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                <li class="nav-item mx-3"><i style="color: #FFF; font-size:30px;" class="bi bi-info-circle"></i></li>
-                <li class="nav-item mx-3"><i style="color: #FFF; font-size:30px;" class="bi bi-bell"></i></li>
-                <li class="nav-item mx-3"><i style="color: #FFF; font-size:30px;" class="bi bi-gear"></i></li>
-    
-            </ul>
+            <div (click)="toggleOptionMenu()" class="dropdown top-right cursor">
+                <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle">
+                  <img src="./assets/user/user.png" alt="" width="62" height="62" class="rounded-circle me-2">
+                  <strong>{{username$ | async}}</strong>
+                </a>
+                <ul *ngIf="showOptionMenu" class="dropdown-menu dropdown-menu-dark text-small shadow show">
+                  <li><a class="dropdown-item">New project...</a></li>
+                  <li><a class="dropdown-item">Settings</a></li>
+                  <li><a class="dropdown-item">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li >
+                    <a href="./assets/user/user-info.txt" [download]="(username$ | async)+'.txt'" class="dropdown-item">
+                        <i class="bi bi-download"></i>
+                        My contact file</a></li>
+                </ul>
+              </div>
         </div>
     </div>
 </nav>

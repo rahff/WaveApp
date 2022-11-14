@@ -5,39 +5,38 @@ import { EffectCreator } from "../ports/driver/EffectCreator";
 import { UserUseCases } from "../use-cases/UserUseCases";
 import { UserRepository } from "../ports/driven/UserRepository";
 import { Action } from "../../shared/actions/Action";
+import { SetPhotoSavedEvent } from "../events/user/SetPhotoSavedEvent";
 
 
 
 
 export class UserEffect implements EffectCreator {
 
-    private validationPolicies: UserUseCases;
+    private useCase: UserUseCases;
 
     constructor(private repository: UserRepository){
-        this.validationPolicies = new UserUseCases(this.repository);
+        this.useCase = new UserUseCases(this.repository);
     }
 
     async createEffect(command: Action): Promise<Action> {
         switch (command.getName()){
             case "saveUser":
                 try {
-                    return await this.validationPolicies.applySaveUser(command.getPayload());
+                    return await this.useCase.applySaveUser(command.getPayload());
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }
-            case "login":
-                try {
-                    const { email, password } = command.getPayload();
-                    return await this.validationPolicies.applyLogin(password, email);
-                } catch (error: any) {
-                    return new ExceptionEvent(error.message);
-                }
+    
             case "getUser":
                 try {
-                    return await this.validationPolicies.getUser();  
+                    return await this.useCase.getUser();  
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }
+
+            case "saveUserPhoto":
+                return await this.useCase.saveUserPhoto(command);
+                
             default: throw new CommandNotFoundException();
         }
     }

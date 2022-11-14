@@ -16,7 +16,10 @@ import { BootComponent } from './boot.component';
 
 
 describe('BootComponent', () => {
+  let fileSystemBridgeSpy: any;
+
   beforeEach(async () => {
+    fileSystemBridgeSpy = jasmine.createSpyObj('FileSystemBridgeSpy', ["saveFile"]);
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -32,6 +35,9 @@ describe('BootComponent', () => {
         {
           provide: UserStateContainer, useFactory: (e: EffectCreator, s: StateSelector)=> new UserStateContainer(e, s),
           deps: [UserEffect, UserSelectorService]
+        },
+        {
+          provide: "FileSystemBridge", useValue: fileSystemBridgeSpy
         }
       ],
       declarations: [

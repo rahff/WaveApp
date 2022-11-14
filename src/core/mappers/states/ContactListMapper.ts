@@ -8,6 +8,6 @@ export const contactListStateMapper = (state: ContactListState): IContactListSta
     return {
         contacts: state.contacts.map((item: ContactItem) => item.asDto()),
         onException: state.onException,
-        onSuccessSave: state.onSuccessSave
+        onSuccessSave: state.onSuccessSave,
     }
 }

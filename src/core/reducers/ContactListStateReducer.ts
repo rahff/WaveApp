@@ -29,13 +29,6 @@ export class ContactListStateReducer implements Reducer {
                     ...initialState,
                     contacts: this.removeContact(initialState.contacts, command.getPayload())
                 };
-
-            case "updateContact":
-                return {
-                    ...initialState,
-                    contacts: this.updateContact(initialState.contacts, command.getPayload()),
-                    onSuccessSave: true
-                };
                 
             case "onException": 
                 return {
@@ -57,13 +50,6 @@ export class ContactListStateReducer implements Reducer {
 
             default: throw new CommandNotFoundException();
         }
-    }
-
-    private updateContact(list: ContactItem[], updated: ContactItem): ContactItem[] {
-        return list.map((contact: ContactItem) => {
-            if(contact.getId() === updated.getId()) contact = updated;
-            return contact;
-        })
     }
 
     private removeContact(list: ContactItem[], contactId: string): ContactItem[] {

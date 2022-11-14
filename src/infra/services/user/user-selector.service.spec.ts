@@ -1,5 +1,5 @@
 
-import { SetIsAuthCommand } from '../../../core/commands/user/SetIsAuthCommand';
+
 import { SetUserCommand } from '../../../core/commands/user/UserCommand';
 import { UserStateContainer } from '../../../core/containers/user/UserStateContainer';
 import { UserEffect } from '../../../core/effects/UserEffect';
@@ -9,7 +9,7 @@ import { IUser } from '../../models/IUser';
 import { UserSelectorService } from './user-selector.service';
 
 
-const userRef = new User("Jean", "jeanvoltaire@gmail.com", "Mot2$asse", "123")
+const userRef = new User("Jean", "jeanvoltaire@gmail.com", "123")
 
 
 describe('UserSelectorService', () => {
@@ -32,11 +32,13 @@ describe('UserSelectorService', () => {
     service.getUser().subscribe((user: IUser | null)=> {
       expect(user).toEqual(stateContainer.getState().user?.asDto() as IUser || null);
     });
-    service.getIsAuth().subscribe((isAuth: boolean | undefined)=> {
-      expect(isAuth).toEqual(stateContainer.getState().isAuth);
-    });
+    
     service.getException().subscribe((exception: {message: string} | null)=> {
       expect(exception).toEqual(stateContainer.getState().onException);
+    })
+
+    service.getPhotoSavedEvent().subscribe((event: boolean) => {
+      expect(event).toEqual(stateContainer.getState().photoSavedEvent);
     })
   });
 
@@ -45,9 +47,5 @@ describe('UserSelectorService', () => {
     service.getUser().subscribe((user: IUser | null)=>{
       expect(user).toEqual(userRef.asDto())
     });
-    stateContainer.dispatch(new SetIsAuthCommand(true));
-    service.getIsAuth().subscribe((isAuth: boolean | undefined)=>{
-      expect(isAuth).toBeTrue();
-    })
   })
 });

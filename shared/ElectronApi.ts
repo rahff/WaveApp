@@ -1,7 +1,11 @@
-export interface FileSystemAdapter {
-    saveFile: (payload: {filename: string, content: string}) => void;
+
+
+export interface FileSystemBridge {
+
+    dispatch: (commandName: string, payload: any)=> Promise<any>
+    
 }
 
 export interface ElectronApi {
-    fileSystemBridge: FileSystemAdapter
+    fileSystemBridge: FileSystemBridge
 }

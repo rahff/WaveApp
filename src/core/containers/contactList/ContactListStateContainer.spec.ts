@@ -1,19 +1,19 @@
 
 import { ContactSavedEvent } from "../../../infra/events/ContactSavedEvent";
+import { GenericEventHandledEvent } from "../../../infra/events/GenericEventHandledEvent";
 import { ContactListFakeRepository } from "../../../infra/mocks/ContactListFakeRepository";
 import { ContactListSelectorService } from "../../../infra/services/contactList/contact-list-selector.service";
 import { AddContactItemCommand } from "../../commands/contactList/AddContactItemCommand";
 import { RemoveContactItemCommand } from "../../commands/contactList/RemoveContactItemCommand";
 import { SetContactListCommand } from "../../commands/contactList/SetContactListCommand";
-import { UpdateContactItemCommand } from "../../commands/contactList/UpdateContactItemCommand";
 import { ContactListEffect } from "../../effects/ContactListEffect";
 import { ContactItem } from "../../entities/ContactItem";
 import { ContactListStateContainer } from "./ContactListStateContainer";
 
 
-const contact1 = new ContactItem("tester", "testertest@gmail.com", "0569898766", "123");
-const contact2 = new ContactItem("tester2", "testertest2@gmail.com", "0569398725", "456");
-const contact3 = new ContactItem("tester3", "testertest3@gmail.com", "0569728714", "789");
+const contact1 = new ContactItem("tester", "testertest@gmail.com", "123");
+const contact2 = new ContactItem("tester2", "testertest2@gmail.com", "456");
+const contact3 = new ContactItem("tester3", "testertest3@gmail.com", "789");
 
 describe('ContactListStateContainer', ()=> {
 
@@ -33,19 +33,13 @@ describe('ContactListStateContainer', ()=> {
     it('should add a contact item into state list', ()=>{
         stateContainer.dispatch(new AddContactItemCommand(contact3));
         expect(stateContainer.getState().onSuccessSave).toBeTrue();
-        expect(stateContainer.getState().contacts[2]?.getName()).toBe("tester3");
+        expect(stateContainer.getState().contacts[2]?.getUsername()).toBe("tester3");
     })
 
     it('should remove a contact into the list state', ()=>{
         stateContainer.dispatch(new RemoveContactItemCommand("456"));
         expect(stateContainer.getState().contacts.length).toBe(1);
         expect(stateContainer.getState().contacts[0]).toEqual(contact1);
-    })
-
-    it('should update a contact into the list state', ()=>{
-        stateContainer.dispatch(new UpdateContactItemCommand(new ContactItem(contact2.getName(), "newemail@gmail.com", contact2.getTel(), contact2.getId())));
-        expect(stateContainer.getState().contacts[1].getEmail()).toBe("newemail@gmail.com");
-        expect(stateContainer.getState().onSuccessSave).toBeTrue();
     })
 
     it('should set onSuccessSave to false', ()=>{

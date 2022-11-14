@@ -1,47 +1,22 @@
 import { IContactItem } from "../../infra/models/IContactIem";
+import { User } from "./User";
 
 
 
-export class ContactItem {
+export class ContactItem extends User{
 
-    constructor(private name: string, private email: string, private tel: string | null, private id: string){
-        this.checkEmailValidity(this.email);
-        if(this.tel) this.checkTelvalidity(this.tel);
+
+    constructor(username: string, email: string, id: string){
+        super(username, email, id);
+        this.photo = `${username}${id}.png`
     }
 
-    private checkEmailValidity(email: string): void {
-        const isValid = !!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
-        if(!isValid) throw new Error("invalid email");
-    }
-
-    private checkTelvalidity(tel: string): void {
-        const isValid = !!tel.match(/^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/);
-        if(!isValid) throw new Error("invalid tel");
-    }
-
-
-    public getId(): string {
-        return this.id;
-    }
-
-    public getName(): string {
-        return this.name;
-    }
-
-    public getEmail(): string {
-        return this.email;
-    }
-
-    public getTel(): string | null{
-        return this.tel;
-    }
-
-    public asDto(): IContactItem {
+    public override asDto(): IContactItem {
         return {
-            name: this.name,
+            username: this.username,
             email: this.email,
-            tel: this.tel,
-            id: this.id
+            id: this.id,
+            photo: this.photo
         }
     }
 }

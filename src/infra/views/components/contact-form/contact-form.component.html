@@ -3,49 +3,22 @@
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8">
         <div class="card bg-secondary shadow border-0">
-          <div *ngIf="!initialValue" class="card-header bg-transparent pb-1">
+          <div class="card-header bg-transparent pb-1">
             <div class="text-muted text-center mt-2 mb-4"><h3>Add Contact</h3></div>
           </div>
           <div class="card-body px-lg-5 py-lg-5">
             <form [formGroup]="contactForm" role="form">
-              <div class="form-group">
-                <label>Contact name</label>
+              <div class="form-group" [ngClass]="{'focused':focus1===true}">
                 <div class="input-group input-group-alternative mb-3">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <span class="input-group-text"><i class="bi bi-file-image"></i></span>
                   </div>
-                  <input formControlName="name" class="form-control" placeholder="Name" type="text">
+                  <input #filename (click)="browseFile()" formControlName="filename" class="form-control cursor" [placeholder]="fileInputPlaceholder">
+                  <input (change)="setContactFile()" #fileInput style="display: none;" type="file">
                 </div>
               </div>
-        
-              <div class="form-group">
-                <label>Contact email</label>
-                <div class="input-group input-group-alternative mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="bi bi-at"></i></span>
-                  </div>
-                  <input formControlName="email" class="form-control" placeholder="email" type="email">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Contact tel</label>
-                <div class="input-group input-group-alternative mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                  </div>
-                  <input formControlName="tel" class="form-control" placeholder="phone number" type="tel">
-                </div>
-              </div>
-              <div class="d-flex justify-content-space-between">
-                <div class="text-center">
-                  <button [routerLink]="['/dashboard', 'contact']" type="button" class="btn btn-primary mt-4">Cancel</button>
-                </div>
-                <div class="text-center">
-                  <button *ngIf="!initialValue; else updateButton" (click)="onSubmit()" type="button" class="btn btn-primary mt-4">Save Contact</button>
-                  <ng-template #updateButton>
-                    <button (click)="onSubmit()" type="button" class="btn btn-primary mt-4">Update Contact</button>
-                  </ng-template>
-                </div>
+              <div class="text-center">
+                <button [routerLink]="['/dashboard', 'contact']" type="button" class="btn btn-primary mt-4">Cancel</button>
               </div>
             </form>
           </div>

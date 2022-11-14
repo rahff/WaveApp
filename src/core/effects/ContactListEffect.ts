@@ -37,10 +37,10 @@ export class ContactListEffect implements EffectCreator {
                 } catch (error: any) {
                     return new ExceptionEvent(error.message);
                 }
-            case "modifyContact": 
+            case "saveContactInfo":
                 try {
-                    return await this.validationPolicy.applyModifyContact(command.getPayload());
-                } catch (error: any) {
+                    return await this.validationPolicy.applySaveContactInfoFile(command.getPayload());
+                } catch (error) {
                     return new ExceptionEvent(error.message);
                 }
                 

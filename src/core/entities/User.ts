@@ -3,22 +3,16 @@ import { IUser } from "../../infra/models/IUser";
 
 export class User {
 
-    private token: string | null = null;
-    private isAuth: boolean = false;
-    constructor(private username: string, private email: string, private password: string, private id: string){
+    protected photo: string = "user.png";
+    
+    constructor(protected username: string, protected email: string, protected id: string){
         this.checkDatavalidity();
     }
 
 
     private checkDatavalidity(): void {
-        this.checkPasswordValidity(this.password);
         this.checkEmailValidity(this.email);
         this.checkUsernameValidity(this.username);
-    }
-
-    private checkPasswordValidity(password: string): void {
-        const isValid = !!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/);
-        if(!isValid) throw new Error("password must include at least 8 character and 1 special character 1 number and one uppercase");
     }
 
     private checkEmailValidity(email: string): void {
@@ -43,27 +37,12 @@ export class User {
         return this.id;
     }
 
-    public getPassword(): string {
-        return this.password;
-    }
-
     public asDto(): IUser {
         return {
             username: this.username,
-            email: this.email, 
-            password: this.password,
-            id: this.id,
-            isAuth: this.isAuth,
-            token: this.token
+            email: this.email,
+            photo: this.photo,
+            id: this.id
         }
-    }
-
-    public getIsAuth(): boolean {
-       return this.isAuth;
-    }
-
-    public setIsAuth(isAuth: boolean, token: string | null): void {
-        this.token = token;
-        this.isAuth = isAuth;
     }
 }

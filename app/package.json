@@ -1,0 +1,9 @@
+{
+   "scripts": {
+      "test": "NODE_ENV=TEST ts-node ./node_modules/.bin/jasmine --config=spec/jasmine.json"
+   },
+   "devDependencies": {
+      "ts-node": "^10.9.1",
+      "jasmine": "^4.5.0"
+   }
+}

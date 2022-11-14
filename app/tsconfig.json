@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "types": [
+        "jasmine",
+        "node"
+      ],
+      "module": "CommonJS"
+    },
+    "include": [
+      "**/*.spec.ts",
+      "**/*.d.ts"
+    ],
+    "exclude": [
+      "dist",
+      "release",
+      "node_modules"
+    ]
+  }
+  

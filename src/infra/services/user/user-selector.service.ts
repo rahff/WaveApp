@@ -11,7 +11,7 @@ import { IUser } from '../../models/IUser';
   providedIn: 'root'
 })
 export class UserSelectorService extends StateSelector {
-  private initialState: IUserState = {onException: null, user: null, signupEvent: null, isAuth: false}
+  private initialState: IUserState = {onException: null, user: null, signupEvent: null, photoSavedEvent: false}
   override state$ = new BehaviorSubject<IUserState>(this.initialState);
 
   constructor() {
@@ -20,17 +20,17 @@ export class UserSelectorService extends StateSelector {
 
   public getUser(): Observable<IUser | null> {
     return this.state$.asObservable()
-    .pipe(map((state: IUserState) => state.user))
-  }
-
-  public getIsAuth(): Observable<boolean | undefined> {
-    return this.state$.asObservable()
-    .pipe(map((state: IUserState) => state.isAuth))
+    .pipe(map((state: IUserState) => state.user ));
   }
 
   public getIsNewUser(): Observable<boolean | null> {
     return this.state$.asObservable()
     .pipe(map((state: IUserState)=> state.signupEvent));
+  }
+
+  public getPhotoSavedEvent(): Observable<boolean> {
+    return this.state$.asObservable()
+    .pipe(map((state: IUserState)=> state.photoSavedEvent));
   }
  
 }

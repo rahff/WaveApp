@@ -1,4 +1,5 @@
 
+import { Observable } from 'rxjs';
 import { SetContactListCommand } from '../../../core/commands/contactList/SetContactListCommand';
 import { ContactListStateContainer } from '../../../core/containers/contactList/ContactListStateContainer';
 import { ContactListEffect } from '../../../core/effects/ContactListEffect';

@@ -1,10 +1,11 @@
 
+import { Base64File } from "../../../shared/Base64File";
+import { SaveContactItemCommand } from "../commands/contactList/SaveContactItemCommand";
 import { IContactItem } from "../../infra/models/IContactIem";
 import { Action } from "../../shared/actions/Action";
 import { AddContactItemCommand } from "../commands/contactList/AddContactItemCommand";
 import { RemoveContactItemCommand } from "../commands/contactList/RemoveContactItemCommand";
 import { SetContactListCommand } from "../commands/contactList/SetContactListCommand";
-import { UpdateContactItemCommand } from "../commands/contactList/UpdateContactItemCommand";
 import { ExceptionEvent } from "../events/shared/ExceptionEvent";
 import { contactMapper } from "../mappers/entities/ContactMapper";
 import { ContactListRepository } from "../ports/driven/ContactListRepository";
@@ -23,9 +24,11 @@ export class ContactListUseCases {
 
     async applySaveContact(contact: IContactItem): Promise<Action> {
         try {
+            console.log("contact", contact);
             const _contact = contactMapper(contact);
-            const { email, tel } = _contact.asDto();
-            const isExistingContact = await this.repository.isExistingContactByValues(email, tel);
+            const { email } = _contact.asDto();
+            
+            const isExistingContact = await this.repository.isExistingContactByValues(email);
             if(isExistingContact) return new ExceptionEvent("this contact already exist with this tel or email");
             const savedContact = await this.repository.saveContact(contact);
             const savedEntity = contactMapper(savedContact);
@@ -42,10 +45,11 @@ export class ContactListUseCases {
         return new RemoveContactItemCommand(deletedId);
     }
 
-    async applyModifyContact(updated: IContactItem): Promise<Action> {
-        if(!updated.id) return new ExceptionEvent("cannot modify item without identifier")
-        const updatedContact = await this.repository.modifyContact(updated);
-        const updatedEntity = contactMapper(updatedContact)
-        return new UpdateContactItemCommand(updatedEntity);
+    async applySaveContactInfoFile(file: Base64File): Promise<Action> {
+        if(file.filename.endsWith('.txt')){
+            const result = await this.repository.saveContactInfoFile(file);
+            if(result) return new SaveContactItemCommand(result);
+            else return new ExceptionEvent("invalid contact-info file");
+        }else return new ExceptionEvent("contact-info file must be a txt file");
     }
 }

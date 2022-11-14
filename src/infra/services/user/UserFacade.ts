@@ -21,12 +21,12 @@ export class UserFacade extends Facade<UserSelectorService> {
         return this.dispatcher.stateSelector.getUser();
     }
 
-    public getIsAuth(): Observable<boolean | undefined> {
-        return this.dispatcher.stateSelector.getIsAuth();
-    }
-
     public getIsNewUser(): Observable<boolean | null> {
         return this.dispatcher.stateSelector.getIsNewUser();
+    }
+
+    public getPhotoSavedEvent(): Observable<boolean> {
+        return this.dispatcher.stateSelector.getPhotoSavedEvent();
     }
 
 }

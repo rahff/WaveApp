@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppModule } from '../../../modules/app.module';
+import { CoreModule } from '../../../modules/core.module';
+import { DashboardModule } from '../../../modules/dashboard.module';
+import { ElectronModule } from '../../../modules/electron.module';
+
 
 
 import { HeaderComponent } from './header.component';
@@ -7,13 +10,20 @@ import { HeaderComponent } from './header.component';
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-
+  let fileSystemBridgeSpy: any;
   beforeEach(async () => {
+    fileSystemBridgeSpy = jasmine.createSpyObj("FileSystemBridge", ["dispatch"])
     await TestBed.configureTestingModule({
       imports: [
-        AppModule
+        DashboardModule,
+        CoreModule
       ],
-      declarations: [ HeaderComponent ]
+      declarations: [ HeaderComponent ],
+      providers: [
+        {
+          provide: "FileSystemBridge", useValue: fileSystemBridgeSpy
+        }
+      ]
     })
     .compileComponents();
   });

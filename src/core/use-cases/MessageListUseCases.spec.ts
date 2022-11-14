@@ -7,7 +7,7 @@ import { AddOutBoxMessageCommand } from "../commands/messageList/AddOutBoxMessag
 import { MessageListUseCases } from "./MessageListUseCases"
 
 
-const outboxMessage: IMessage = {id: "", to: {email: "testemail@gmail.com", id: generateId(), name: "Francis B", tel: "0450424336"}, attachment: null, content: "hello world"}
+const outboxMessage: IMessage = {id: "", to: {email: "testemail@gmail.com", id: generateId(), username: "Francis B", photo: ""}, attachment: null, content: "hello world"}
 
 describe('MessageListUseCases', ()=>{
     let useCases: MessageListUseCases;

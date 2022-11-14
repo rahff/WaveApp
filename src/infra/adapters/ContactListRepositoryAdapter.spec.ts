@@ -1,24 +1,29 @@
-import { TestBed } from "@angular/core/testing";import { ContactItem } from "../../core/entities/ContactItem";
-;
+import { TestBed } from "@angular/core/testing";
 import { IContactItem } from "../models/IContactIem";
 import { DatabaseModule } from "../modules/database.module";
-import { generateEmail, generateId, generateTel } from "../utils/generators";
+import { generateEmail, generateId } from "../utils/generators";
 import { ContactListRepositoryAdapter } from "./ContactListRepositoryAdapter";
 
+
 const generatedEmail = generateEmail();
-const generatedTel = generateTel();
-const itemRef: IContactItem = {name: "Jamy", email: generatedEmail, id: "", tel: generatedTel };
-const itemRef2: IContactItem = {name: "test", id: generateId(), email: generateEmail(), tel: generateTel()};
+const itemRef: IContactItem = {username: "Jamy", email: generatedEmail, id: generateId(), photo: ''};
+const itemRef2: IContactItem = {username: "test", id: generateId(), email: generateEmail(), photo: ''};
+
 
 describe("ContactListRepositoryAdapter", ()=> {
 
     let repository: ContactListRepositoryAdapter;
+    let fileSystemBridgeSpy: any;
 
     beforeEach(()=> {
+        fileSystemBridgeSpy = jasmine.createSpyObj("FileSystemBridge", ["dispatch"])
         TestBed.configureTestingModule({
-            imports: [
-                DatabaseModule
-            ],
+            imports: [DatabaseModule],
+            providers: [
+                {
+                    provide: "FileSystemBridge", useValue: fileSystemBridgeSpy
+                }
+            ]
         })
         repository = TestBed.inject(ContactListRepositoryAdapter);
     })
@@ -39,7 +44,7 @@ describe("ContactListRepositoryAdapter", ()=> {
     })
 
     it("should delete a item", async ()=> {
-        const ref: IContactItem = {...itemRef, name: "tester", email: generateEmail(), tel: generateTel()};
+        const ref: IContactItem = {...itemRef, username: "tester", email: generateEmail(), id: generateId()};
         const savedContact = await repository.saveContact(ref);
         const expectedId = await repository.deleteContact(savedContact.id);
         expect(expectedId).toBeInstanceOf(String);
@@ -47,29 +52,16 @@ describe("ContactListRepositoryAdapter", ()=> {
         expect(list).not.toContain(ref);
     });
 
-    it('should modify an item', async ()=>{
-        const ref = new ContactItem("tester", generateEmail(), generateTel(), "itemToModifyId")
-        const savedContact = await repository.saveContact(ref.asDto());
-        const upadtedItem = await repository.modifyContact({...ref.asDto(), id: savedContact.id, name: "modified"});
-        expect(upadtedItem.name).toBe("modified");
-    });
-
     it('should verify existance of value in db', async ()=>{
         const _generatedEmail = generateEmail();
-        const _generatedTel = generateTel();
-        await repository.saveContact({...itemRef, id: generateId(),  email: _generatedEmail, tel: generateTel()});
-        await repository.saveContact({...itemRef, id: generateId(), tel: _generatedTel, email: generateEmail()});
-        const isExistingValues = await repository.isExistingContactByValues("notExistingEmail@gmail.com", "0236333210");
+        await repository.saveContact({...itemRef, id: generateId(), email: _generatedEmail});
+        const isExistingValues = await repository.isExistingContactByValues("notExistingEmail@gmail.com");
         expect(isExistingValues).toBeFalse();
-        const isExistingValues2 = await repository.isExistingContactByValues(_generatedEmail, "0236333210");
-        expect(isExistingValues2).toBeTrue();
-        const isExistingValues3 = await repository.isExistingContactByValues("notExistingEmail@gmail.com", _generatedTel);
-        expect(isExistingValues3).toBeTrue();
     })
 
     it('should verify existance of item by id', async ()=> {
         const _id = generateId();
-        const savedContact = await repository.saveContact({...itemRef, id: _id,  email: generateEmail(), tel: generateTel()});
+        const savedContact = await repository.saveContact({...itemRef, id: _id,  email: generateEmail()});
         const isExisting = await repository.isExistingContactById(savedContact.id);
         expect(isExisting).toBeTrue();
         const isExisting2 = await repository.isExistingContactById("__notExistingId__");

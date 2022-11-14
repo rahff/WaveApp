@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { user1 } from '../mocks/fake-data';
 import { DatabaseModule } from '../modules/database.module';
+import { ElectronModule } from '../modules/electron.module';
 import { UserRepositoryAdapter } from "./UserRepositoryAdapter";
 
 
@@ -10,17 +11,18 @@ import { UserRepositoryAdapter } from "./UserRepositoryAdapter";
 describe("UserRepositoryAdapter", ()=> {
 
     let repository: UserRepositoryAdapter;
-    let httpServiceSpy: any;
+    let fileSystemBridgeSpy: any;
     beforeEach(()=> {
-        httpServiceSpy = jasmine.createSpyObj('HttpService', ["post", "get"])
+        fileSystemBridgeSpy = jasmine.createSpyObj('FileSystemBridgeSpy', ["dispatch"]);
         TestBed.configureTestingModule({
             imports: [
                 DatabaseModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                ElectronModule
             ],
             providers: [
                 {
-                    provide: HttpClient, useValue: httpServiceSpy
+                    provide: "FileSystemBridge", useValue: fileSystemBridgeSpy
                 }
             ]
         })
@@ -32,8 +34,10 @@ describe("UserRepositoryAdapter", ()=> {
     })
     
     it('should save user in localstorage', async()=>{
+        fileSystemBridgeSpy.dispatch.and.returnValue(new Promise((resolve)=> resolve(true)));
         await repository.saveUser(user1.asDto());
         const savedUser = localStorage.getItem('defaultUser');
-        expect(JSON.parse(savedUser || "")).toEqual(user1.asDto());
+        const savedUserAsObject = JSON.parse(savedUser || "");
+        expect(savedUserAsObject).toEqual({...user1.asDto(), id: savedUserAsObject.id});
     })
 })

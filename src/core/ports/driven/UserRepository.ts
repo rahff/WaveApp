@@ -1,8 +1,9 @@
 import { IUser } from "../../../infra/models/IUser";
+import { Command } from "../../../shared/actions/Action";
 
 
 export interface UserRepository {
     saveUser(user: IUser): Promise<IUser>;
-    loginUser(email: string, password: string): Promise<IUser>;
-    getDefaultUser(): Promise<IUser | null>
+    getDefaultUser(): Promise<IUser | null>;
+    saveUserPhoto(command: Command): Promise<boolean>
 }

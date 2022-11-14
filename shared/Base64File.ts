@@ -1,0 +1,1 @@
+export interface Base64File { filename: string, data: string };

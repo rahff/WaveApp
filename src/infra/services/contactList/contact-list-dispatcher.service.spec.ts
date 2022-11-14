@@ -1,11 +1,12 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
+import { SaveContactItemCommand } from '../../../core/commands/contactList/SaveContactItemCommand';
 import { SetContactListCommand } from '../../../core/commands/contactList/SetContactListCommand';
 import { ContactListStateContainer } from '../../../core/containers/contactList/ContactListStateContainer';
 import { ContactListEffect } from '../../../core/effects/ContactListEffect';
 import { DeleteContactItemCommand } from '../../commands/contactList/DeleteContactItemCommand';
 import { GetContactListCommand } from '../../commands/contactList/GetContactListCommand';
-import { ModifyContactItemCommand } from '../../commands/contactList/ModifyContactItemCommand';
-import { SaveContactItemCommand } from '../../commands/contactList/SaveContactItemCommand';
+import { SaveContactInfoCommand } from '../../commands/contactList/SaveContactInfoCommand';
+import { GenericEventHandledEvent } from '../../events/GenericEventHandledEvent';
 import { ContactListFakeRepository } from '../../mocks/ContactListFakeRepository';
 import { conatct1, conatct2 } from '../../mocks/fake-data';
 import { ContactListDispatcherService } from './contact-list-dispatcher.service';
@@ -40,11 +41,6 @@ describe('ContactListDispatcherService', () => {
     expect(stateContainer.getState().contacts[1]).toEqual(conatct2);
   }));
 
-  it('should dispatch contact already exist event when user tries to save a contact with same email or tel', fakeAsync(()=>{
-    service.dispatch(new SaveContactItemCommand({...conatct1.asDto(), id: "456", tel: "0789698545"}));
-    flushMicrotasks();
-    expect(stateContainer.getState().onException).toEqual({message: "this contact already exist with this tel or email"});
-  }))
 
   it('should dispatch deleteContact command', fakeAsync(()=>{
     service.dispatch(new DeleteContactItemCommand("123"));
@@ -58,15 +54,10 @@ describe('ContactListDispatcherService', () => {
     expect(stateContainer.getState().onException).toEqual({message: "this contact does not exist"});
   }))
 
-  it('should dispatch modifyContact command', fakeAsync(()=>{
-    service.dispatch(new ModifyContactItemCommand({...conatct1.asDto(), tel: "0412121222"}));
+  it('should dispatch saveContactInfo command', fakeAsync(()=>{
+    service.dispatch(new SaveContactInfoCommand({filename: "test-info.txt", data: "eeyeyeyb..."}));
     flushMicrotasks();
-    expect(stateContainer.getState().contacts[0].getTel()).toBe("0412121222");
-  }))
-
-  it('should dispatch cannot modify item event when there is not id in payload', fakeAsync(()=>{
-    service.dispatch(new ModifyContactItemCommand({...conatct1.asDto(), id: "", tel: "0412121222"}));
-    flushMicrotasks();
-    expect(stateContainer.getState().onException).toEqual({message: "cannot modify item without identifier"});
+    console.log("exception ", stateContainer.getState().onException);
+    expect(stateContainer.getState().onSuccessSave).toBeTrue();
   }))
 });

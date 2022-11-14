@@ -1,6 +1,5 @@
-
 import { StateContainer } from "../../core/containers/stateContainer/StateContainer";
-import { Command } from "../actions/Action";
+import { Action } from "../actions/Action";
 import { StateSelector } from "./StateSelector";
 
 
@@ -12,7 +11,7 @@ export abstract class Dispatcher<T extends StateSelector> {
         this.stateSelector = this.stateContainer.getSelector() as T;
     }
     
-    dispatch(command: Command): void {
+    dispatch(command: Action): void {
         this.stateContainer.dispatch(command);
     }
 }

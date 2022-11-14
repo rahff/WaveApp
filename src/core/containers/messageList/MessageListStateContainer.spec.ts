@@ -13,7 +13,7 @@ import { MessageListStateContainer } from "./MessageListStateContainer";
 
 
 const initialState: MessageListState = {inbox: [], outbox: [], onException: null, messageSended: false};
-const contact = new ContactItem("test", "testester@gmail.com", "0450423036", "147852369");
+const contact = new ContactItem("test", "testester@gmail.com", "0450423036");
 const message1: _Message = new _Message(contact, "hello", "123id" ,null);
 const message2: _Message = new _Message(contact, "hello2", "456id", null);
 const message3: _Message = new _Message(contact, "salut", "789id", null);

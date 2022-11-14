@@ -3,5 +3,5 @@ import { ContactItem } from "../../entities/ContactItem";
 
 
 export const contactMapper = (contactPojo: IContactItem): ContactItem => {
-    return new ContactItem(contactPojo.name, contactPojo.email, contactPojo.tel, contactPojo.id);
+    return new ContactItem(contactPojo.username, contactPojo.email, contactPojo.id);
 }

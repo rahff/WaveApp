@@ -10,7 +10,7 @@ import { StateContainer } from "../stateContainer/StateContainer";
 
 export class UserStateContainer extends StateContainer{
 
-    protected override state: UserState = { user: null, isAuth: false, onException: null, signupEvent: null};
+    protected override state: UserState = { user: null, onException: null, signupEvent: null, photoSavedEvent: false};
     protected override reducer: UserStateReducer = new UserStateReducer();
 
     constructor(effect: EffectCreator, selector: StateSelector){

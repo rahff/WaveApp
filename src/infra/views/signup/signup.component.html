@@ -1,5 +1,5 @@
 <main>
-  <section class="section section-shaped section-lg">
+  <section class="section section-shaped section-lg" style="height: 100vh;">
     <div class="shape shape-style-1 bg-gradient-default">
       <span></span>
       <span></span>
@@ -12,26 +12,23 @@
     </div>
     <div class="container pt-lg-md">
       <div class="row justify-content-center">
-        <div class="col-lg-5">
+        <div class="col-lg-6 col-md-8">
           <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-white pb-5">
-              <div class="text-muted text-center mb-3">
-                <small>Sign up with</small>
-              </div>
-              <div class="text-center">
-                <a (click)="googleSignup()" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon">
-                    <img src="./assets/img/icons/common/google.svg">
-                  </span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
-              </div>
+            <div #header class="card-header bg-white pb-3">
+              <h3 *ngIf="!onVideo; else takePhotoBtn" class="text-center" style="color: #8898aa;">
+                Welcome !
+              </h3>
+              <ng-template #takePhotoBtn>
+                <div class="container justify-content-space-between">
+                  <button (click)="stopMediaStream()" type="button" class="btn btn-danger mt-4">Cancel</button>
+                  <button (click)="takePhoto()" type="button" class="btn btn-primary mt-4">Take Photo</button>
+                </div>
+              </ng-template>
             </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Or sign up with credentials</small>
-              </div>
-              <form role="form" [formGroup]="signupForm">
+            <div #area style="position: relative;" class="card-body px-lg-5 py-lg-5">
+              <canvas *ngIf="onVideo" #canvas></canvas>
+              <video *ngIf="onVideo" #video  autoplay="true"></video>
+              <form [ngClass]='{"hidden": onVideo ? true:false}' role="form" [formGroup]="signupForm">
                 <div class="form-group" [ngClass]="{'focused':focus===true}">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
@@ -48,33 +45,22 @@
                     <input formControlName="email" class="form-control" placeholder="Email" type="email" (focus)="focus1=true" (blur)="focus1=false">
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus2===true}">
-                  <div class="input-group input-group-alternative">
+                <div class="form-group" [ngClass]="{'focused':focus1===true}">
+                  <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      <span class="input-group-text"><i class="bi bi-file-image"></i></span>
                     </div>
-                    <input formControlName="password" class="form-control" placeholder="Password" type="password" 
-                    (focus)="focus2=true" (blur)="focus2=false">
-                  </div>
-                </div>
-                <div class="form-group" [ngClass]="{'focused':focus2===true}">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input formControlName="cpassword" class="form-control" placeholder="Confirm password" type="password" 
-                    (focus)="focus2=true" (blur)="focus2=false">
+                    <input (click)="browseFile()" #avatarInput formControlName="avatar" class="form-control cursor" [placeholder]="fileInputPlaceholder">
+                    <input #fileInput (change)="setPhoto()" style="display: none;" type="file">
+                    <button type="button" (click)="createPhotoCanvas()" class="btn btn-sm btn-primary">
+                      <i style="font-size: 25px;" class="bi bi-camera"></i> 
+                    </button>
                   </div>
                 </div>
                 <div class="row my-4">
                   <div class="col-12">
                     <div class="custom-control custom-control-alternative custom-checkbox">
                       <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                      <label class="custom-control-label" for="customCheckRegister">
-                        <span>I agree with the
-                          <a>Privacy Policy</a>
-                        </span>
-                      </label>
                     </div>
                   </div>
                 </div>

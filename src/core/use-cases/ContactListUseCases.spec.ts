@@ -1,9 +1,10 @@
 
 import { ContactListFakeRepository } from "../../infra/mocks/ContactListFakeRepository";
+import { IContactItem } from "../../infra/models/IContactIem";
 import { ContactListUseCases } from "./ContactListUseCases"
 
 
-const contactWithSameEmailThanAnother = { id: "956", name: "Fritz", firstname: "Helmut", email: "titilebaron@gmail.com", tel: "0457428332"};
+const contactWithSameEmailThanAnother: IContactItem = { id: "956", username: "Fritz", email: "titilebaron@gmail.com", photo: "test.png"};
 
 describe('ContactListUseCases', ()=>{
     let policies:ContactListUseCases;
@@ -20,10 +21,5 @@ describe('ContactListUseCases', ()=>{
     it('should verify that item does exist before try to delete it', async ()=> {
         const commandResult = await policies.applyDeleteContact("noExistingId");
         expect(commandResult.getPayload()).toEqual("this contact does not exist")
-    })
-
-    it('should verify that payload have an id before try to modify it', async ()=> {
-        const commandResult = await policies.applyModifyContact({...contactWithSameEmailThanAnother, id: "", email: "otheremail@gmail.com"});
-        expect(commandResult.getPayload()).toEqual("cannot modify item without identifier");
     })
 })

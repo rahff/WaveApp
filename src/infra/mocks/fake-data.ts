@@ -16,9 +16,9 @@ export const fakeCalendarEventInPast = new CalendarEvent("in past", new Date(200
 export const item1 = new TodoItem("test1", "123");
 export const item2 = new TodoItem("test2", "456")
 
-export const user1 = new User("Guillaume", "guiguilamenace@gmail.com", "Mot2$asse", "123");
-export const conatct1 = new ContactItem("Marks", "titilebaron@gmail.com", "0450424342", "123");
-export const conatct2 = new ContactItem("Jacob", "nanoudu94@gmail.com", "0450428332", "456");
+export const user1 = new User("Guillaume", "guiguilamenace@gmail.com", "123");
+export const conatct1 = new ContactItem("Marks", "titilebaron@gmail.com", "123");
+export const conatct2 = new ContactItem("Jacob", "nanoudu94@gmail.com", "456");
 export const fakeMessage: IMessage = {id: generateId(), to: conatct2.asDto(), content: "Hello world", attachment: null}
 export const fakeMessage2: IMessage = {id: generateId(), to: conatct1.asDto(), content: "Salutation", attachment: null}
 export const fakeMessage3: IMessage = {id: generateId(), to: conatct1.asDto(), content: "un ancien message", attachment: null}

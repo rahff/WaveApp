@@ -13,14 +13,7 @@ export class UserStateReducer {
                 return {
                     ...initialState,
                     signupEvent: false,
-                    user: command.getPayload(),
-                    isAuth: false,
-                };
-
-            case "setIsAuth":
-                return {
-                    ...initialState,
-                    isAuth: command.getPayload()
+                    user: command.getPayload()
                 };
 
             case "signupEvent":
@@ -41,12 +34,17 @@ export class UserStateReducer {
                     onException: command.getPayload()
                 }
 
-            case "userConnexion":
+            case "photoSavedEvent": 
                 return {
                     ...initialState,
-                    isAuth: command.getPayload()
+                    photoSavedEvent: command.getPayload()
                 }
-
+                
+            case "genericEventHandled":
+                return {
+                    ...initialState,
+                    photoSavedEvent: command.getPayload()
+                }
             default: throw new CommandNotFoundException();
         }
     }

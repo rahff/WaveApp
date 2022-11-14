@@ -1,23 +1,13 @@
 
 import { UserFakeRepository } from "../../infra/mocks/UserFakeRepository";
+import { IUser } from "../../infra/models/IUser";
 import { UserUseCases } from "./UserUseCases";
 
-const userWithInvalidEmail = {
-    id: "",
+const userWithInvalidEmail: IUser = {
     username: "Guillaume", 
     email: "guiguilamenace£$gmail.com",
-    password: "Mot2$asse",
-    isAuth: false,
-    token: null
-}
-
-const userWithWeakPassword = {
-    id: "",
-    username: "Guillaume", 
-    email: "guiguilamenace@gmail.com",
-    password: "Motdepasse",
-    isAuth: false,
-    token: null
+    photo: "user.png",
+    id: '123'
 }
 
 describe("UserUseCases", ()=>{
@@ -30,10 +20,5 @@ describe("UserUseCases", ()=>{
     it('should verify that email is correct', async ()=> {
         const commandResult = await useCases.applySaveUser(userWithInvalidEmail);
         expect(commandResult.getPayload()).toEqual("invalid email...")
-    });
-
-    it('should verify that password is strong', async ()=> {
-        const commandResult = await useCases.applySaveUser(userWithWeakPassword);
-        expect(commandResult.getPayload()).toEqual("password must include at least 8 character and 1 special character 1 number and one uppercase")
     });
 })

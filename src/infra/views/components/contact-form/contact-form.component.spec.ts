@@ -11,7 +11,9 @@ describe('ContactFormComponent', () => {
   let component: ContactFormComponent;
   let fixture: ComponentFixture<ContactFormComponent>;
   let routerSpy: any;
+  let fileSystemBridgeSpy: any;
   beforeEach(async () => {
+    fileSystemBridgeSpy = jasmine.createSpyObj('FileSystemBridge', ["dispatch"]);
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl'])
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, DashboardModule, RouterTestingModule],
@@ -21,6 +23,9 @@ describe('ContactFormComponent', () => {
         },
         {
           provide: ActivatedRoute, useValue: {snapshot: {url: [], queryParamMap: {get: ()=> ""}}}
+        },
+        {
+          provide: "FileSystemBridge", useValue: fileSystemBridgeSpy
         }
       ],
       declarations: [ ContactFormComponent ]

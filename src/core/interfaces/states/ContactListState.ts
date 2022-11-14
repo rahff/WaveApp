@@ -4,5 +4,5 @@ import { BaseState } from "./BaseState";
 
 export interface ContactListState extends BaseState{
     contacts: ContactItem[];
-    onSuccessSave: boolean
+    onSuccessSave: boolean;
 }

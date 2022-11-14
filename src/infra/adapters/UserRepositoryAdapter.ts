@@ -1,10 +1,10 @@
-
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { DatabaseModule } from "../modules/database.module";
 import { IUser } from "../models/IUser";
 import { UserRepository } from "../../core/ports/driven/UserRepository";
-
-
+import { FileSystemBridge } from "../../../shared/ElectronApi";
+import { Command } from "../../shared/actions/Action";
+import { generateId } from "../utils/generators";
 
 
 
@@ -13,7 +13,12 @@ import { UserRepository } from "../../core/ports/driven/UserRepository";
 })
 export class UserRepositoryAdapter implements UserRepository {
 
-    constructor(){}
+    constructor(@Inject("FileSystemBridge") private fileSystemBridge: FileSystemBridge){}
+
+    async saveUserPhoto(command: Command): Promise<boolean> {
+       const result = await this.fileSystemBridge.dispatch(command.getName(), command.getPayload());
+       return result;
+    }
     
     async getDefaultUser(): Promise<IUser | null> {
         const defaultUser = localStorage.getItem('defaultUser');
@@ -22,13 +27,14 @@ export class UserRepositoryAdapter implements UserRepository {
     }
 
     async saveUser(user: IUser): Promise<IUser> {
-        this.setLocalUser(user);
-        return user;
-    }
-
-    async loginUser(email: string, password: string): Promise<IUser> {
-      throw new Error("method not implemented");
-      
+        user.id = generateId()
+        const result = await this.fileSystemBridge.dispatch("registerUserFile", user);
+        if(result){
+            this.setLocalUser(user);
+            return user;
+        }else{
+            throw new Error("registration failed");
+        }
     }
 
     private setLocalUser(user: IUser): void {

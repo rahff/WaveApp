@@ -1,6 +1,5 @@
-export interface IContactItem {
-    email: string;
-    tel: string | null;
-    name: string;
-    id: string;
+import { IUser } from "./IUser";
+
+export interface IContactItem extends IUser{
+  
 }

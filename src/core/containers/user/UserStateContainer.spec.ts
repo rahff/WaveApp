@@ -1,15 +1,15 @@
 
 import { UserFakeRepository } from "../../../infra/mocks/UserFakeRepository";
 import { UserSelectorService } from "../../../infra/services/user/user-selector.service";
-import { SetIsAuthCommand } from "../../commands/user/SetIsAuthCommand";
 import { SetUserCommand } from "../../commands/user/UserCommand";
 import { UserEffect } from "../../effects/UserEffect";
 import { User } from "../../entities/User";
+import { SetPhotoSavedEvent } from "../../events/user/SetPhotoSavedEvent";
 import { SignupEvent } from "../../events/user/SignupEvent";
 import { EffectCreator } from "../../ports/driver/EffectCreator";
 import { UserStateContainer } from "./UserStateContainer";
 
-const user1: User = new User("francis", "francis@gmail.com", "Mot2$asse", "8488");
+const user1: User = new User("francis", "francis@gmail.com", "123");
 
 describe('UserStateContainer', ()=> {
 
@@ -33,14 +33,18 @@ describe('UserStateContainer', ()=> {
         expect(user?.getUsername()).toBe("francis");
     })
 
-    it('should set isAuth into the state', ()=>{
-        userStateContainer.dispatch(new SetIsAuthCommand(true));
-        const { isAuth } = userStateContainer.getState();
-        expect(isAuth).toBeTrue();
-    })
-
     it('should set SignupEvent', ()=> {
         userStateContainer.dispatch(new SignupEvent(true));
         expect(userStateContainer.getState().signupEvent).toBeTrue()
+    })
+
+    it('should set photoSaved to true', ()=>{
+        userStateContainer.dispatch(new SetPhotoSavedEvent(true));
+        expect(userStateContainer.getState().photoSavedEvent).toBeTrue()
+    })
+
+    it('should reset photoSaved event', ()=>{
+        userStateContainer.dispatch(new SetPhotoSavedEvent(false));
+        expect(userStateContainer.getState().photoSavedEvent).toBeFalse()
     })
 })

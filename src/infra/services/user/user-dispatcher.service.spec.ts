@@ -1,6 +1,5 @@
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { SaveUserCommand } from '../../commands/user/SaveUserCommand';
-import { LoginCommand } from '../../commands/user/LoginCommand';
 import { UserFakeRepository } from '../../mocks/UserFakeRepository';
 import { UserDispatcherService } from './user-dispatcher.service';
 import { UserSelectorService } from './user-selector.service';
@@ -8,6 +7,8 @@ import { UserStateContainer } from '../../../core/containers/user/UserStateConta
 import { UserEffect } from '../../../core/effects/UserEffect';
 import { GetUserCommand } from '../../commands/user/GetUserCommand';
 import { user1 } from '../../mocks/fake-data';
+import { SaveUserPhotoCommand } from '../../commands/user/SaveUserPhotoCommand';
+import { GenericEventHandledEvent } from '../../events/GenericEventHandledEvent';
 
 
 
@@ -29,36 +30,24 @@ describe('UserDispatcherService', () => {
     service.dispatch(new GetUserCommand());
     flushMicrotasks();
     expect(stateContainer.getState().user).toBeTruthy();
-  }))
+  }));
 
   it('should dispatch saveUser command', fakeAsync(()=>{
-    user1.setIsAuth(true, "tokenJwt");
     service.dispatch(new SaveUserCommand(user1.asDto()));
     flushMicrotasks();
     expect(stateContainer.getState().user).toEqual(user1);
     expect(stateContainer.getState().onException).toBeNull();
-  }))
-
-  it('should dispatch invalid register payload event when the registration policies are not followed', fakeAsync(()=>{
-    service.dispatch(new SaveUserCommand({...user1.asDto(), password: "12345678"}));
-    flushMicrotasks();
-    expect(stateContainer.getState().onException)
-    .toEqual({message: "password must include at least 8 character and 1 special character 1 number and one uppercase"});
-    service.dispatch(new SaveUserCommand({...user1.asDto(), email: "test125.gmail.com"}));
-    flushMicrotasks();
-    expect(stateContainer.getState().onException).toEqual({message: "invalid email..."});
-  }))
-
-  it('should dispatch loginUser command', fakeAsync(()=>{
-    service.dispatch(new LoginCommand({password: "Mot2$asse", email: user1.asDto().email}));
-    flushMicrotasks();
-    expect(stateContainer.getState().isAuth).toBeTrue();
   }));
 
-  it('should dispatch WrongPassword event', fakeAsync(()=>{
-    service.dispatch(new LoginCommand({password: "Mot2$a$$e", email: ""}));
+  it('should dispatch saveUserPhoto command', fakeAsync(()=>{
+    service.dispatch(new SaveUserPhotoCommand({filename: "user.png", data: ""}));
     flushMicrotasks();
-    expect(stateContainer.getState().isAuth).toBeFalse();
-    expect(stateContainer.getState().onException?.message).toBe('invalid credential');
+    expect(stateContainer.getState().photoSavedEvent).toBeTrue();
+  }));
+  
+  it('should dispatch eventHandled event', fakeAsync(()=>{
+    service.dispatch(new GenericEventHandledEvent());
+    flushMicrotasks();
+    expect(stateContainer.getState().photoSavedEvent).toBeFalse();
   }))
 });

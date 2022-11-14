@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { IContactListState } from '../../../shared/abstract/IContactListState';

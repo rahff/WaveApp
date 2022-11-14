@@ -1,5 +1,6 @@
+import { IContactItem } from "../../../infra/models/IContactIem";
 import { Command } from "../../../shared/actions/Action";
-import { IContactItem } from "../../models/IContactIem";
+
 
 
 

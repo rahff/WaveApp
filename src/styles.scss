@@ -10,5 +10,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     transition: all 800ms;
 }
 .justify-content-space-between {
+    display: flex;
     justify-content: space-between
 }

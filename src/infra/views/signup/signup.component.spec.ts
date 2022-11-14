@@ -21,8 +21,10 @@ describe('SignupComponent', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
   let routerSpy: any;
+  let fileSystemBridgeSpy: any
   beforeEach(async () => {
-    routerSpy = jasmine.createSpyObj("Router", ["navigateByUrl"])
+    routerSpy = jasmine.createSpyObj("Router", ["navigateByUrl"]);
+    fileSystemBridgeSpy = jasmine.createSpyObj('FileSystemBridgeSpy', ["saveFile"]);
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
@@ -41,6 +43,9 @@ describe('SignupComponent', () => {
         {
           provide: UserStateContainer, useFactory: (e: EffectCreator,s: StateSelector)=> new UserStateContainer(e, s),
           deps: [UserEffect, UserSelectorService]
+        },
+        {
+          provide: "FileSystemBridge", useValue: fileSystemBridgeSpy
         }
       ],
       declarations: [ SignupComponent ],
