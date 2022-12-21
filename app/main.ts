@@ -1,6 +1,7 @@
-import {app, BrowserWindow, ipcMain, screen} from 'electron';
+import {app, BrowserWindow, ipcMain, IpcMainEvent, screen} from 'electron';
 import * as path from 'path';
 import { fileManager } from './fileSystem/FileManager';
+import { httpListener } from './http/HttpListener';
 
 
 let mainWindow: BrowserWindow | null = null;
@@ -24,7 +25,7 @@ function createWindow(): BrowserWindow {
   });
 
   if (serve) {
-    // require('electron-reloader')(module);
+    require('electron-reloader')(module);
     mainWindow.loadURL('http://localhost:4200');
   } else {
     const pathIndex = '../dist/index.html';
@@ -66,7 +67,9 @@ try {
 }
 
 function ipcInit(): void {
+  httpListener.listen();
   ipcMain.handle('saveUserPhoto', fileManager.saveUserPhoto.bind(fileManager));
   ipcMain.handle('registerUserFile', fileManager.createUserInfos.bind(fileManager));
   ipcMain.handle('saveContactInfo', fileManager.saveContactInfo.bind(fileManager));
+  ipcMain.on('message', (message: any)=> console.log("from main :", message))
 }
